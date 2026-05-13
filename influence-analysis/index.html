@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Influence Analysis | 影响力分析</title>
+    <meta
+      name="description"
+      content="A professional bilingual self-assessment and research prototype measuring influence across five dimensions."
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="./questions.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to content</a>
+    <div class="app-shell" id="app">
+      <header class="topbar">
+        <div class="topbar__brand" role="banner">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title" id="brandTitle">Influence Analysis</div>
+            <div class="brand-subtitle" id="brandSubtitle">Professional Self-Assessment Prototype</div>
+          </div>
+        </div>
+        <div class="topbar__actions">
+          <a class="home-back" href="/" id="homeBackLink">Back to Home</a>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button class="pill pill--active" type="button" id="langEn" aria-pressed="true">
+              English
+            </button>
+            <button class="pill" type="button" id="langZh" aria-pressed="false">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="card card--hero" id="screenWelcome" aria-labelledby="welcomeTitle">
+          <div class="hero">
+            <div class="hero__left">
+              <h1 class="h1" id="welcomeTitle">Influence Analysis</h1>
+              <p class="lead" id="welcomeLead">
+                A serious, bilingual self-assessment and research prototype designed to help you
+                understand how your influence emerges within collective systems.
+              </p>
+              <div class="callouts" id="welcomeCallouts"></div>
+            </div>
+            <div class="hero__right">
+              <div class="badge">
+                <div class="badge__title" id="timeTitle">Estimated time</div>
+                <div class="badge__value" id="timeValue">5–7 minutes</div>
+              </div>
+              <div class="badge badge--secondary">
+                <div class="badge__title" id="noteTitle">Not a diagnosis</div>
+                <div class="badge__value" id="noteValue">Exploratory &amp; developmental</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="grid two">
+            <div>
+              <h2 class="h2" id="dimensionsTitle">Five dimensions</h2>
+              <div class="dim-list" id="dimensionList"></div>
+            </div>
+            <div>
+              <h2 class="h2" id="startTitle">Before you begin</h2>
+              <div class="form">
+                <label class="label" for="contextSelect" id="contextLabel">Select your main context</label>
+                <select id="contextSelect" class="select" aria-describedby="contextHelp"></select>
+                <div class="help" id="contextHelp"></div>
+
+                <div class="consent-block">
+                  <div class="consent-text" id="consentText"></div>
+                  <label class="checkbox">
+                    <input type="checkbox" id="consentCheckbox" />
+                    <span id="consentCheckboxLabel">I agree / 我同意</span>
+                  </label>
+                </div>
+
+                <button class="btn btn--primary" id="btnStart" type="button" disabled>
+                  Start Assessment / 开始测评
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card hidden" id="screenAssessment" aria-labelledby="assessmentTitle">
+          <div class="assessment-top">
+            <div>
+              <h2 class="h2" id="assessmentTitle">Assessment</h2>
+              <div class="subtle" id="assessmentSubtitle"></div>
+            </div>
+            <div class="progress-wrap" aria-label="Progress">
+              <div class="progress-meta">
+                <div class="progress-label" id="progressLabel">Progress</div>
+                <div class="progress-value" id="progressValue">1 / 30</div>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" id="progressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="q-card" id="questionCard" role="group" aria-label="Question"></div>
+
+          <div class="nav">
+            <button class="btn" id="btnPrev" type="button">Previous / 上一题</button>
+            <button class="btn btn--primary" id="btnNext" type="button">Next / 下一题</button>
+          </div>
+        </section>
+
+        <section class="card hidden" id="screenResults" aria-labelledby="resultsTitle">
+          <div class="results-top">
+            <div>
+              <h2 class="h2" id="resultsTitle">Results</h2>
+              <div class="subtle" id="resultsSubtitle"></div>
+            </div>
+            <div class="results-actions">
+              <button class="btn" id="btnCopy" type="button">Copy Results / 复制结果</button>
+              <button class="btn" id="btnDownloadJson" type="button">Download My Data (JSON)</button>
+              <button class="btn btn--ghost" id="btnDownloadPdf" type="button">
+                Download Report (PDF)
+              </button>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <div class="score-card">
+              <div class="score-head">
+                <div class="score-title" id="overallTitle">Overall Influence Score</div>
+                <div class="score-value" id="overallScore">—</div>
+              </div>
+              <div class="level" id="levelLine"></div>
+              <div class="score-breakdown" id="dimensionScores"></div>
+            </div>
+
+            <div class="chart-card">
+              <div class="chart-title" id="radarTitle">Influence Profile</div>
+              <canvas id="radarChart" width="480" height="360" aria-label="Radar chart"></canvas>
+              <div class="help" id="radarHelp"></div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="grid two">
+            <div>
+              <h3 class="h3" id="interpretTitle">Interpretation</h3>
+              <div class="rich" id="interpretation"></div>
+            </div>
+            <div>
+              <h3 class="h3" id="recommendTitle">Development Recommendations</h3>
+              <div class="rich" id="recommendations"></div>
+              <div class="context-box">
+                <div class="context-box__title" id="contextTipsTitle">Context-specific suggestions</div>
+                <div class="rich" id="contextTips"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <section class="card card--nested" aria-labelledby="validationTitle">
+            <h3 class="h3" id="validationTitle">Post-result validation (research)</h3>
+            <div class="subtle" id="validationSubtitle"></div>
+            <div class="validation" id="validationBlock"></div>
+            <label class="label" for="openFeedback" id="feedbackLabel">Optional open feedback</label>
+            <textarea
+              class="textarea"
+              id="openFeedback"
+              rows="4"
+              placeholder="Share any thoughts… / 你可以在此补充想法…"
+            ></textarea>
+            <div class="nav nav--end">
+              <button class="btn btn--primary" id="btnSubmit" type="button">Submit / 提交</button>
+            </div>
+            <div class="submit-status" id="submitStatus" role="status" aria-live="polite"></div>
+          </section>
+
+          <section class="card card--nested premium" aria-labelledby="premiumTitle">
+            <div class="premium__head">
+              <h3 class="h3" id="premiumTitle">Premium (placeholder)</h3>
+              <div class="tag">Coming soon</div>
+            </div>
+            <ul class="premium__list" id="premiumList"></ul>
+            <button class="btn btn--gold" id="btnUpgrade" type="button">
+              Upgrade to Premium Report / 升级至专业报告
+            </button>
+            <div class="divider"></div>
+            <div class="pricing" aria-labelledby="pricingTitle">
+              <div class="pricing__title" id="pricingTitle">Pricing</div>
+              <ul class="pricing__list" id="pricingList"></ul>
+              <div class="help pricing__note" id="pricingNote"></div>
+            </div>
+          </section>
+
+          <div class="nav nav--end">
+            <button class="btn" id="btnRestart" type="button">Restart / 重新开始</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__left" id="footerLeft"></div>
+        <div class="footer__right" id="footerRight"></div>
+      </footer>
+    </div>
+
+    <!-- Professional Interpretation Modal -->
+    <div class="modal hidden" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consultTitle">
+      <div class="modal__overlay" id="consultOverlay" data-close="true"></div>
+      <div class="modal__panel" role="document">
+        <div class="modal__head">
+          <div>
+            <div class="modal__title" id="consultTitle">Get Professional Interpretation</div>
+            <div class="modal__subtitle" id="consultSubtitle"></div>
+          </div>
+          <button class="icon-btn" type="button" id="consultClose" aria-label="Close" data-close="true">×</button>
+        </div>
+
+        <form class="modal__body" id="consultForm">
+          <div class="grid two modal__grid">
+            <div class="field">
+              <label class="label" for="consultName" id="consultNameLabel">Name (optional)</label>
+              <input class="input" id="consultName" type="text" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label class="label" for="consultEmail" id="consultEmailLabel">Email (required)</label>
+              <input class="input" id="consultEmail" type="email" autocomplete="email" required />
+              <div class="help" id="consultEmailHelp"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="consultConcern" id="consultConcernLabel">Main concern (optional)</label>
+            <textarea class="textarea" id="consultConcern" rows="3"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label" for="consultContact" id="consultContactLabel">Preferred contact method</label>
+            <select class="select" id="consultContact"></select>
+          </div>
+
+          <div class="modal__actions">
+            <button class="btn" id="consultCancel" type="button" data-close="true">Cancel / 取消</button>
+            <button class="btn btn--primary" id="consultSubmit" type="submit">Create Email Draft / 生成邮件草稿</button>
+          </div>
+
+          <div class="modal__status" id="consultStatus" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
+

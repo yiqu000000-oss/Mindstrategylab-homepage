@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mind Strategy Lab</title>
+    <meta
+      name="description"
+      content="Mind Strategy Lab — bilingual assessments for relationships, influence, and personal development."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar__brand" role="banner">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title" id="brandTitle">Mind Strategy Lab</div>
+            <div class="brand-subtitle" id="brandSubtitle">Assessment catalog</div>
+          </div>
+        </div>
+        <div class="topbar__actions">
+          <div class="lang-switch" role="group" id="langSwitch" aria-label="Language">
+            <button class="pill pill--active" type="button" id="langEn" aria-pressed="true">English</button>
+            <button class="pill" type="button" id="langZh" aria-pressed="false">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main" id="main">
+        <section class="card" aria-labelledby="welcomeHeading">
+          <h1 class="h1" id="welcomeHeading">Welcome</h1>
+          <p class="lead" id="welcomeBody"></p>
+        </section>
+
+        <section class="card" aria-labelledby="assessmentsHeading">
+          <div class="section-title" id="assessmentsHeading">Assessments</div>
+          <div class="catalog-grid" id="catalogCards"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div id="contactLine"></div>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
