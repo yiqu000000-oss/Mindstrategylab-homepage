@@ -165,7 +165,11 @@ body {
   color: var(--muted);
   font-size: 15px;
   line-height: 1.6;
-  max-width: 72ch;
+}
+
+.card--welcome .lead {
+  max-width: 90%;
+  line-height: 1.72;
 }
 
 .section-title {
