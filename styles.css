@@ -168,8 +168,9 @@ body {
 }
 
 .card--welcome .lead {
-  max-width: 90%;
-  line-height: 1.72;
+  width: 100%;
+  max-width: none;
+  line-height: 1.7;
 }
 
 .section-title {
