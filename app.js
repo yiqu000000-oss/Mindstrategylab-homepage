@@ -29,6 +29,9 @@
       card_rps_title: "Relational Positioning System (RPS)",
       card_rps_desc:
         "Understand your position, needs, power dynamics, and emotional patterns across different types of relationships.",
+      card_strategic_intimacy_title: "Strategic Intimacy Simulator",
+      card_strategic_intimacy_desc:
+        "A dynamic map of attraction, entry, compatibility, and transformation.",
     },
     zh: {
       metaTitle: "Mind Strategy Lab 心智策略实验室",
@@ -49,6 +52,9 @@
       card_influence_desc: "理解你在群体、关系与组织中如何形成影响力。",
       card_rps_title: "关系定位系统（RPS）",
       card_rps_desc: "理解你在不同类型关系中的位置、需求、权力动态与情绪模式。",
+      card_strategic_intimacy_title: "战略亲密关系模拟器",
+      card_strategic_intimacy_desc:
+        "解析一段关系为何发生、为何难以进入、是否适合长期发展，以及关系形式变化后价值能否保存。",
     },
   };
 
@@ -76,6 +82,14 @@
       titleKey: "card_rps_title",
       descKey: "card_rps_desc",
     },
+    {
+      id: "strategic-intimacy",
+      href: "./strategic-intimacy/",
+      status: "available",
+      probeUrl: "./strategic-intimacy/index.html",
+      titleKey: "card_strategic_intimacy_title",
+      descKey: "card_strategic_intimacy_desc",
+    },
   ];
 
   const LANG_KEY = "msl-home-lang";
@@ -84,6 +98,8 @@
 
   /** @param {string} path */
   async function probeExists(path) {
+    if (window.location.protocol === "file:" && path.startsWith("./")) return true;
+
     const tryHead = async () => {
       const res = await fetch(path, { method: "HEAD", cache: "no-store" });
       return res.ok;
