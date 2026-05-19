@@ -9,7 +9,7 @@ const STORAGE_KEY = "talent_ecology_matrix_submissions_v1";
 /** Stripe Payment Link — set success redirect in Stripe to:
  *  https://mindstrategylab.com/talent-ecology-matrix?tem_paid=true
  */
-const TEM_STRIPE_PAYMENT_LINK = "https://buy.stripe.com/bJedR84T8aK5fL8cVLeUU04";
+const TEM_STRIPE_PAYMENT_LINK = "https://buy.stripe.com/dRm3cuetI19veH44pfeUU05";
 
 /** @deprecated Use TEM_STRIPE_PAYMENT_LINK */
 const STRIPE_PAYMENT_LINK = TEM_STRIPE_PAYMENT_LINK;
