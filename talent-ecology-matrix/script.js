@@ -38,6 +38,12 @@
 
   const t = () => i18n[state.language];
   const tl = (obj) => (state.language === "zh" ? obj.zh : obj.en);
+  /** UI string for active language only (no EN/ZH combined labels). */
+  const ui = (key) => {
+    const val = t()[key];
+    if (val == null) return String(key);
+    return typeof val === "function" ? val() : val;
+  };
 
   /** Bilingual question/item count (UTF-8 题 — never hardcode corrupted literals). */
   const formatQuestionCount = (count, lang = state.language, enUnit = "items") => {
@@ -214,8 +220,7 @@
     showPremiumGateModal();
     $("screenPremiumReport")?.classList.add("hidden");
     if (screen === "premiumReport") {
-      screen = "dashboard";
-      $("screenDashboard")?.classList.remove("hidden");
+      setScreen(isOnboardingComplete() ? "dashboard" : resolveEntryScreen());
     }
   };
 
@@ -242,7 +247,7 @@
     const el = $("premiumPromoStatus");
     if (!el) return;
     const tr = t();
-    el.textContent = `${tr.promoInvalidEn}\n${tr.promoInvalidZh}`;
+    el.textContent = tr.promoInvalid;
     el.classList.add("modal__status--error");
   };
 
@@ -328,7 +333,85 @@
     };
   };
 
+  const ONBOARDING_SCREENS = new Set(["welcome", "consent", "background"]);
+  const GATED_SCREENS = new Set([
+    "dashboard",
+    "moduleAssessment",
+    "moduleResults",
+    "freePreview",
+    "premiumReport",
+    "validation",
+  ]);
+
+  const isOnboardingComplete = () => TEMStorage.onboardingComplete(state);
+
+  const resolveEntryScreen = () => {
+    if (!isOnboardingComplete()) {
+      if (!state.consent_given) return "welcome";
+      return "background";
+    }
+    return "dashboard";
+  };
+
+  const resolveScreenAccess = (name) => {
+    if (ONBOARDING_SCREENS.has(name) || !GATED_SCREENS.has(name)) return name;
+    if (isOnboardingComplete()) return name;
+    return resolveEntryScreen();
+  };
+
+  const syncBackgroundFromForm = () => {
+    if (!$("backgroundForm")?.dataset.built) return;
+    Object.entries(BACKGROUND_FIELDS).forEach(([key, field]) => {
+      if (field.type === "multiselect") {
+        const checked = [...document.querySelectorAll(`input[name="bg_${key}"]:checked`)].map((el) => el.value);
+        if (checked.length) state.background[key] = checked;
+        else delete state.background[key];
+        return;
+      }
+      const input = $(`bg_${key}`);
+      if (!input) return;
+      const val = input.value?.trim?.() ?? input.value;
+      if (val) state.background[key] = val;
+      else delete state.background[key];
+    });
+  };
+
+  const skipOptionalBackgroundFields = () => {
+    BACKGROUND_OPTIONAL_KEYS.forEach((key) => {
+      delete state.background[key];
+    });
+    persist();
+    renderBackgroundForm();
+  };
+
+  const completeBackgroundStep = () => {
+    syncBackgroundFromForm();
+    state.background_completed = true;
+    persist();
+    setScreen("dashboard");
+  };
+
+  const editBackgroundInformation = () => {
+    state.background_completed = false;
+    persist();
+    setScreen("background");
+  };
+
+  const resetOnboardingFlow = () => {
+    if (!window.confirm(t().resetOnboardingConfirm)) return;
+    state.consent_given = false;
+    state.consent = false;
+    state.background_completed = false;
+    state.background = {};
+    persist();
+    $("consentCheckbox").checked = false;
+    setConsentNextEnabled();
+    setScreen("welcome");
+  };
+
   const setScreen = (name) => {
+    name = resolveScreenAccess(name);
+
     if (name === "premiumReport") {
       const unlocked = localStorage.getItem("talentEcologyMatrixPremiumUnlocked") === "true";
       if (!unlocked) {
@@ -407,6 +490,7 @@
 
   const renderVennForPercentages = (percentages, diagramId, legendId, constraintId, options = {}) => {
     const { teaser = false } = options;
+    const tr = t();
     const I = (percentages.desired ?? 0) / 100;
     const P = (percentages.perceived ?? 0) / 100;
     const E = (percentages.ease ?? 0) / 100;
@@ -419,11 +503,10 @@
         <circle cx="${cx - offset}" cy="${cy}" r="${r}" fill="rgba(16,38,72,${0.08 + I * 0.22})" stroke="rgba(16,38,72,0.45)" stroke-width="1.5"/>
         <circle cx="${cx + offset}" cy="${cy - offset * 0.6}" r="${r}" fill="rgba(186,154,83,${0.08 + P * 0.22})" stroke="rgba(186,154,83,0.55)" stroke-width="1.5"/>
         <circle cx="${cx + offset}" cy="${cy + offset * 0.6}" r="${r}" fill="rgba(16,38,72,${0.06 + E * 0.2})" stroke="rgba(16,38,72,0.35)" stroke-width="1.5"/>
-        <text x="${cx - offset}" y="${cy + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${state.language === "zh" ? "理想" : "Desired"}</text>
-        <text x="${cx + offset}" y="${cy - offset * 0.6 + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${state.language === "zh" ? "感知" : "Perceived"}</text>
-        <text x="${cx + offset}" y="${cy + offset * 0.6 + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${state.language === "zh" ? "顺畅" : "Ease"}</text>
+        <text x="${cx - offset}" y="${cy + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${escapeHtml(tr.vennAxisDesired)}</text>
+        <text x="${cx + offset}" y="${cy - offset * 0.6 + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${escapeHtml(tr.vennAxisPerceived)}</text>
+        <text x="${cx + offset}" y="${cy + offset * 0.6 + 4}" text-anchor="middle" font-size="11" fill="#102648" font-weight="700">${escapeHtml(tr.vennAxisEase)}</text>
       </svg>`;
-    const tr = t();
     if (teaser) {
       $(legendId).innerHTML = `
       <span><i style="background:rgba(16,38,72,.75)"></i>${escapeHtml(tr.desired)}</span>
@@ -552,7 +635,7 @@
     const done = TEMStorage.completedCount(state);
     const unlocked = TEMStorage.isMetaUnlocked(state);
 
-    $("dashboardProgressValue").textContent = `${done} / ${total}`;
+    $("dashboardProgressValue").textContent = t().progressOf(done, total);
     $("dashboardProgressBar").style.width = `${(done / total) * 100}%`;
     $("metaBannerSubtitle").textContent = unlocked
       ? tr.metaBannerUnlocked
@@ -628,7 +711,7 @@
     $("moduleBreadcrumb").textContent = domainLabel(currentModule);
     $("moduleAssessmentTitle").textContent = tl(domain.label);
     $("moduleAssessmentSubtitle").textContent = formatQuestionCount(qs.length, state.language, "questions");
-    $("progressValue").textContent = `${i + 1} / ${qs.length}`;
+    $("progressValue").textContent = tr.progressOf(i + 1, qs.length);
     $("progressBar").style.width = `${((i + 1) / qs.length) * 100}%`;
     $("perspectiveBanner").innerHTML = `<strong>${escapeHtml(tl(persp.label))}</strong> — ${escapeHtml(tl(persp.framing))}`;
 
@@ -654,8 +737,7 @@
     const p = results.percentages || {};
     $("moduleResultsBreadcrumb").textContent = domainLabel(domainKey);
     $("moduleResultsTitle").textContent = domainLabel(domainKey);
-    $("moduleResultsSubtitle").textContent =
-      state.language === "zh" ? "本模块结果已保存" : "Module results saved locally";
+    $("moduleResultsSubtitle").textContent = t().moduleResultsSaved;
     renderVennForPercentages(p, "moduleVennDiagram", "moduleVennLegend", "moduleConstraintLayer");
     renderPerspectiveScores($("moduleScoreGrid"), p);
     const list = $("moduleRecList");
@@ -825,63 +907,137 @@
     $("openFeedback").value = state.validation.open_feedback || "";
   };
 
-  const renderBackgroundForm = () => {
-    const form = $("backgroundForm");
-    if (!form.dataset.built) {
-      Object.entries(BACKGROUND_FIELDS).forEach(([key, field]) => {
-        const wrap = document.createElement("div");
-        wrap.className = "field";
-        if (key === "field" || key === "country") wrap.classList.add("field--full");
-        const label = document.createElement("label");
-        label.className = "label";
-        label.htmlFor = `bg_${key}`;
-        label.id = `bg_label_${key}`;
-        let input;
-        if (field.type === "select") {
-          input = document.createElement("select");
-          input.className = "select";
-          const empty = document.createElement("option");
-          empty.value = "";
-          input.appendChild(empty);
-          field.options.forEach((opt) => {
-            const o = document.createElement("option");
-            o.value = opt.value;
-            o.dataset.labelEn = opt.label.en;
-            o.dataset.labelZh = opt.label.zh;
-            input.appendChild(o);
-          });
-        } else if (field.type === "number") {
-          input = document.createElement("input");
-          input.type = "number";
-          input.className = "input";
-          input.min = String(field.min);
-          input.max = String(field.max);
-        } else {
-          input = document.createElement("input");
-          input.type = "text";
-          input.className = "input";
-        }
-        input.id = `bg_${key}`;
-        input.addEventListener("change", () => {
-          state.background[key] = input.value;
+  const getBackgroundMultiValues = (key) => {
+    const raw = state.background[key];
+    if (Array.isArray(raw)) return raw;
+    if (typeof raw === "string" && raw) return raw.split(",").map((s) => s.trim()).filter(Boolean);
+    return [];
+  };
+
+  const buildBackgroundField = (key, field) => {
+    const wrap = document.createElement("div");
+    wrap.className = "field";
+    if (key === "field" || key === "country" || field.type === "multiselect") wrap.classList.add("field--full");
+    const label = document.createElement("label");
+    label.className = "label";
+    label.id = `bg_label_${key}`;
+    if (field.type !== "multiselect") label.htmlFor = `bg_${key}`;
+    if (field.type === "multiselect") {
+      const group = document.createElement("div");
+      group.className = "multiselect";
+      group.id = `bg_${key}`;
+      field.options.forEach((opt) => {
+        const row = document.createElement("label");
+        row.className = "checkbox multiselect__item";
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.name = `bg_${key}`;
+        cb.value = opt.value;
+        const span = document.createElement("span");
+        span.dataset.labelEn = opt.label.en;
+        span.dataset.labelZh = opt.label.zh;
+        span.textContent = tl(opt.label);
+        cb.addEventListener("change", () => {
+          const selected = [...group.querySelectorAll("input:checked")].map((el) => el.value);
+          if (selected.length) state.background[key] = selected;
+          else delete state.background[key];
           persist();
         });
-        wrap.append(label, input);
-        form.appendChild(wrap);
+        row.append(cb, span);
+        group.appendChild(row);
+      });
+      wrap.append(label, group);
+      return wrap;
+    }
+    let input;
+    if (field.type === "select") {
+      input = document.createElement("select");
+      input.className = "select";
+      const empty = document.createElement("option");
+      empty.value = "";
+      input.appendChild(empty);
+      field.options.forEach((opt) => {
+        const o = document.createElement("option");
+        o.value = opt.value;
+        o.dataset.labelEn = opt.label.en;
+        o.dataset.labelZh = opt.label.zh;
+        input.appendChild(o);
+      });
+    } else if (field.type === "number") {
+      input = document.createElement("input");
+      input.type = "number";
+      input.className = "input";
+      input.min = String(field.min);
+      input.max = String(field.max);
+    } else {
+      input = document.createElement("input");
+      input.type = "text";
+      input.className = "input";
+    }
+    input.id = `bg_${key}`;
+    input.addEventListener("change", () => {
+      const val = input.value?.trim?.() ?? input.value;
+      if (val) state.background[key] = val;
+      else delete state.background[key];
+      persist();
+    });
+    wrap.append(label, input);
+    return wrap;
+  };
+
+  const renderBackgroundForm = () => {
+    const form = $("backgroundForm");
+    if (!form) return;
+    if (form.dataset.built && !form.querySelector(".bg-section")) {
+      form.innerHTML = "";
+      delete form.dataset.built;
+    }
+    if (!form.dataset.built) {
+      BACKGROUND_SECTIONS.forEach((section) => {
+        const sectionEl = document.createElement("section");
+        sectionEl.className = "bg-section";
+        const heading = document.createElement("h3");
+        heading.className = "h3 bg-section__title";
+        heading.id = `bg_section_${section.key}`;
+        sectionEl.appendChild(heading);
+        const grid = document.createElement("div");
+        grid.className = "bg-form bg-form--section";
+        section.fieldKeys.forEach((fieldKey) => {
+          const field = BACKGROUND_FIELDS[fieldKey];
+          if (field) grid.appendChild(buildBackgroundField(fieldKey, field));
+        });
+        sectionEl.appendChild(grid);
+        form.appendChild(sectionEl);
       });
       form.dataset.built = "1";
     }
+
+    BACKGROUND_SECTIONS.forEach((section) => {
+      const heading = $(`bg_section_${section.key}`);
+      if (heading) heading.textContent = tl(section.title);
+    });
+
     Object.entries(BACKGROUND_FIELDS).forEach(([key, field]) => {
       const label = $(`bg_label_${key}`);
       if (label) label.textContent = tl(field.label);
+
+      if (field.type === "multiselect") {
+        const selected = new Set(getBackgroundMultiValues(key));
+        document.querySelectorAll(`input[name="bg_${key}"]`).forEach((cb) => {
+          cb.checked = selected.has(cb.value);
+          const span = cb.parentElement?.querySelector("span");
+          if (span?.dataset.labelEn) span.textContent = state.language === "zh" ? span.dataset.labelZh : span.dataset.labelEn;
+        });
+        return;
+      }
+
       const input = $(`bg_${key}`);
-      if (input) {
-        if (state.background[key]) input.value = state.background[key];
-        if (field.type === "select") {
-          [...input.options].forEach((o) => {
-            if (o.dataset.labelEn) o.textContent = state.language === "zh" ? o.dataset.labelZh : o.dataset.labelEn;
-          });
-        }
+      if (!input) return;
+      input.value = state.background[key] ?? "";
+      if (field.type === "select") {
+        [...input.options].forEach((o) => {
+          if (o.dataset.labelEn) o.textContent = state.language === "zh" ? o.dataset.labelZh : o.dataset.labelEn;
+        });
       }
     });
   };
@@ -903,7 +1059,10 @@
       const el = $(id);
       if (el && text != null) el.textContent = text;
     };
+    document.title = tr.appDocumentTitle;
+    set("brandTitle", tr.brandTitle);
     set("brandSubtitle", tr.brandSubtitle);
+    set("welcomeTitle", tr.welcomeTitle);
     set("welcomeLead", tr.welcomeLead);
     set("timeTitle", tr.timeTitle);
     set("timeValue", tr.timeValue);
@@ -912,10 +1071,14 @@
     set("welcomeDisclaimer", tr.disclaimer);
     set("consentTitle", tr.consentTitle);
     set("consentSubtitle", tr.consentSubtitle);
+    $("consentSubtitle")?.classList.toggle("hidden", !tr.consentSubtitle);
     set("consentBody", tr.consentBody);
     set("consentCheckboxLabel", tr.consentCheckboxLabel);
     set("bgTitle", tr.bgTitle);
     set("bgSubtitle", tr.bgSubtitle);
+    set("bgOptionalHint", tr.bgOptionalHint);
+    set("dashboardSettingsTitle", tr.dashboardSettingsTitle);
+    set("dashboardSettingsHint", tr.dashboardSettingsHint);
     set("dashboardTitle", tr.dashboardTitle);
     set("dashboardSubtitle", tr.dashboardSubtitle);
     set("modulesHeading", tr.modulesHeading);
@@ -945,50 +1108,69 @@
     set("premiumTitle", tr.premiumTitle);
     set("premiumSubtitle", tr.premiumSubtitle);
     set("premiumReportTitle", tr.premiumReportTitle);
+    set("freePreviewTitle", tr.freePreviewTitle);
+    set("secOverallTitle", tr.secOverallTitle);
+    set("secHierarchyTitle", tr.secHierarchy);
+    set("secDomainsTitle", tr.secDomains);
+    set("secCrossTitle", tr.secCross);
+    set("secResourceTitle", tr.secResource);
+    set("secSignatureMicroTitle", tr.secSignatureMicro);
+    set("secHiddenTitle", tr.secHidden);
+    set("secDreamGapTitle", tr.secDreamGap);
+    set("secBlockedTitle", tr.secBlocked);
+    set("secOptimalTitle", tr.secOptimal);
+    set("secStrategyTitle", tr.secStrategy);
+    set("resourceEcologyProfileTitle", tr.resourceEcologyProfileTitle);
     set("moduleVennTitle", tr.moduleVennTitle);
     set("moduleVennHelp", tr.moduleVennHelp);
     set("moduleScoresTitle", tr.moduleScoresTitle);
     set("moduleRecTitle", tr.moduleRecTitle);
     set("progressLabel", tr.progressLabel);
 
-    const bi = (key) => {
-      const en = i18n.en[key];
-      const zh = i18n.zh[key];
-      if (en == null || zh == null) return String(key);
-      const enText = typeof en === "function" ? en() : en;
-      const zhText = typeof zh === "function" ? zh() : zh;
-      return state.language === "en" ? `${enText} / ${zhText}` : `${zhText} / ${enText}`;
-    };
-    set("btnWelcomeNext", bi("continueBtn"));
-    set("btnConsentBack", bi("back"));
-    set("btnConsentNext", bi("continueBtn"));
-    set("btnBgBack", bi("back"));
-    set("btnBgNext", bi("continueToDashboard"));
-    set("btnPrev", bi("prev"));
-    set("btnModuleBackDashboard", bi("dashboard"));
-    set("btnModuleResultsDashboard", bi("dashboard"));
-    set("btnPreviewDashboard", bi("dashboard"));
-    set("btnPremiumDashboard", bi("dashboard"));
-    set("btnRetakeModule", bi("retakeModule"));
-    set("btnOpenPreview", bi("viewFreePreview"));
-    set("btnOpenPremium", bi("viewPremiumReport"));
-    set("btnViewPremiumReport", bi("viewFullPremiumReport"));
-    set("premiumGateModalTitle", bi("premiumGateTitle"));
-    set("premiumGateModalText", bi("premiumGateText"));
-    set("btnGateStripePay", bi("premiumGateStripeBtn"));
-    set("btnGateEnterPromo", bi("premiumGatePromoBtn"));
-    set("premiumUnlockModalTitle", bi("promoModalTitle"));
-    set("premiumUnlockModalSubtitle", bi("promoModalSubtitle"));
-    set("premiumPromoLabel", bi("promoAccessCodeLabel"));
-    set("btnOpenPremiumUnlockModal", bi("promoHaveCode"));
-    set("btnSubmitPremiumPromo", bi("promoUnlockBtn"));
-    set("btnCancelPremiumUnlockModal", bi("promoCancel"));
-    set("btnDownloadProgress", bi("downloadProgress"));
-    set("btnResetProgress", bi("resetProgress"));
-    set("btnDownloadJson", tr.downloadJson);
-    set("btnSubmitValidation", bi("submit"));
-    set("btnValidationBack", bi("back"));
-    set("btnPremiumToValidation", bi("validationBtnShort"));
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink) skipLink.textContent = ui("skipToContent");
+    const langSwitch = document.querySelector(".lang-switch");
+    if (langSwitch) langSwitch.setAttribute("aria-label", ui("langSwitchAria"));
+    set("langEn", ui("langEnLabel"));
+    set("langZh", ui("langZhLabel"));
+    $("btnClosePremiumGateModal")?.setAttribute("aria-label", ui("closeAriaLabel"));
+    $("btnClosePremiumUnlockModal")?.setAttribute("aria-label", ui("closeAriaLabel"));
+    $("questionCard")?.setAttribute("aria-label", ui("questionAriaLabel"));
+
+    set("btnWelcomeNext", ui("startBtn"));
+    set("btnConsentBack", ui("back"));
+    set("btnConsentNext", ui("continueBtn"));
+    set("btnBgBack", ui("back"));
+    set("btnBgSkipOptional", ui("skipOptionalFields"));
+    set("btnBgNext", ui("continueToDashboard"));
+    set("btnEditBackground", ui("editBackground"));
+    set("btnResetOnboarding", ui("resetOnboarding"));
+    set("btnPrev", ui("prev"));
+    set("btnNext", ui("next"));
+    set("btnModuleBackDashboard", ui("dashboard"));
+    set("btnModuleResultsDashboard", ui("dashboard"));
+    set("btnPreviewDashboard", ui("dashboard"));
+    set("btnPremiumDashboard", ui("dashboard"));
+    set("btnRetakeModule", ui("retakeModule"));
+    set("btnOpenPreview", ui("viewFreePreview"));
+    set("btnOpenPremium", ui("viewPremiumReport"));
+    set("btnViewPremiumReport", ui("viewFullPremiumReport"));
+    set("premiumGateModalTitle", ui("premiumGateTitle"));
+    set("premiumGateModalText", ui("premiumGateText"));
+    set("btnGateStripePay", ui("premiumGateStripeBtn"));
+    set("btnGateEnterPromo", ui("premiumGatePromoBtn"));
+    set("premiumUnlockModalTitle", ui("promoModalTitle"));
+    set("premiumUnlockModalSubtitle", ui("promoModalSubtitle"));
+    set("premiumPromoLabel", ui("promoAccessCodeLabel"));
+    set("btnOpenPremiumUnlockModal", ui("promoHaveCode"));
+    set("btnSubmitPremiumPromo", ui("promoUnlockBtn"));
+    set("btnCancelPremiumUnlockModal", ui("promoCancel"));
+    set("btnDownloadProgress", ui("downloadProgress"));
+    set("btnResetProgress", ui("resetProgress"));
+    set("btnDownloadJson", ui("downloadJson"));
+    set("btnSubmitValidation", ui("submit"));
+    set("btnValidationBack", ui("back"));
+    set("btnPremiumToValidation", ui("validationBtnShort"));
 
     $("langEn").classList.toggle("pill--active", state.language === "en");
     $("langZh").classList.toggle("pill--active", state.language === "zh");
@@ -1012,12 +1194,6 @@
 
   const setConsentNextEnabled = () => {
     $("btnConsentNext").disabled = !state.consent_given;
-  };
-
-  const resolveEntryScreen = () => {
-    if (!state.consent_given) return "welcome";
-    if (!state.background_completed) return "background";
-    return "dashboard";
   };
 
   const buildExportPayload = () => ({
@@ -1065,9 +1241,7 @@
       renderLanguage();
     });
 
-    $("btnWelcomeNext").addEventListener("click", () => {
-      setScreen(state.consent_given ? (state.background_completed ? "dashboard" : "background") : "consent");
-    });
+    $("btnWelcomeNext").addEventListener("click", () => setScreen("consent"));
 
     $("btnConsentBack").addEventListener("click", () => setScreen("welcome"));
     $("btnConsentNext").addEventListener("click", () => setScreen("background"));
@@ -1079,11 +1253,10 @@
     });
 
     $("btnBgBack").addEventListener("click", () => setScreen("consent"));
-    $("btnBgNext").addEventListener("click", () => {
-      state.background_completed = true;
-      persist();
-      setScreen("dashboard");
-    });
+    $("btnBgSkipOptional").addEventListener("click", skipOptionalBackgroundFields);
+    $("btnBgNext").addEventListener("click", completeBackgroundStep);
+    $("btnEditBackground").addEventListener("click", editBackgroundInformation);
+    $("btnResetOnboarding").addEventListener("click", resetOnboardingFlow);
 
     $("btnOpenPreview").addEventListener("click", () => {
       refreshMeta();

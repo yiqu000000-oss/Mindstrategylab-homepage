@@ -298,11 +298,31 @@ const TALENT_DOMAINS = TAXONOMY.map(({ key, label, description, flagship }) => (
   flagship: !!flagship,
 }));
 
-// Background form (calibration / research)
+// Background form (calibration / research) — grouped sections in UI
+const BACKGROUND_SECTIONS = [
+  {
+    key: "demographics",
+    title: { en: "Basic Demographics", zh: "基本人口信息" },
+    fieldKeys: ["age", "gender", "orientation", "country", "culture", "education", "field"],
+  },
+  {
+    key: "work",
+    title: { en: "Education / Work Context", zh: "教育 / 工作情境" },
+    fieldKeys: ["participation_context", "employment_status", "work_format", "occupation_type"],
+  },
+  {
+    key: "neuro",
+    title: { en: "Neurodiversity", zh: "神经多样性" },
+    fieldKeys: ["neurodiversity"],
+  },
+];
+
 const BACKGROUND_FIELDS = {
-  age: { type: "number", label: { en: "Age", zh: "年龄" }, min: 10, max: 100 },
+  age: { section: "demographics", type: "number", label: { en: "Age", zh: "年龄" }, min: 10, max: 100 },
   gender: {
+    section: "demographics",
     type: "select",
+    optional: true,
     label: { en: "Gender Identity", zh: "性别认同" },
     options: [
       { value: "female", label: { en: "Female", zh: "女性" } },
@@ -313,7 +333,9 @@ const BACKGROUND_FIELDS = {
     ],
   },
   orientation: {
+    section: "demographics",
     type: "select",
+    optional: true,
     label: { en: "Sexual Orientation", zh: "性取向" },
     options: [
       { value: "heterosexual", label: { en: "Heterosexual", zh: "异性恋" } },
@@ -326,9 +348,11 @@ const BACKGROUND_FIELDS = {
       { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
-  country: { type: "text", label: { en: "Country / Region", zh: "国家或地区" } },
+  country: { section: "demographics", type: "text", label: { en: "Country / Region", zh: "国家或地区" } },
   culture: {
+    section: "demographics",
     type: "select",
+    optional: true,
     label: { en: "Cultural Background", zh: "文化背景" },
     options: [
       { value: "east_asian", label: { en: "East Asian", zh: "东亚" } },
@@ -339,13 +363,15 @@ const BACKGROUND_FIELDS = {
       { value: "african", label: { en: "African", zh: "非洲" } },
       { value: "latin_american", label: { en: "Latin American", zh: "拉丁美洲" } },
       { value: "north_american", label: { en: "North American", zh: "北美" } },
+      { value: "oceanian", label: { en: "Oceanian", zh: "大洋洲" } },
       { value: "mixed", label: { en: "Mixed", zh: "混合" } },
       { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
   education: {
+    section: "demographics",
     type: "select",
-    label: { en: "Highest Level of Education", zh: "最高受教育程度" },
+    label: { en: "Highest Education Level", zh: "最高学历" },
     options: [
       { value: "primary", label: { en: "Primary School", zh: "小学" } },
       { value: "middle", label: { en: "Middle School", zh: "初中" } },
@@ -359,42 +385,92 @@ const BACKGROUND_FIELDS = {
       { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
-  field: { type: "text", label: { en: "Field of Study / Occupation", zh: "专业或职业" } },
-  devContext: {
+  field: {
+    section: "demographics",
+    type: "text",
+    label: { en: "Field of Study / Profession", zh: "专业或职业领域" },
+  },
+  participation_context: {
+    section: "work",
     type: "select",
-    label: { en: "Main Development Context", zh: "主要发展场景" },
+    label: { en: "Participation Context", zh: "参与情境" },
     options: [
-      { value: "school", label: { en: "School", zh: "学校" } },
-      { value: "university", label: { en: "University", zh: "大学" } },
-      { value: "workplace", label: { en: "Workplace", zh: "职场" } },
-      { value: "creative", label: { en: "Creative Field", zh: "创意领域" } },
-      { value: "entrepreneurship", label: { en: "Entrepreneurship", zh: "创业" } },
-      { value: "family", label: { en: "Family Context", zh: "家庭情境" } },
-      { value: "online", label: { en: "Online Community", zh: "线上社群" } },
-      { value: "social_media", label: { en: "Social Media", zh: "社交媒体" } },
+      { value: "student", label: { en: "Student", zh: "学生" } },
+      { value: "working_professional", label: { en: "Working Professional", zh: "在职专业人士" } },
+      { value: "freelancer", label: { en: "Freelancer / Self-employed", zh: "自由职业 / 自雇" } },
+      { value: "founder", label: { en: "Entrepreneur / Founder", zh: "创业者 / 创始人" } },
+      { value: "unemployed", label: { en: "Unemployed / Between roles", zh: "待业 / 过渡期" } },
+      { value: "caregiver", label: { en: "Caregiver / Family work", zh: "照护者 / 家庭工作" } },
       { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
-  relationship: {
+  employment_status: {
+    section: "work",
     type: "select",
-    label: { en: "Relationship Status", zh: "关系状态" },
+    label: { en: "Employment Status", zh: "就业状态" },
     options: [
-      { value: "single", label: { en: "Single", zh: "单身" } },
-      { value: "relationship", label: { en: "In a relationship", zh: "恋爱中" } },
-      { value: "married", label: { en: "Married", zh: "已婚" } },
-      { value: "complicated", label: { en: "Complicated", zh: "复杂" } },
-      { value: "prefer_not", label: { en: "Prefer not to say", zh: "不愿透露" } },
+      { value: "full_time", label: { en: "Full-time", zh: "全职" } },
+      { value: "part_time", label: { en: "Part-time", zh: "兼职" } },
+      { value: "contract", label: { en: "Contract", zh: "合同制" } },
+      { value: "freelance", label: { en: "Freelance", zh: "自由职业" } },
+      { value: "self_employed", label: { en: "Self-employed", zh: "自雇" } },
+      { value: "student", label: { en: "Student", zh: "学生" } },
+      { value: "not_employed", label: { en: "Not currently employed", zh: "目前未就业" } },
+      { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
-  experience: {
+  work_format: {
+    section: "work",
     type: "select",
-    label: { en: "Years of Experience in Main Field", zh: "主要领域经验年限" },
+    label: { en: "Work Format", zh: "工作形式" },
     options: [
-      { value: "lt1", label: { en: "Less than 1 year", zh: "不足 1 年" } },
-      { value: "1_2", label: { en: "1–2 years", zh: "1–2 年" } },
-      { value: "3_5", label: { en: "3–5 years", zh: "3–5 年" } },
-      { value: "6_10", label: { en: "6–10 years", zh: "6–10 年" } },
-      { value: "gt10", label: { en: "More than 10 years", zh: "10 年以上" } },
+      { value: "remote", label: { en: "Remote", zh: "远程" } },
+      { value: "hybrid", label: { en: "Hybrid", zh: "混合" } },
+      { value: "onsite", label: { en: "On-site", zh: "现场" } },
+      { value: "not_applicable", label: { en: "Not applicable", zh: "不适用" } },
+      { value: "other", label: { en: "Other", zh: "其他" } },
+    ],
+  },
+  occupation_type: {
+    section: "work",
+    type: "select",
+    label: { en: "Occupation Type", zh: "职业类型" },
+    options: [
+      { value: "student_academic", label: { en: "Student / Academic", zh: "学生 / 学术" } },
+      { value: "education", label: { en: "Education / Teaching", zh: "教育 / 教学" } },
+      { value: "psychology", label: { en: "Psychology / Mental Health", zh: "心理学 / 心理健康" } },
+      { value: "business", label: { en: "Business / Management", zh: "商业 / 管理" } },
+      { value: "technology", label: { en: "Technology / Engineering", zh: "科技 / 工程" } },
+      { value: "creative", label: { en: "Creative / Media / Design", zh: "创意 / 媒体 / 设计" } },
+      { value: "healthcare", label: { en: "Healthcare", zh: "医疗健康" } },
+      { value: "public_service", label: { en: "Public Service / Nonprofit", zh: "公共服务 / 非营利" } },
+      { value: "finance", label: { en: "Finance / Consulting", zh: "金融 / 咨询" } },
+      { value: "service", label: { en: "Service / Hospitality", zh: "服务 / 酒店餐饮" } },
+      { value: "manual_technical", label: { en: "Manual / Technical Work", zh: "体力 / 技术工作" } },
+      { value: "other", label: { en: "Other", zh: "其他" } },
+    ],
+  },
+  neurodiversity: {
+    section: "neuro",
+    type: "multiselect",
+    optional: true,
+    label: { en: "Neurodiversity Traits (Optional)", zh: "神经多样性特质（可选）" },
+    options: [
+      { value: "none", label: { en: "None / Not sure", zh: "无 / 不确定" } },
+      { value: "autism", label: { en: "Autism Spectrum", zh: "自闭症谱系" } },
+      { value: "adhd", label: { en: "ADHD", zh: "ADHD" } },
+      { value: "dyslexia", label: { en: "Dyslexia", zh: "阅读障碍" } },
+      { value: "dyspraxia", label: { en: "Dyspraxia", zh: "发育性协调障碍" } },
+      { value: "hsp", label: { en: "Highly Sensitive Person (HSP)", zh: "高敏感人群 (HSP)" } },
+      { value: "giftedness", label: { en: "Giftedness", zh: "天赋优异" } },
+      { value: "ocd_traits", label: { en: "OCD Traits", zh: "强迫特质" } },
+      { value: "alexithymia", label: { en: "Alexithymia", zh: "述情障碍" } },
+      { value: "other", label: { en: "Other", zh: "其他" } },
     ],
   },
 };
+
+/** Sensitive optional fields cleared by “Skip optional fields”. */
+const BACKGROUND_OPTIONAL_KEYS = Object.entries(BACKGROUND_FIELDS)
+  .filter(([, f]) => f.optional)
+  .map(([k]) => k);

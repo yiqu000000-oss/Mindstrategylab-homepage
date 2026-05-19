@@ -97,6 +97,14 @@ const TEMStorage = (() => {
       background: { ...base.background, ...(parsed.background || {}) },
     };
 
+    if (state.background.neurodiversity != null && !Array.isArray(state.background.neurodiversity)) {
+      const raw = state.background.neurodiversity;
+      state.background.neurodiversity =
+        typeof raw === "string" && raw
+          ? raw.split(",").map((s) => s.trim()).filter(Boolean)
+          : [];
+    }
+
     state.completedModules = syncCompletedModules(state);
     return state;
   };

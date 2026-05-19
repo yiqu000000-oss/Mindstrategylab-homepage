@@ -655,7 +655,7 @@ const TEMInterpretations = (() => {
       pct: pctRounded,
       tierKey: tier.key,
       label: pick(lang, tier.en, tier.zh),
-      bilingualLabel: `${tier.en} / ${tier.zh}`,
+      bilingualLabel: pick(lang, tier.en, tier.zh),
       display: formatScoreLine(pct, lang),
       narrative: pick(lang, GENERIC_NARRATIVE[tier.key].en, GENERIC_NARRATIVE[tier.key].zh),
     };

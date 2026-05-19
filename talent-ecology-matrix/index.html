@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Talent Ecology Matrix | 天赋生态矩阵</title>
+    <title>Talent Ecology Matrix</title>
     <meta
       name="description"
       content="Modular bilingual talent assessment with free preview and premium report."
@@ -63,7 +63,7 @@
           <div class="divider"></div>
           <p class="disclaimer" id="welcomeDisclaimer"></p>
           <div class="nav nav--end">
-            <button class="btn btn--primary" id="btnWelcomeNext" type="button">Continue</button>
+            <button class="btn btn--primary" id="btnWelcomeNext" type="button">Start</button>
           </div>
         </section>
 
@@ -89,9 +89,13 @@
           <h2 class="h2" id="bgTitle">Background Information</h2>
           <p class="subtle" id="bgSubtitle"></p>
           <form class="bg-form" id="backgroundForm" novalidate></form>
-          <div class="nav">
+          <p class="help" id="bgOptionalHint"></p>
+          <div class="nav nav--spread">
             <button class="btn" id="btnBgBack" type="button">Back</button>
-            <button class="btn btn--primary" id="btnBgNext" type="button">Continue to Dashboard</button>
+            <div class="nav__right">
+              <button class="btn btn--ghost" id="btnBgSkipOptional" type="button">Skip optional fields</button>
+              <button class="btn btn--primary" id="btnBgNext" type="button">Continue to Dashboard</button>
+            </div>
           </div>
         </section>
 
@@ -130,6 +134,15 @@
           <p class="subtle" id="modulesHint"></p>
           <div class="module-dashboard-grid" id="moduleDashboardGrid"></div>
 
+          <div class="dashboard-settings">
+            <h3 class="h3" id="dashboardSettingsTitle">Settings</h3>
+            <p class="subtle" id="dashboardSettingsHint"></p>
+            <div class="nav nav--spread dashboard-settings__actions">
+              <button class="btn btn--ghost" id="btnEditBackground" type="button">Edit background information</button>
+              <button class="btn btn--ghost" id="btnResetOnboarding" type="button">Reset onboarding</button>
+            </div>
+          </div>
+          <div class="divider"></div>
           <div class="nav nav--spread">
             <button class="btn btn--ghost" id="btnDownloadProgress" type="button">Download Progress</button>
             <button class="btn btn--ghost" id="btnResetProgress" type="button">Reset All Progress</button>

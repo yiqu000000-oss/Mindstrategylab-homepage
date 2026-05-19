@@ -3,25 +3,44 @@
 
 const TEM_I18N = {
   en: {
+    brandTitle: "Talent Ecology Matrix",
+    welcomeTitle: "Talent Ecology Matrix",
+    appDocumentTitle: "Talent Ecology Matrix",
+    skipToContent: "Skip to content",
+    langSwitchAria: "Language",
+    langEnLabel: "English",
+    langZhLabel: "中文",
+    closeAriaLabel: "Close",
+    questionAriaLabel: "Question",
+    moduleResultsSaved: "Module results saved locally",
+    progressOf: (current, total) => `${current} / ${total}`,
+    promoInvalid: "Invalid access code.",
+    vennAxisDesired: "Desired",
+    vennAxisPerceived: "Perceived",
+    vennAxisEase: "Ease",
     brandSubtitle: "Modular Research Assessment",
     welcomeLead:
-      "Map how desire, social perception, developmental ease, and constraints shape your talent ecology—one module at a time.",
+      "A modular research assessment designed to help users understand desired talents, socially perceived strengths, developmental ease, constraints, and long-term talent ecology.",
     callouts: [
       {
+        title: "What it measures",
+        body: "Desired talents, social perception, developmental ease, constraints, and how they interact across thirteen domain modules.",
+      },
+      {
         title: "How it works",
-        body: "Complete informed consent and background information once, then finish thirteen domain modules in any order.",
+        body: "Complete introduction, informed consent, and background information once, then finish domain modules in any order at your own pace.",
       },
       {
-        title: "Free preview",
-        body: "After 6+ modules, unlock a free results preview with ecology maps and rankings.",
+        title: "Research purpose",
+        body: "Supports exploratory self-reflection and anonymous research to improve the assessment model and future product development.",
       },
       {
-        title: "Premium report",
-        body: "Unlock the full hierarchical report for a one-time $4.99 payment (prototype: stored locally after checkout).",
+        title: "Privacy and data use",
+        body: "Responses are stored locally on your device. Anonymous exports may be used for model calibration and research comparison.",
       },
       {
-        title: "Purpose",
-        body: "Exploratory self-reflection and research—not a clinical diagnosis or fixed prediction of success.",
+        title: "Not a diagnosis",
+        body: "This tool is for exploratory self-reflection and research only—not a clinical diagnosis or fixed prediction of future outcomes.",
       },
     ],
     timeTitle: "Per module",
@@ -31,15 +50,23 @@ const TEM_I18N = {
     disclaimer:
       "This tool is for exploratory self-reflection and research only. It is not a clinical diagnosis and does not predict fixed future outcomes.",
     consentTitle: "Research Participation and Consent",
-    consentSubtitle:
-      "Your responses may be used anonymously to improve this assessment and support future research and product development.",
+    consentSubtitle: "",
     consentBody:
-      "By participating, you agree that your anonymous responses may be analyzed in aggregate. This tool is exploratory and developmental—not a diagnosis.",
-    consentCheckboxLabel:
-      "I agree to participate anonymously and understand that this is an exploratory developmental tool, not a diagnosis.",
+      "This assessment is for exploratory self-reflection and research purposes only. It is not a clinical diagnosis and does not predict fixed future outcomes. Anonymous responses may be used to improve the assessment model and support future research and product development.",
+    consentCheckboxLabel: "I understand and agree to participate anonymously.",
     bgTitle: "Background Information",
     bgSubtitle:
-      "Anonymous demographic information for model calibration and research (collected once before the dashboard).",
+      "Anonymous demographic and participation context information used for model calibration, research comparison, and future product improvement.",
+    bgOptionalHint:
+      "Optional sensitive fields (gender identity, sexual orientation, cultural background, neurodiversity) may be skipped.",
+    skipOptionalFields: "Skip optional fields",
+    startBtn: "Start",
+    editBackground: "Edit background information",
+    resetOnboarding: "Reset onboarding",
+    resetOnboardingConfirm:
+      "Return to the introduction and clear consent and background information? Module progress will be kept.",
+    dashboardSettingsTitle: "Settings",
+    dashboardSettingsHint: "Update your background information or restart the onboarding flow.",
     dashboardTitle: "Talent Module Dashboard",
     dashboardSubtitle: "Complete modules in any order. Progress saves automatically.",
     modulesHeading: "Domain Modules",
@@ -63,7 +90,7 @@ const TEM_I18N = {
     next: "Next",
     finish: "Complete Module",
     likertLeft: "Strongly disagree",
-    likertMid: "Neutral / uncertain",
+    likertMid: "Neutral or uncertain",
     likertRight: "Strongly agree",
     dashboard: "Dashboard",
     retakeModule: "Retake Module",
@@ -132,8 +159,6 @@ const TEM_I18N = {
     promoHaveCode: "Have an access code?",
     promoUnlockBtn: "Unlock report",
     promoCancel: "Cancel",
-    promoInvalidEn: "Invalid access code.",
-    promoInvalidZh: "邀请码无效。",
     premiumGateTitle: "Unlock Full Premium Report",
     premiumGateText:
       "Unlock your complete Talent Ecology Matrix report for $4.99 or enter your promo code.",
@@ -186,25 +211,44 @@ const TEM_I18N = {
     stripePlaceholder: "Payment link not configured. Add your Stripe Payment Link in config.js.",
   },
   zh: {
-    brandSubtitle: "双语自评与研究原型",
+    brandTitle: "天赋生态矩阵",
+    welcomeTitle: "天赋生态矩阵",
+    appDocumentTitle: "天赋生态矩阵",
+    skipToContent: "跳到主要内容",
+    langSwitchAria: "语言",
+    langEnLabel: "English",
+    langZhLabel: "中文",
+    closeAriaLabel: "关闭",
+    questionAriaLabel: "题目",
+    moduleResultsSaved: "本模块结果已保存至本地",
+    progressOf: (current, total) => `${current} / ${total}`,
+    promoInvalid: "邀请码无效。",
+    vennAxisDesired: "理想",
+    vennAxisPerceived: "感知",
+    vennAxisEase: "顺畅",
+    brandSubtitle: "模块化研究测评",
     welcomeLead:
-      "从理想、他人感知、发展顺畅度与限制条件理解你的天赋生态——按模块逐步完成。",
+      "一项模块化研究性测评，帮助理解理想天赋、社会感知优势、发展顺畅度、限制条件与长期天赋生态。",
     callouts: [
       {
-        title: "流程说明",
-        body: "先完成知情同意与背景信息，再按任意顺序完成十三大能力域模块。",
+        title: "测量内容",
+        body: "理想天赋、社会感知、发展顺畅度、限制条件，以及它们在十三大能力域中的互动。",
       },
       {
-        title: "免费预览",
-        body: "完成 6 个及以上模块后，可查看免费结果预览与生态图谱。",
+        title: "使用方式",
+        body: "先完成介绍、知情同意与背景信息，再按任意顺序、自定节奏完成各能力域模块。",
       },
       {
-        title: "高级报告",
-        body: "一次性支付 $4.99 解锁完整层级报告（原型：付款后本地解锁）。",
+        title: "研究目的",
+        body: "支持探索性自我反思与匿名研究，以改进测评模型与未来产品开发。",
       },
       {
-        title: "使用目的",
-        body: "用于探索性自我反思与研究——非临床诊断，非对未来成功的固定预测。",
+        title: "隐私与数据",
+        body: "回答保存在你的设备本地；匿名导出可用于模型校准与研究对照。",
+      },
+      {
+        title: "非诊断工具",
+        body: "仅用于探索性自我反思与研究——非临床诊断，不预测固定未来结果。",
       },
     ],
     timeTitle: "每模块",
@@ -214,15 +258,23 @@ const TEM_I18N = {
     disclaimer:
       "本工具仅用于探索性自我反思与研究，不是临床诊断，也不预测固定的未来结果。",
     consentTitle: "研究参与与知情同意",
-    consentSubtitle:
-      "你的回答可能被匿名用于改进本测评，并支持未来的研究与产品开发。",
+    consentSubtitle: "",
     consentBody:
-      "参与即表示你同意匿名回答可被汇总分析。本工具为探索性、发展性用途——不是诊断。",
-    consentCheckboxLabel:
-      "我同意匿名参与，并理解这是探索性发展工具，不是诊断。",
-    bgTitle: "背景信息",
+      "本测评仅用于探索性自我反思与研究目的，不是临床诊断，也不预测固定的未来结果。匿名回答可能用于改进测评模型，并支持未来的研究与产品开发。",
+    consentCheckboxLabel: "我理解并同意匿名参与。",
+    bgTitle: "基础信息",
     bgSubtitle:
-      "匿名人口统计信息，用于模型校准与研究（进入仪表盘前仅需填写一次）。",
+      "匿名人口统计与参与情境信息，用于模型校准、研究对照与未来产品改进。",
+    bgOptionalHint:
+      "可选敏感项（性别认同、性取向、文化背景、神经多样性）可跳过不填。",
+    skipOptionalFields: "跳过可选项",
+    startBtn: "开始",
+    editBackground: "编辑基础信息",
+    resetOnboarding: "重置引导流程",
+    resetOnboardingConfirm:
+      "返回介绍页并清除同意与背景信息？模块测评进度将保留。",
+    dashboardSettingsTitle: "设置",
+    dashboardSettingsHint: "更新基础信息或重新开始引导流程。",
     dashboardTitle: "天赋模块仪表盘",
     dashboardSubtitle: "按任意顺序完成模块；进度自动保存。",
     modulesHeading: "模块选择",
@@ -245,7 +297,7 @@ const TEM_I18N = {
     next: "下一题",
     finish: "完成本模块",
     likertLeft: "非常不同意",
-    likertMid: "中立 / 不确定",
+    likertMid: "中立或不确定",
     likertRight: "非常同意",
     dashboard: "返回仪表盘",
     retakeModule: "重新测评",
@@ -306,8 +358,6 @@ const TEM_I18N = {
     promoHaveCode: "有邀请码？",
     promoUnlockBtn: "解锁报告",
     promoCancel: "取消",
-    promoInvalidEn: "Invalid access code.",
-    promoInvalidZh: "邀请码无效。",
     premiumGateTitle: "解锁完整高级报告",
     premiumGateText: "支付 $4.99 解锁完整天赋生态矩阵报告，或输入邀请码。",
     premiumGateStripeBtn: "Stripe 付款",
