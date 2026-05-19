@@ -23,6 +23,7 @@
       statusAvailable: "Available",
       statusSoon: "Coming soon",
       ctaOpen: "Open",
+      cta_tem_open: "Open",
       card_influence_title: "Influence Analysis",
       card_influence_desc:
         "Understand how you create influence within groups, relationships, and organizations.",
@@ -34,7 +35,7 @@
         "A dynamic map of attraction, entry, compatibility, and transformation.",
       card_tem_title: "Talent Ecology Matrix",
       card_tem_desc:
-        "Understand how desired talent, social perception, developmental ease, and constraints shape your long-term advantage structure.",
+        "Map your desired talents, socially perceived strengths, developmental ease, constraints, and long-term talent ecology.",
     },
     zh: {
       metaTitle: "Mind Strategy Lab 心智策略实验室",
@@ -51,6 +52,7 @@
       statusAvailable: "可用",
       statusSoon: "即将推出",
       ctaOpen: "进入",
+      cta_tem_open: "打开",
       card_influence_title: "影响力分析",
       card_influence_desc: "理解你在群体、关系与组织中如何形成影响力。",
       card_rps_title: "关系定位系统（RPS）",
@@ -60,7 +62,7 @@
         "解析一段关系为何发生、为何难以进入、是否适合长期发展，以及关系形式变化后价值能否保存。",
       card_tem_title: "天赋生态矩阵",
       card_tem_desc:
-        "理解理想天赋、他人感知、发展顺畅度与现实限制如何共同塑造你的长期优势结构。",
+        "理解你的理想天赋、他人感知优势、发展顺畅度、限制条件与长期天赋生态。",
     },
   };
 
@@ -74,11 +76,11 @@
   const CARDS = [
     {
       id: "talent-ecology-matrix",
-      href: "/talent-ecology-matrix/",
-      status: "auto",
-      probeUrl: "/talent-ecology-matrix/index.html",
+      href: "./talent-ecology-matrix/",
+      status: "available",
       titleKey: "card_tem_title",
       descKey: "card_tem_desc",
+      ctaKey: "cta_tem_open",
     },
     {
       id: "influence-analysis",
@@ -236,13 +238,14 @@
 
       const title = s[card.titleKey];
       const desc = s[card.descKey];
+      const ctaLabel = card.ctaKey ? s[card.ctaKey] : s.ctaOpen;
 
       const wrapTag = available ? "a" : "div";
       const el = document.createElement(wrapTag);
       el.className = "assessment-card" + (available ? " assessment-card--interactive" : " assessment-card--soon");
       if (available) {
         el.href = card.href;
-        el.setAttribute("aria-label", title + " — " + s.ctaOpen);
+        el.setAttribute("aria-label", title + " — " + ctaLabel);
       }
 
       const head = document.createElement("div");
@@ -270,7 +273,7 @@
       if (available) {
         const cta = document.createElement("div");
         cta.className = "card__cta";
-        cta.append(document.createTextNode(s.ctaOpen + " "));
+        cta.append(document.createTextNode(ctaLabel + " "));
         const arrow = document.createElement("span");
         arrow.className = "card__cta-arrow";
         arrow.setAttribute("aria-hidden", "true");
