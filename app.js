@@ -32,6 +32,9 @@
       card_strategic_intimacy_title: "Strategic Intimacy Simulator",
       card_strategic_intimacy_desc:
         "A dynamic map of attraction, entry, compatibility, and transformation.",
+      card_tem_title: "Talent Ecology Matrix",
+      card_tem_desc:
+        "Understand how desired talent, social perception, developmental ease, and constraints shape your long-term advantage structure.",
     },
     zh: {
       metaTitle: "Mind Strategy Lab 心智策略实验室",
@@ -55,6 +58,9 @@
       card_strategic_intimacy_title: "战略亲密关系模拟器",
       card_strategic_intimacy_desc:
         "解析一段关系为何发生、为何难以进入、是否适合长期发展，以及关系形式变化后价值能否保存。",
+      card_tem_title: "天赋生态矩阵",
+      card_tem_desc:
+        "理解理想天赋、他人感知、发展顺畅度与现实限制如何共同塑造你的长期优势结构。",
     },
   };
 
@@ -66,6 +72,14 @@
    * - probeUrl (optional, with status "auto"): URL to check; if reachable, shows Available
    */
   const CARDS = [
+    {
+      id: "talent-ecology-matrix",
+      href: "/talent-ecology-matrix/",
+      status: "auto",
+      probeUrl: "/talent-ecology-matrix/index.html",
+      titleKey: "card_tem_title",
+      descKey: "card_tem_desc",
+    },
     {
       id: "influence-analysis",
       href: "/influence-analysis/",

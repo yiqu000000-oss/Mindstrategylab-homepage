@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Talent Ecology Matrix | 天赋生态矩阵</title>
+    <meta
+      name="description"
+      content="Modular bilingual talent assessment with free preview and premium report."
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./config.js"></script>
+    <script src="./item-registry.js"></script>
+    <script src="./taxonomy.js"></script>
+    <script src="./recommendations.js"></script>
+    <script src="./interpretations.js"></script>
+    <script src="./scoring.js"></script>
+    <script src="./storage.js"></script>
+    <script src="./premium-report.js"></script>
+    <script src="./translations.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app">Skip to content</a>
+    <div class="app-shell" id="app">
+      <header class="topbar">
+        <div class="topbar__brand" role="banner">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title" id="brandTitle">Talent Ecology Matrix</div>
+            <div class="brand-subtitle" id="brandSubtitle">Modular Research Dashboard</div>
+          </div>
+        </div>
+        <div class="topbar__actions">
+          <span class="premium-badge hidden" id="premiumBadge" aria-live="polite">Premium Unlocked</span>
+          <a class="home-back" href="/" id="homeBackLink">Back to Home</a>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button class="pill pill--active" type="button" id="langEn" aria-pressed="true">English</button>
+            <button class="pill" type="button" id="langZh" aria-pressed="false">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <!-- 1. Landing -->
+        <section class="card card--hero" id="screenWelcome" aria-labelledby="welcomeTitle">
+          <div class="hero">
+            <div class="hero__left">
+              <h1 class="h1" id="welcomeTitle">Talent Ecology Matrix</h1>
+              <p class="lead" id="welcomeLead"></p>
+              <div class="callouts" id="welcomeCallouts"></div>
+            </div>
+            <div class="hero__right">
+              <div class="badge">
+                <div class="badge__title" id="timeTitle">Per module</div>
+                <div class="badge__value" id="timeValue">3–8 minutes</div>
+              </div>
+              <div class="badge badge--secondary">
+                <div class="badge__title" id="noteTitle">Not a diagnosis</div>
+                <div class="badge__value" id="noteValue">Exploratory &amp; developmental</div>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <p class="disclaimer" id="welcomeDisclaimer"></p>
+          <div class="nav nav--end">
+            <button class="btn btn--primary" id="btnWelcomeNext" type="button">Continue</button>
+          </div>
+        </section>
+
+        <!-- 2. Informed Consent -->
+        <section class="card hidden" id="screenConsent" aria-labelledby="consentTitle">
+          <h2 class="h2" id="consentTitle">Research Participation and Consent</h2>
+          <p class="subtle" id="consentSubtitle"></p>
+          <div class="consent-block consent-block--standalone">
+            <p class="consent-text" id="consentBody"></p>
+            <label class="checkbox">
+              <input type="checkbox" id="consentCheckbox" />
+              <span id="consentCheckboxLabel">I agree</span>
+            </label>
+          </div>
+          <div class="nav">
+            <button class="btn" id="btnConsentBack" type="button">Back</button>
+            <button class="btn btn--primary" id="btnConsentNext" type="button" disabled>Continue</button>
+          </div>
+        </section>
+
+        <!-- 3. Background Information -->
+        <section class="card hidden" id="screenBackground" aria-labelledby="bgTitle">
+          <h2 class="h2" id="bgTitle">Background Information</h2>
+          <p class="subtle" id="bgSubtitle"></p>
+          <form class="bg-form" id="backgroundForm" novalidate></form>
+          <div class="nav">
+            <button class="btn" id="btnBgBack" type="button">Back</button>
+            <button class="btn btn--primary" id="btnBgNext" type="button">Continue to Dashboard</button>
+          </div>
+        </section>
+
+        <!-- 4. Dashboard -->
+        <section class="card hidden" id="screenDashboard" aria-labelledby="dashboardTitle">
+          <div class="dashboard-head">
+            <div>
+              <h2 class="h2" id="dashboardTitle">Talent Module Dashboard</h2>
+              <p class="subtle" id="dashboardSubtitle"></p>
+            </div>
+            <div class="dashboard-progress" aria-label="Overall progress">
+              <div class="progress-meta">
+                <span id="dashboardProgressLabel">Modules completed</span>
+                <span id="dashboardProgressValue">0 / 13</span>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" id="dashboardProgressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <section class="meta-banner" id="metaBanner" aria-live="polite">
+            <div class="meta-banner__body">
+              <h3 class="h3" id="metaBannerTitle">Results Preview</h3>
+              <p class="subtle" id="metaBannerSubtitle"></p>
+            </div>
+            <div class="meta-banner__actions">
+              <button class="btn btn--primary" id="btnOpenPreview" type="button" disabled>View Free Preview</button>
+              <button class="btn btn--gold hidden" id="btnOpenPremium" type="button">Full Premium Report</button>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+
+          <h3 class="h3" id="modulesHeading">Domain Modules</h3>
+          <p class="subtle" id="modulesHint"></p>
+          <div class="module-dashboard-grid" id="moduleDashboardGrid"></div>
+
+          <div class="nav nav--spread">
+            <button class="btn btn--ghost" id="btnDownloadProgress" type="button">Download Progress</button>
+            <button class="btn btn--ghost" id="btnResetProgress" type="button">Reset All Progress</button>
+          </div>
+        </section>
+
+        <!-- 5. Module assessment -->
+        <section class="card hidden" id="screenModuleAssessment" aria-labelledby="moduleAssessmentTitle">
+          <div class="assessment-top">
+            <div>
+              <p class="subtle" id="moduleBreadcrumb"></p>
+              <h2 class="h2" id="moduleAssessmentTitle">Module Assessment</h2>
+              <div class="subtle" id="moduleAssessmentSubtitle"></div>
+              <div class="perspective-banner" id="perspectiveBanner"></div>
+            </div>
+            <div class="progress-wrap" aria-label="Progress">
+              <div class="progress-meta">
+                <div class="progress-label" id="progressLabel">Progress</div>
+                <div class="progress-value" id="progressValue">1 / 1</div>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" id="progressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="q-card" id="questionCard" role="group" aria-label="Question"></div>
+          <div class="nav">
+            <button class="btn" id="btnModuleBackDashboard" type="button">Dashboard</button>
+            <div class="nav__right">
+              <button class="btn" id="btnPrev" type="button">Previous</button>
+              <button class="btn btn--primary" id="btnNext" type="button">Next</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module results (per domain) -->
+        <section class="card hidden" id="screenModuleResults" aria-labelledby="moduleResultsTitle">
+          <p class="subtle" id="moduleResultsBreadcrumb"></p>
+          <h2 class="h2" id="moduleResultsTitle">Module Results</h2>
+          <p class="subtle" id="moduleResultsSubtitle"></p>
+          <div class="grid two results-visual">
+            <div class="venn-card">
+              <h3 class="h3" id="moduleVennTitle">Domain Ecology Map</h3>
+              <p class="help" id="moduleVennHelp"></p>
+              <div class="venn-wrap" id="moduleVennDiagram"></div>
+              <div class="venn-legend" id="moduleVennLegend"></div>
+              <div class="constraint-layer" id="moduleConstraintLayer"></div>
+            </div>
+            <div>
+              <h3 class="h3" id="moduleScoresTitle">Perspective Scores</h3>
+              <div class="score-perspective-grid" id="moduleScoreGrid"></div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h3 class="h3" id="moduleRecTitle">Resource Ecology Recommendations</h3>
+          <ul class="rec-list" id="moduleRecList"></ul>
+          <div class="nav nav--end">
+            <button class="btn" id="btnModuleResultsDashboard" type="button">Dashboard</button>
+            <button class="btn btn--primary" id="btnRetakeModule" type="button">Retake Module</button>
+          </div>
+        </section>
+
+        <!-- 6. Free Results Preview -->
+        <section class="card hidden" id="screenFreePreview" aria-labelledby="freePreviewTitle">
+          <div class="results-top">
+            <div>
+              <h2 class="h2" id="freePreviewTitle">Free Results Preview</h2>
+              <p class="subtle" id="freePreviewSubtitle"></p>
+            </div>
+            <button class="btn" id="btnPreviewDashboard" type="button">Dashboard</button>
+          </div>
+
+          <p class="preview-teaser-lead" id="previewTeaserLead"></p>
+
+          <div class="venn-card venn-card--teaser">
+            <h3 class="h3" id="previewVennTitle">Talent Ecology Map</h3>
+            <p class="help" id="previewVennHelp"></p>
+            <div class="venn-wrap venn-wrap--teaser" id="previewVennDiagram"></div>
+            <div class="venn-legend venn-legend--teaser" id="previewVennLegend"></div>
+          </div>
+
+          <div class="indices-grid indices-grid--teaser" id="previewTeaserMetrics"></div>
+
+          <p class="preview-teaser-pitch rich" id="previewTeaserPitch"></p>
+
+          <div class="divider"></div>
+
+          <section class="card card--nested premium" aria-labelledby="premiumTitle">
+            <h3 class="h3" id="premiumTitle">Unlock Full Premium Report</h3>
+            <p class="subtle" id="premiumSubtitle"></p>
+            <ul class="premium__list" id="premiumList"></ul>
+            <a class="btn btn--gold btn--block" id="btnStripeCheckout" href="#" target="_blank" rel="noopener noreferrer">
+              Unlock Full Premium Report – $4.99
+            </a>
+            <button class="btn btn--ghost btn--block" id="btnOpenPremiumUnlockModal" type="button">
+              Have an access code?
+            </button>
+            <p class="fine-print" id="premiumFinePrint"></p>
+            <button class="btn btn--ghost btn--block hidden" id="btnViewPremiumReport" type="button">
+              View Full Premium Report
+            </button>
+          </section>
+
+          <p class="disclaimer" id="previewDisclaimer"></p>
+        </section>
+
+        <!-- 8. Full Premium Report -->
+        <section class="card hidden" id="screenPremiumReport" aria-labelledby="premiumReportTitle">
+          <div class="results-top">
+            <div>
+              <span class="premium-badge premium-badge--inline" id="premiumReportBadge">Premium Unlocked</span>
+              <h2 class="h2" id="premiumReportTitle">Full Premium Report</h2>
+              <p class="subtle" id="premiumReportSubtitle"></p>
+            </div>
+            <div class="results-actions">
+              <button class="btn" id="btnPremiumDashboard" type="button">Dashboard</button>
+              <button class="btn" id="btnDownloadJson" type="button">Download JSON</button>
+            </div>
+          </div>
+
+          <div id="premiumNoDataBanner" class="hidden" role="alert"></div>
+          <div class="debug-panel hidden" id="premiumDebugPanel" aria-live="polite"></div>
+          <div class="indices-grid" id="premiumIndicesGrid"></div>
+          <div class="divider"></div>
+
+          <section class="report-section card card--nested" id="sectionOverallNarrative">
+            <h3 class="h3" id="secOverallTitle">Overall Developmental Summary</h3>
+            <div class="rich interp-prose" id="secOverallBody"></div>
+          </section>
+
+          <section class="report-section" id="sectionPremiumRankings">
+            <h3 class="h3" id="secRankingsTitle">Rankings</h3>
+            <div class="grid two">
+              <div>
+                <h4 class="h4" id="secRankDesiredTitle">Top Desired Talents</h4>
+                <div class="rank-list" id="secRankDesired"></div>
+                <h4 class="h4 h4--spaced" id="secRankPerceivedTitle">Top Socially Perceived Talents</h4>
+                <div class="rank-list" id="secRankPerceived"></div>
+              </div>
+              <div>
+                <h4 class="h4 h4--spaced" id="secRankEaseTitle">Top Developmental Ease Domains</h4>
+                <div class="rank-list" id="secRankEase"></div>
+                <h4 class="h4 h4--spaced" id="secRankConstraintTitle">Constraint Overview</h4>
+                <div class="rank-list" id="secRankConstraint"></div>
+              </div>
+            </div>
+            <h4 class="h4 h4--spaced" id="secRankEcologyTitle">Resource Ecology Overview</h4>
+            <ul class="rec-list" id="secRankEcologyList"></ul>
+          </section>
+
+          <section class="report-section card card--nested" id="sectionSignaturePath">
+            <h3 class="h3" id="secSignaturePathTitle">Signature Talent Path</h3>
+            <p class="help" id="secSignaturePathNote"></p>
+            <div class="rank-list" id="secSignaturePathList"></div>
+          </section>
+
+          <section class="report-section" id="sectionHierarchy">
+            <h3 class="h3" id="secHierarchyTitle"></h3>
+            <div class="rich" id="secHierarchyBody"></div>
+          </section>
+
+          <section class="report-section" id="sectionDomains">
+            <h3 class="h3" id="secDomainsTitle"></h3>
+            <div id="secDomainsBody"></div>
+          </section>
+
+          <section class="report-section card card--nested card--flagship" id="sectionCrossDomain">
+            <h3 class="h3" id="secCrossTitle"></h3>
+            <div class="rich" id="secCrossBody"></div>
+          </section>
+
+          <section class="report-section" id="sectionResourceEcology">
+            <h3 class="h3" id="secResourceTitle"></h3>
+            <div id="secResourceBody"></div>
+            <div class="rich interp-prose" id="secResourceProfile"></div>
+          </section>
+
+          <div class="grid two">
+            <section class="report-section">
+              <h3 class="h3" id="secSignatureMicroTitle"></h3>
+              <div class="rank-list" id="secSignatureMicroList"></div>
+              <h3 class="h3 h3--spaced" id="secHiddenTitle"></h3>
+              <div class="rank-list" id="secHiddenList"></div>
+            </section>
+            <section class="report-section">
+              <h3 class="h3" id="secDreamGapTitle"></h3>
+              <div class="rank-list" id="secDreamGapList"></div>
+              <h3 class="h3 h3--spaced" id="secBlockedTitle"></h3>
+              <div class="rank-list" id="secBlockedList"></div>
+            </section>
+          </div>
+
+          <section class="report-section">
+            <h3 class="h3" id="secOptimalTitle"></h3>
+            <div class="rank-list" id="secOptimalList"></div>
+          </section>
+
+          <section class="report-section card card--nested">
+            <h3 class="h3" id="secStrategyTitle"></h3>
+            <div class="rich" id="secStrategyBody"></div>
+          </section>
+
+          <p class="help help--muted" id="futureServicesNote"></p>
+
+          <div class="nav nav--end">
+            <button class="btn" id="btnPremiumToValidation" type="button">Optional Research Validation</button>
+          </div>
+
+          <p class="disclaimer" id="premiumDisclaimer"></p>
+        </section>
+
+        <!-- 9. Optional Research Validation -->
+        <section class="card hidden" id="screenValidation" aria-labelledby="validationTitle">
+          <h2 class="h2" id="validationTitle">Post-result validation (research)</h2>
+          <p class="subtle" id="validationSubtitle"></p>
+          <div id="validationBlock"></div>
+          <div class="field field--full">
+            <label class="label" id="feedbackLabel" for="openFeedback">Optional feedback</label>
+            <textarea class="textarea" id="openFeedback" rows="4"></textarea>
+          </div>
+          <p class="subtle" id="submitStatus" aria-live="polite"></p>
+          <div class="nav">
+            <button class="btn" id="btnValidationBack" type="button">Back to Report</button>
+            <button class="btn btn--primary" id="btnSubmitValidation" type="button">Submit</button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div id="footerLeft"></div>
+        <div id="footerRight"></div>
+        <div class="save-hint" id="saveHint" aria-live="polite"></div>
+      </footer>
+
+      <div class="modal hidden" id="premiumGateModal" role="dialog" aria-modal="true" aria-labelledby="premiumGateModalTitle">
+        <div class="modal__overlay" id="premiumGateModalOverlay" data-close="true"></div>
+        <div class="modal__panel" role="document">
+          <div class="modal__head">
+            <div>
+              <div class="modal__title" id="premiumGateModalTitle">Unlock Full Premium Report</div>
+              <p class="modal__subtitle" id="premiumGateModalText"></p>
+            </div>
+            <button class="icon-btn" id="btnClosePremiumGateModal" type="button" aria-label="Close">×</button>
+          </div>
+          <div class="modal__body">
+            <p class="modal__status" id="premiumGateStatus" aria-live="polite"></p>
+            <div class="modal__actions modal__actions--stack">
+              <button class="btn btn--gold btn--block" id="btnGateStripePay" type="button">Pay with Stripe</button>
+              <button class="btn btn--ghost btn--block" id="btnGateEnterPromo" type="button">Enter Promo Code</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal hidden" id="premiumUnlockModal" role="dialog" aria-modal="true" aria-labelledby="premiumUnlockModalTitle">
+        <div class="modal__overlay" id="premiumUnlockModalOverlay" data-close="true"></div>
+        <div class="modal__panel" role="document">
+          <div class="modal__head">
+            <div>
+              <div class="modal__title" id="premiumUnlockModalTitle">Unlock with access code</div>
+              <div class="modal__subtitle" id="premiumUnlockModalSubtitle"></div>
+            </div>
+            <button class="icon-btn" id="btnClosePremiumUnlockModal" type="button" aria-label="Close">×</button>
+          </div>
+          <div class="modal__body">
+            <div class="field field--full">
+              <label class="label" id="premiumPromoLabel" for="premiumPromoInput">Access code</label>
+              <input class="input" id="premiumPromoInput" type="text" autocomplete="off" spellcheck="false" />
+            </div>
+            <p class="modal__status" id="premiumPromoStatus" aria-live="polite"></p>
+            <div class="modal__actions">
+              <button class="btn" id="btnCancelPremiumUnlockModal" type="button">Cancel</button>
+              <button class="btn btn--primary" id="btnSubmitPremiumPromo" type="button">Unlock report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
