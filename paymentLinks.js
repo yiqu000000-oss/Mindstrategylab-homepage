@@ -1,4 +1,5 @@
 // paymentLinks.js
+// LIVE MODE Stripe links (production)
 // Unified Stripe payment link configuration for Mind Strategy Lab
 // ------------------------------------------------------------
 // Usage:
@@ -10,8 +11,7 @@
 // window.open(fullLink, '_blank');
 // 
 // IMPORTANT:
-// These are Stripe TEST MODE links (Sandbox).
-// When you switch Stripe to Live Mode, replace these URLs with the live links.
+// These are Stripe LIVE MODE links (production).
 
 const PAYMENT_LINKS = {
     // One-time purchase: unlock the complete assessment experience
@@ -20,7 +20,7 @@ const PAYMENT_LINKS = {
       price: 2.99,
       currency: 'USD',
       billingType: 'one_time',
-      url: 'https://buy.stripe.com/test_28E14m3Lqg4N63K1sXbjW00'
+      url: 'https://buy.stripe.com/aFabJ0ads3hDeH43lbeUU02'
     },
   
     // One-time purchase: unlock the professional strategic report
@@ -29,7 +29,7 @@ const PAYMENT_LINKS = {
       price: 4.99,
       currency: 'USD',
       billingType: 'one_time',
-      url: 'https://buy.stripe.com/test_fZu00i4Pu05Pdwc3B5bjW01'
+      url: 'https://buy.stripe.com/00wcN42L06tPaqOg7XeUU00'
     },
   
     // Monthly subscription: unlock all assessments and reports
@@ -38,7 +38,7 @@ const PAYMENT_LINKS = {
       price: 19.99,
       currency: 'USD',
       billingType: 'monthly_subscription',
-      url: 'https://buy.stripe.com/test_aFa4gydm09GpeAggnRbjW02'
+      url: 'https://buy.stripe.com/5kQ4gy4T8f0lfL808ZeUU03'
     }
   };
   
