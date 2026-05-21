@@ -30,9 +30,9 @@
       card_rps_title: "Relational Positioning System (RPS)",
       card_rps_desc:
         "Understand your position, needs, power dynamics, and emotional patterns across different types of relationships.",
-      card_strategic_intimacy_title: "Strategic Intimacy Simulator",
+      card_strategic_intimacy_title: "Connection Dynamics Analysis",
       card_strategic_intimacy_desc:
-        "A dynamic map of attraction, entry, compatibility, and transformation.",
+        "Explore how connection signals move, stall, and evolve across four dynamic dimensions.",
       card_tem_title: "Talent Ecology Matrix",
       card_tem_desc:
         "Map your desired talents, socially perceived strengths, developmental ease, constraints, and long-term talent ecology.",
@@ -57,9 +57,9 @@
       card_influence_desc: "理解你在群体、关系与组织中如何形成影响力。",
       card_rps_title: "关系定位系统（RPS）",
       card_rps_desc: "理解你在不同类型关系中的位置、需求、权力动态与情绪模式。",
-      card_strategic_intimacy_title: "战略亲密关系模拟器",
+      card_strategic_intimacy_title: "连接动力分析",
       card_strategic_intimacy_desc:
-        "解析一段关系为何发生、为何难以进入、是否适合长期发展，以及关系形式变化后价值能否保存。",
+        "探索连接信号如何在启动、进入、兼容与转化四层动力中流动、停滞与演变。",
       card_tem_title: "天赋生态矩阵",
       card_tem_desc:
         "理解你的理想天赋、他人感知优势、发展顺畅度、限制条件与长期天赋生态。",
