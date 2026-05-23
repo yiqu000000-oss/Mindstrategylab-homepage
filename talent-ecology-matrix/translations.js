@@ -59,8 +59,6 @@ const TEM_I18N = {
       "Anonymous demographic and participation context information used for model calibration, research comparison, and future product improvement.",
     bgOptionalHint:
       "Optional sensitive fields (gender identity, sexual orientation, cultural background, neurodiversity) may be skipped.",
-    bgNeurodiversityPrivacy:
-      "Neurodiversity information, if provided, is used solely for model calibration and is never shared or used to identify individuals.",
     skipOptionalFields: "Skip optional fields",
     startBtn: "Start",
     editBackground: "Edit background information",
@@ -262,15 +260,13 @@ const TEM_I18N = {
     consentTitle: "研究参与与知情同意",
     consentSubtitle: "",
     consentBody:
-      "本测评仅用于探索性自我反思与研究目的，不是临床诊断，也不预测固定的未来结果。匿名回答可能用于改进测评模型，并支持未来的研究与产品开发。",
-    consentCheckboxLabel: "我理解并同意匿名参与。",
+      "本测评仅用于探索性自我反思与研究目的，不是临床诊断，也不预测固定的未来结果。匿名回答可能会用于改进测评模型，并支持未来研究与产品发展。",
+    consentCheckboxLabel: "我理解并同意以匿名方式参与。",
     bgTitle: "基础信息",
     bgSubtitle:
       "匿名人口统计与参与情境信息，用于模型校准、研究对照与未来产品改进。",
     bgOptionalHint:
       "可选敏感项（性别认同、性取向、文化背景、神经多样性）可跳过不填。",
-    bgNeurodiversityPrivacy:
-      "若提供神经多样性信息，仅用于模型校准，不会对外共享，也不会用于识别个人身份。",
     skipOptionalFields: "跳过可选项",
     startBtn: "开始",
     editBackground: "编辑基础信息",

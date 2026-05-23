@@ -345,19 +345,27 @@
 
   const isOnboardingComplete = () => TEMStorage.onboardingComplete(state);
 
+  const hasConsent = () => !!(state.consent_given || state.consent);
+
+  /** Resume entry when onboarding is incomplete (welcome → consent → background). */
   const resolveEntryScreen = () => {
-    if (!isOnboardingComplete()) {
-      if (!state.consent_given) return "welcome";
-      return "background";
-    }
+    if (isOnboardingComplete()) return "dashboard";
+    if (!hasConsent()) return "welcome";
+    if (!state.background_completed) return "background";
     return "dashboard";
   };
 
   const resolveScreenAccess = (name) => {
-    if (ONBOARDING_SCREENS.has(name) || !GATED_SCREENS.has(name)) return name;
+    if (ONBOARDING_SCREENS.has(name)) {
+      if (name === "background" && !hasConsent()) return "consent";
+      return name;
+    }
+    if (!GATED_SCREENS.has(name)) return name;
     if (isOnboardingComplete()) return name;
     return resolveEntryScreen();
   };
+
+  const advanceOnboardingFromWelcome = () => setScreen("consent");
 
   const syncBackgroundFromForm = () => {
     if (!$("backgroundForm")?.dataset.built) return;
@@ -1077,7 +1085,11 @@
     set("bgTitle", tr.bgTitle);
     set("bgSubtitle", tr.bgSubtitle);
     set("bgOptionalHint", tr.bgOptionalHint);
-    set("bgNeurodiversityPrivacy", tr.bgNeurodiversityPrivacy);
+    const neuroPrivacyNote =
+      state.language === "zh"
+        ? "如选择提供神经多样性信息，该信息仅用于模型校准，不会被分享，也不会用于识别个人身份。"
+        : "Neurodiversity information, if provided, is used solely for model calibration and is never shared or used to identify individuals.";
+    set("bgNeurodiversityPrivacy", neuroPrivacyNote);
     set("dashboardSettingsTitle", tr.dashboardSettingsTitle);
     set("dashboardSettingsHint", tr.dashboardSettingsHint);
     set("dashboardTitle", tr.dashboardTitle);
@@ -1194,7 +1206,7 @@
   };
 
   const setConsentNextEnabled = () => {
-    $("btnConsentNext").disabled = !state.consent_given;
+    $("btnConsentNext").disabled = !hasConsent();
   };
 
   const buildExportPayload = () => ({
@@ -1242,13 +1254,17 @@
       renderLanguage();
     });
 
-    $("btnWelcomeNext").addEventListener("click", () => setScreen("consent"));
+    $("btnWelcomeNext").addEventListener("click", advanceOnboardingFromWelcome);
 
     $("btnConsentBack").addEventListener("click", () => setScreen("welcome"));
-    $("btnConsentNext").addEventListener("click", () => setScreen("background"));
+    $("btnConsentNext").addEventListener("click", () => {
+      if (!hasConsent()) return;
+      setScreen("background");
+    });
 
     $("consentCheckbox").addEventListener("change", (e) => {
       state.consent_given = e.target.checked;
+      state.consent = e.target.checked;
       setConsentNextEnabled();
       persist();
     });
