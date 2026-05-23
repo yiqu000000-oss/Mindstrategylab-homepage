@@ -230,6 +230,7 @@ body{
 .form{ display:grid; gap: 12px; }
 .label{ font-weight: 750; font-size: 13px; color: var(--navy-2); }
 .help{ font-size: 12px; color: var(--muted); line-height: 1.45; }
+#bgOptionalHint + #bgNeurodiversityPrivacy{ margin-top: 4px; }
 .muted{
   font-size: 13px;
   color: var(--muted);

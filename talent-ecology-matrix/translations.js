@@ -59,6 +59,8 @@ const TEM_I18N = {
       "Anonymous demographic and participation context information used for model calibration, research comparison, and future product improvement.",
     bgOptionalHint:
       "Optional sensitive fields (gender identity, sexual orientation, cultural background, neurodiversity) may be skipped.",
+    bgNeurodiversityPrivacy:
+      "Neurodiversity information, if provided, is used solely for model calibration and is never shared or used to identify individuals.",
     skipOptionalFields: "Skip optional fields",
     startBtn: "Start",
     editBackground: "Edit background information",
@@ -267,6 +269,8 @@ const TEM_I18N = {
       "匿名人口统计与参与情境信息，用于模型校准、研究对照与未来产品改进。",
     bgOptionalHint:
       "可选敏感项（性别认同、性取向、文化背景、神经多样性）可跳过不填。",
+    bgNeurodiversityPrivacy:
+      "若提供神经多样性信息，仅用于模型校准，不会对外共享，也不会用于识别个人身份。",
     skipOptionalFields: "跳过可选项",
     startBtn: "开始",
     editBackground: "编辑基础信息",

@@ -1077,6 +1077,7 @@
     set("bgTitle", tr.bgTitle);
     set("bgSubtitle", tr.bgSubtitle);
     set("bgOptionalHint", tr.bgOptionalHint);
+    set("bgNeurodiversityPrivacy", tr.bgNeurodiversityPrivacy);
     set("dashboardSettingsTitle", tr.dashboardSettingsTitle);
     set("dashboardSettingsHint", tr.dashboardSettingsHint);
     set("dashboardTitle", tr.dashboardTitle);
