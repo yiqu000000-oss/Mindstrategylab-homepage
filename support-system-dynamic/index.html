@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support System Dynamics Assessment — MindStrategyLab</title>
+    <meta
+      name="description"
+      content="A structural exploration of how individuals maintain continuity, stability, and recoverability across changing life conditions."
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./config.js"></script>
+    <script src="./taxonomy.js"></script>
+    <script src="./items.js"></script>
+    <script src="./item-translations.zh.js"></script>
+    <script src="./translations.js"></script>
+    <script src="./storage.js"></script>
+    <script src="./scoring.js"></script>
+    <script src="./results.js"></script>
+    <script src="./typology-labels.js"></script>
+    <script src="./typology.js"></script>
+    <script src="./premium-report.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#app" id="skipLink">Skip to content</a>
+    <div class="app-shell" id="app">
+      <header class="topbar">
+        <div class="topbar__brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title" id="brandTitle">MindStrategyLab</div>
+            <div class="brand-subtitle" id="brandSubtitle">Modular Research Assessment</div>
+          </div>
+        </div>
+        <div class="topbar__actions">
+          <span class="save-hint" id="saveHint" aria-live="polite"></span>
+          <span class="premium-badge hidden" id="premiumBadge">Premium Unlocked</span>
+          <div class="lang-switch" role="group" aria-label="Language" id="langSwitchAria">
+            <button class="pill pill--active" type="button" id="langEn" aria-pressed="true">English</button>
+            <button class="pill" type="button" id="langZh" aria-pressed="false">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <!-- Homepage -->
+        <section class="card card--hero" id="screenHome" aria-labelledby="homeTitle">
+          <div class="hero">
+            <div class="hero__left">
+              <p class="eyebrow" id="homeEyebrow"></p>
+              <h1 class="h1" id="homeTitle"></h1>
+              <p class="lead" id="homeLead"></p>
+              <div class="callouts" id="homeCallouts"></div>
+            </div>
+            <div class="hero__right">
+              <div class="badge">
+                <div class="badge__title" id="timeTitle"></div>
+                <div class="badge__value" id="timeValue"></div>
+              </div>
+              <div class="badge badge--secondary">
+                <div class="badge__title" id="noteTitle"></div>
+                <div class="badge__value" id="noteValue"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="notice notice--important" id="homeNotice"></div>
+
+          <div class="framework-preview">
+            <h2 class="h3 framework-preview__title" id="frameworkPreviewTitle"></h2>
+            <div class="framework-flow" id="frameworkFlow"></div>
+          </div>
+
+          <div class="nav nav--end">
+            <button class="btn btn--primary" id="btnStartAssessment" type="button"></button>
+            <button class="btn btn--ghost" id="btnLearnFramework" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Introduction -->
+        <section class="card hidden" id="screenIntroduction" aria-labelledby="introTitle">
+          <h2 class="h2" id="introTitle"></h2>
+          <p class="subtle" id="introSubtitle"></p>
+          <div class="intro-sections" id="introSections"></div>
+          <div class="framework-preview">
+            <h3 class="h3 framework-preview__title" id="frameworkPreviewTitleIntro"></h3>
+            <div class="framework-flow" id="frameworkFlowIntro"></div>
+          </div>
+          <div class="divider"></div>
+          <p class="disclaimer" id="introDisclaimer"></p>
+          <div class="nav">
+            <button class="btn" id="btnIntroBack" type="button"></button>
+            <button class="btn btn--primary" id="btnIntroContinue" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Consent -->
+        <section class="card hidden" id="screenConsent" aria-labelledby="consentTitle">
+          <h2 class="h2" id="consentTitle"></h2>
+          <p class="subtle" id="consentSubtitle"></p>
+          <div class="consent-block">
+            <ul class="consent-list" id="consentList"></ul>
+            <p class="consent-highlight" id="consentHighlight"></p>
+            <label class="checkbox">
+              <input type="checkbox" id="consentCheckbox" />
+              <span id="consentCheckboxLabel"></span>
+            </label>
+          </div>
+          <div class="nav">
+            <button class="btn" id="btnConsentBack" type="button"></button>
+            <button class="btn btn--primary" id="btnConsentNext" type="button" disabled></button>
+          </div>
+        </section>
+
+        <!-- Context -->
+        <section class="card hidden" id="screenContext" aria-labelledby="contextTitle">
+          <h2 class="h2" id="contextTitle"></h2>
+          <p class="subtle" id="contextSubtitle"></p>
+
+          <form class="context-form" id="contextForm" novalidate>
+            <fieldset class="form-section">
+              <legend id="requiredLegend"></legend>
+              <div class="field">
+                <label for="ctxAge" id="labelAge"></label>
+                <select class="select" id="ctxAge" name="ageRange" required></select>
+              </div>
+              <div class="field">
+                <label for="ctxEthnicity" id="labelEthnicity"></label>
+                <p class="help" id="ethnicityNote"></p>
+                <input class="input" type="text" id="ctxEthnicity" name="ethnicity" required autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="ctxLifeStructure" id="labelLifeStructure"></label>
+                <select class="select" id="ctxLifeStructure" name="lifeStructure" required></select>
+              </div>
+              <div class="field">
+                <label for="ctxSocialIdentity" id="labelSocialIdentity"></label>
+                <select class="select" id="ctxSocialIdentity" name="socialIdentity" required></select>
+              </div>
+              <div class="field">
+                <span class="label" id="labelStressSources"></span>
+                <div class="chip-group" id="ctxStressSources"></div>
+              </div>
+              <div class="field">
+                <span class="label" id="labelSupportSources"></span>
+                <div class="chip-group" id="ctxSupportSources"></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-section form-section--optional">
+              <legend id="optionalLegend"></legend>
+              <p class="help" id="optionalHint"></p>
+              <div class="field">
+                <label for="ctxGender" id="labelGender"></label>
+                <input class="input" type="text" id="ctxGender" name="gender" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="ctxOrientation" id="labelOrientation"></label>
+                <input class="input" type="text" id="ctxOrientation" name="orientation" autocomplete="off" />
+              </div>
+              <div class="field">
+                <span class="label" id="labelNeurodiversity"></span>
+                <div class="chip-group" id="ctxNeurodiversity"></div>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="nav nav--spread">
+            <button class="btn" id="btnContextBack" type="button"></button>
+            <div class="nav__right">
+              <button class="btn btn--ghost" id="btnSkipOptional" type="button"></button>
+              <button class="btn btn--primary" id="btnContextNext" type="button"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Layer Module Dashboard -->
+        <section class="card hidden" id="screenDashboard" aria-labelledby="dashboardTitle">
+          <div class="dashboard-head">
+            <div>
+              <h2 class="h2" id="dashboardTitle"></h2>
+              <p class="subtle" id="dashboardSubtitle"></p>
+            </div>
+            <div class="dashboard-progress" aria-label="Overall progress">
+              <div class="progress-meta">
+                <span id="dashboardProgressLabel"></span>
+                <span id="dashboardProgressValue"></span>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" id="dashboardProgressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+
+          <section class="meta-banner" id="metaBanner" aria-live="polite">
+            <div class="meta-banner__body">
+              <h3 class="h3" id="metaBannerTitle"></h3>
+              <p class="subtle" id="metaBannerSubtitle"></p>
+            </div>
+            <div class="meta-banner__actions">
+              <button class="btn btn--primary hidden" id="btnViewResults" type="button"></button>
+            </div>
+          </section>
+
+          <div class="divider"></div>
+          <div class="module-dashboard-grid" id="moduleDashboardGrid"></div>
+
+          <div class="nav">
+            <button class="btn btn--ghost" id="btnDashboardHome" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Layer Module Assessment -->
+        <section class="card card--assessment hidden" id="screenAssessment" aria-labelledby="assessmentLayerTitle">
+          <div class="assessment-top">
+            <div class="assessment-top__left">
+              <p class="subtle assessment-breadcrumb" id="assessmentBreadcrumb"></p>
+              <h2 class="h2" id="assessmentLayerTitle"></h2>
+              <p class="subtle" id="assessmentLayerSubtitle"></p>
+              <div class="layer-banner" id="layerBanner"></div>
+            </div>
+            <div class="progress-wrap" aria-label="Progress">
+              <div class="progress-meta">
+                <span class="progress-label" id="progressLabel"></span>
+                <span class="progress-value" id="progressValue"></span>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" id="progressBar" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="q-card" id="questionCard" role="group" aria-label="Question"></div>
+          <nav class="assessment-nav">
+            <div class="assessment-nav__left">
+              <button class="btn" id="btnDashboard" type="button"></button>
+            </div>
+            <div class="assessment-nav__center">
+              <button class="btn" id="btnPrev" type="button"></button>
+              <button class="btn btn--primary" id="btnNext" type="button"></button>
+            </div>
+          </nav>
+        </section>
+
+        <!-- Results (free summary + inline paywall + premium expansion) -->
+        <section class="card hidden" id="screenFreeResults" aria-labelledby="resultsTitle">
+          <div class="results-top">
+            <div>
+              <span class="premium-badge premium-badge--inline hidden" id="resultsPremiumBadge"></span>
+              <h2 class="h2" id="resultsTitle"></h2>
+              <p class="subtle" id="resultsSubtitle"></p>
+            </div>
+          </div>
+
+          <div class="pattern-banner" id="patternBanner"></div>
+          <div class="report-sections" id="freeReportSections"></div>
+
+          <div id="premiumReportExpand" class="premium-expand hidden" aria-live="polite"></div>
+
+          <p class="disclaimer" id="resultsDisclaimer"></p>
+
+          <div id="inlinePaywall" class="inline-paywall hidden">
+            <div class="divider"></div>
+            <h3 class="h3" id="inlinePaywallTitle"></h3>
+            <p class="subtle" id="inlinePaywallSubtitle"></p>
+            <div class="premium-grid">
+              <div class="premium-col">
+                <h4 class="h4" id="inlinePremiumFreeTitle"></h4>
+                <ul class="premium-list" id="inlinePremiumFreeList"></ul>
+              </div>
+              <div class="premium-col premium-col--highlight">
+                <h4 class="h4" id="inlinePremiumPaidTitle"></h4>
+                <ul class="premium-list" id="inlinePremiumPaidList"></ul>
+                <a class="btn btn--gold btn--block" id="btnStripeCheckout" href="#" target="_blank" rel="noopener noreferrer"></a>
+                <button class="btn btn--ghost btn--block" id="btnPromoModal" type="button"></button>
+              </div>
+            </div>
+            <p class="help paywall-note" id="inlinePaywallNote"></p>
+            <div class="nav nav--end">
+              <button class="btn btn--ghost" id="btnSkipPremium" type="button"></button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="nav nav--spread">
+            <button class="btn btn--ghost hidden" id="btnDownloadReport" type="button"></button>
+            <button class="btn btn--primary" id="btnFreeResultsContinue" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Legacy screens kept hidden — no longer navigated to -->
+        <section class="card hidden" id="screenPaywall" aria-hidden="true"></section>
+        <section class="card hidden" id="screenPremium" aria-hidden="true">
+          <div id="premiumReportContent"></div>
+        </section>
+
+        <!-- Accuracy Evaluation -->
+        <section class="card hidden" id="screenAccuracy" aria-labelledby="accuracyTitle">
+          <h2 class="h2" id="accuracyTitle"></h2>
+          <p class="subtle" id="accuracySubtitle"></p>
+          <div class="field accuracy-field">
+            <label class="label" for="accuracyRange" id="accuracyQuestion"></label>
+            <div class="slider__labels">
+              <span id="accuracyScaleLow"></span>
+              <span id="accuracyScaleHigh"></span>
+            </div>
+            <div class="slider__control">
+              <input class="range" type="range" min="1" max="10" step="1" value="5" id="accuracyRange" />
+              <div class="range-badge" id="accuracyValue">5</div>
+            </div>
+          </div>
+          <div class="nav nav--end">
+            <button class="btn btn--primary" id="btnAccuracyContinue" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Open Feedback -->
+        <section class="card hidden" id="screenFeedback" aria-labelledby="feedbackPageTitle">
+          <h2 class="h2" id="feedbackPageTitle"></h2>
+          <p class="subtle" id="feedbackPageSubtitle"></p>
+          <div class="field">
+            <label class="label" for="feedbackText" id="feedbackPrompt"></label>
+            <textarea class="textarea textarea--large" id="feedbackText" rows="8"></textarea>
+          </div>
+          <p class="help research-note" id="researchNote"></p>
+          <div class="nav nav--end">
+            <button class="btn btn--primary" id="btnSubmitFeedback" type="button"></button>
+          </div>
+        </section>
+
+        <!-- Completion -->
+        <section class="card hidden" id="screenCompletion" aria-labelledby="completionTitle">
+          <div class="completion-wrap">
+            <h2 class="h2" id="completionTitle"></h2>
+            <p class="lead" id="completionSubtitle"></p>
+            <p class="subtle" id="completionBody"></p>
+            <p class="help research-note" id="completionResearchNote"></p>
+          </div>
+          <div class="nav nav--spread">
+            <button class="btn btn--ghost" id="btnResetAll" type="button"></button>
+            <button class="btn btn--primary" id="btnCompletionHome" type="button"></button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p id="footerText"></p>
+      </footer>
+    </div>
+
+    <dialog class="modal" id="promoModal">
+      <form method="dialog" class="modal__inner" id="promoForm">
+        <h3 class="h3" id="promoTitle"></h3>
+        <p class="subtle" id="promoSubtitle"></p>
+        <input class="input" type="text" id="promoInput" autocomplete="off" />
+        <p class="error hidden" id="promoError"></p>
+        <div class="nav nav--end">
+          <button class="btn" value="cancel" type="submit" id="btnPromoCancel"></button>
+          <button class="btn btn--primary" id="btnPromoSubmit" type="button"></button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

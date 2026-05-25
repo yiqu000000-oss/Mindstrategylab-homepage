@@ -36,6 +36,9 @@
       card_tem_title: "Talent Ecology Matrix",
       card_tem_desc:
         "Map your desired talents, socially perceived strengths, developmental ease, constraints, and long-term talent ecology.",
+        card_ssd_title: "Support System Dynamics",
+        card_ssd_desc:
+        "Map support continuity, perceived support, accessibility, and recovery structures across changing life conditions.",
     },
     zh: {
       metaTitle: "Mind Strategy Lab 心智策略实验室",
@@ -63,6 +66,9 @@
       card_tem_title: "天赋生态矩阵",
       card_tem_desc:
         "理解你的理想天赋、他人感知优势、发展顺畅度、限制条件与长期天赋生态。",
+      card_ssd_title: "支持系统动力学",
+      card_ssd_desc:
+      "映射资源存在、支持感知、支持可达性与结构恢复能力。",
     },
   };
 
@@ -105,6 +111,14 @@
       probeUrl: "./strategic-intimacy/index.html",
       titleKey: "card_strategic_intimacy_title",
       descKey: "card_strategic_intimacy_desc",
+    },
+    {
+      id: "ssd",
+      href: "./support-system-dynamic/",
+      status: "available",
+      probeUrl: "./support-system-dynamic/index.html",
+      titleKey: "card_ssd_title",
+      descKey: "card_ssd_desc",
     },
   ];
 
