@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>焦虑是信号 · 互动讲座</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <a class="catalog-home-link" href="/" id="catalogHomeLink" data-i18n="catalogHome">返回目录</a>
+        <div class="logo">
+        <span class="logo-icon" aria-hidden="true">◈</span>
+        <span class="logo-text" data-i18n="appTitle">焦虑是信号</span>
+      </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-sm btn-secondary presenter-toggle" id="presenterToggle" data-i18n="presenterMode">演示模式</button>
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-option active" data-lang="zh">中</span>
+          <span class="lang-divider">/</span>
+          <span class="lang-option" data-lang="en">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Home -->
+  <section class="view view-home active" id="viewHome">
+    <main class="main-content">
+      <div class="hero-card card">
+        <p class="hero-label" data-i18n="heroLabel">互动讲座 · 教育用途</p>
+        <h1 class="hero-title" data-i18n="heroTitle">焦虑是信号，不是敌人</h1>
+        <p class="hero-desc" data-i18n="heroDesc">一场关于焦虑本质、思维模式与大脑通路的现场互动讲座。演示者可在各模块输入听众案例，实时投射到大屏展示。</p>
+        <button type="button" class="btn btn-primary btn-lg" id="enterLectureBtn" data-i18n="enterLecture">进入讲座</button>
+      </div>
+
+      <article class="disclaimer-card card">
+        <div class="disclaimer-icon" aria-hidden="true">⚕️</div>
+        <h2 data-i18n="disclaimerTitle">非诊断声明</h2>
+        <p data-i18n="disclaimerDesc">本讲座内容仅供心理教育与自我觉察参考，不能替代专业心理或医疗诊断与治疗。若您或听众感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。</p>
+      </article>
+
+      <div class="outline-grid">
+        <article class="outline-card card" data-goto="1">
+          <span class="outline-num">01</span>
+          <h3 data-i18n="outline1Title">焦虑是信号</h3>
+          <p data-i18n="outline1Desc">理解焦虑的功能，对比正性焦虑与负性焦虑。</p>
+        </article>
+        <article class="outline-card card" data-goto="2">
+          <span class="outline-num">02</span>
+          <h3 data-i18n="outline2Title">杏仁核 vs 皮层</h3>
+          <p data-i18n="outline2Desc">理解快慢两条通路；皮层通道含 8 种思维模式互动。</p>
+        </article>
+        <article class="outline-card card" data-goto="3">
+          <span class="outline-num">03</span>
+          <h3 data-i18n="outline3Title">平静杏仁核</h3>
+          <p data-i18n="outline3Desc">深呼吸练习，激活副交感神经、降低唤醒。</p>
+        </article>
+        <article class="outline-card card" data-goto="4">
+          <span class="outline-num">04</span>
+          <h3 data-i18n="outline4Title">如何使用焦虑</h3>
+          <p data-i18n="outline4Desc">目标与焦虑程度的匹配，把信号转化为行动。</p>
+        </article>
+      </div>
+    </main>
+  </section>
+
+  <!-- Lecture -->
+  <section class="view view-lecture" id="viewLecture" hidden>
+    <nav class="section-nav" id="sectionNav">
+      <button type="button" class="section-tab active" data-section="1" data-i18n="nav1">信号</button>
+      <button type="button" class="section-tab" data-section="2" data-i18n="nav2">大脑通路</button>
+      <button type="button" class="section-tab" data-section="3" data-i18n="nav3">平静杏仁核</button>
+      <button type="button" class="section-tab" data-section="4" data-i18n="nav4">使用焦虑</button>
+      <button type="button" class="section-tab section-tab-home" id="backHomeBtn" data-i18n="navHome">首页</button>
+    </nav>
+
+    <main class="main-content lecture-content">
+
+      <!-- Section 1 -->
+      <section class="lecture-section active" id="section1" data-section="1">
+        <div class="section-header card">
+          <span class="section-badge" data-i18n="section1Badge">第一部分</span>
+          <h2 data-i18n="section1Title">焦虑是信号</h2>
+          <p data-i18n="section1Intro">焦虑不是「坏情绪」，而是大脑在告诉你：「这里有重要的事情需要关注。」关键不在于消除它，而在于读懂它、区分它。</p>
+        </div>
+
+        <div class="compare-grid">
+          <article class="compare-card card compare-positive">
+            <div class="compare-header">
+              <span class="compare-icon">✦</span>
+              <h3 data-i18n="positiveTitle">正性焦虑</h3>
+            </div>
+            <p class="compare-tagline" data-i18n="positiveTagline">适度 · 与目标匹配 · 可行动</p>
+            <ul class="compare-list" id="positiveList"></ul>
+          </article>
+          <article class="compare-card card compare-negative">
+            <div class="compare-header">
+              <span class="compare-icon">⚠</span>
+              <h3 data-i18n="negativeTitle">负性焦虑</h3>
+            </div>
+            <p class="compare-tagline" data-i18n="negativeTagline">过度 · 与目标失配 · 消耗性</p>
+            <ul class="compare-list" id="negativeList"></ul>
+          </article>
+        </div>
+
+        <div class="signal-diagram card">
+          <p class="signal-hint" data-i18n="signalHint">点击各步骤展开/收起，可直接在示例文字上修改</p>
+          <div class="signal-flow" id="signalFlow">
+            <button type="button" class="signal-node" data-step="trigger" aria-expanded="false">
+              <span class="signal-node-label" data-i18n="signalTrigger">触发事件</span>
+            </button>
+            <div class="signal-arrow" aria-hidden="true">→</div>
+            <button type="button" class="signal-node signal-node-highlight" data-step="body" aria-expanded="false">
+              <span class="signal-node-label" data-i18n="signalBody">身体信号</span>
+            </button>
+            <div class="signal-arrow" aria-hidden="true">→</div>
+            <button type="button" class="signal-node" data-step="meaning" aria-expanded="false">
+              <span class="signal-node-label" data-i18n="signalMeaning">意义解读</span>
+            </button>
+            <div class="signal-arrow" aria-hidden="true">→</div>
+            <button type="button" class="signal-node" data-step="action" aria-expanded="false">
+              <span class="signal-node-label" data-i18n="signalAction">行动选择</span>
+            </button>
+          </div>
+          <div class="signal-accordions" id="signalAccordions">
+            <div class="signal-accordion-panel" data-step="trigger" hidden>
+              <textarea class="input-field signal-edit-input" data-step="trigger" rows="2"></textarea>
+              <p class="snapshot-dim-guide" data-i18n="snapshotDimTriggerGuide">什么情况让这种感觉出现了？</p>
+            </div>
+            <div class="signal-accordion-panel" data-step="body" hidden>
+              <textarea class="input-field signal-edit-input" data-step="body" rows="2"></textarea>
+              <p class="snapshot-dim-guide" data-i18n="snapshotDimBodyGuide">当时身体有什么反应？</p>
+            </div>
+            <div class="signal-accordion-panel" data-step="meaning" hidden>
+              <textarea class="input-field signal-edit-input" data-step="meaning" rows="2"></textarea>
+              <p class="snapshot-dim-guide" data-i18n="snapshotDimMeaningGuide">你当时告诉自己这意味着什么？</p>
+            </div>
+            <div class="signal-accordion-panel" data-step="action" hidden>
+              <textarea class="input-field signal-edit-input" data-step="action" rows="2"></textarea>
+              <p class="snapshot-dim-guide" data-i18n="snapshotDimActionGuide">你做了什么，或者想做什么却没做？</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snapshot exercise -->
+        <div class="snapshot-exercise card" id="snapshotExercise">
+          <h3 class="snapshot-exercise-title" data-i18n="snapshotExerciseTitle">试试看：分析你的一个焦虑</h3>
+          <p class="interactive-desc" data-i18n="snapshotExerciseDesc">按步骤填写，生成属于你的焦虑快照。</p>
+
+          <div class="snapshot-step">
+            <div class="snapshot-step-header">
+              <span class="snapshot-step-num">1</span>
+              <label class="snapshot-step-label" for="snapshotEvent" data-i18n="snapshotStep1">描述你最近的一个焦虑状态</label>
+            </div>
+            <textarea class="input-field" id="snapshotEvent" rows="2" data-i18n-placeholder="snapshotEventPlaceholder"></textarea>
+          </div>
+
+          <div class="snapshot-step">
+            <div class="snapshot-step-header">
+              <span class="snapshot-step-num">2</span>
+              <span class="snapshot-step-label" data-i18n="snapshotStep2">这件事属于…</span>
+            </div>
+            <div class="snapshot-category-btns" id="snapshotCategoryBtns">
+              <button type="button" class="btn btn-secondary snapshot-cat-btn" data-cat="daily" data-i18n="catDaily">日常生活</button>
+              <button type="button" class="btn btn-secondary snapshot-cat-btn" data-cat="relation" data-i18n="catRelation">人际关系</button>
+              <button type="button" class="btn btn-secondary snapshot-cat-btn" data-cat="work" data-i18n="catWork">工作学业</button>
+            </div>
+            <div class="snapshot-cat-panels" id="snapshotCatPanels">
+              <div class="snapshot-cat-panel" data-cat="daily" hidden>
+                <div class="snapshot-cat-panel-toolbar">
+                  <button type="button" class="snapshot-cat-add-btn" data-cat="daily" aria-label="添加条目">+</button>
+                </div>
+                <div class="snapshot-cat-rows" data-cat="daily"></div>
+              </div>
+              <div class="snapshot-cat-panel" data-cat="relation" hidden>
+                <div class="snapshot-cat-panel-toolbar">
+                  <button type="button" class="snapshot-cat-add-btn" data-cat="relation" aria-label="添加条目">+</button>
+                </div>
+                <div class="snapshot-cat-rows" data-cat="relation"></div>
+              </div>
+              <div class="snapshot-cat-panel" data-cat="work" hidden>
+                <div class="snapshot-cat-panel-toolbar">
+                  <button type="button" class="snapshot-cat-add-btn" data-cat="work" aria-label="添加条目">+</button>
+                </div>
+                <div class="snapshot-cat-rows" data-cat="work"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="snapshot-step">
+            <div class="snapshot-step-header">
+              <span class="snapshot-step-num">3</span>
+              <span class="snapshot-step-label" data-i18n="snapshotStep3">焦虑程度</span>
+              <span class="slider-val snapshot-level-val" id="snapshotLevelVal">5</span>
+            </div>
+            <input type="range" class="range-input" id="snapshotLevel" min="0" max="10" step="1" value="5">
+            <div class="slider-ticks-row"><span>0</span><span>5</span><span>10</span></div>
+          </div>
+
+          <div class="snapshot-step">
+            <div class="snapshot-step-header">
+              <span class="snapshot-step-num">4</span>
+              <span class="snapshot-step-label" data-i18n="snapshotStep4">面对这个焦虑，你的本能反应是？（可多选）</span>
+            </div>
+            <div class="snapshot-response-btns" id="snapshotResponseBtns">
+              <button type="button" class="btn btn-secondary snapshot-response-btn" data-response="fight" data-i18n="responseFight">战斗（对抗、争辩、控制）</button>
+              <button type="button" class="btn btn-secondary snapshot-response-btn" data-response="flee" data-i18n="responseFlee">逃跑（回避、拖延、离开）</button>
+              <button type="button" class="btn btn-secondary snapshot-response-btn" data-response="freeze" data-i18n="responseFreeze">木僵（脑子空白、无法行动）</button>
+            </div>
+          </div>
+
+          <div class="snapshot-step">
+            <div class="snapshot-step-header">
+              <span class="snapshot-step-num">5</span>
+              <span class="snapshot-step-label" data-i18n="snapshotStep5">记录你在四个维度的具体状态</span>
+            </div>
+            <div class="snapshot-dimension-flow" id="snapshotDimensionFlow">
+              <button type="button" class="snapshot-dim-btn" data-dim="trigger" data-i18n="signalTrigger">触发事件</button>
+              <button type="button" class="snapshot-dim-btn" data-dim="body" data-i18n="signalBody">身体信号</button>
+              <button type="button" class="snapshot-dim-btn" data-dim="meaning" data-i18n="signalMeaning">意义解读</button>
+              <button type="button" class="snapshot-dim-btn" data-dim="action" data-i18n="signalAction">行动选择</button>
+            </div>
+            <div class="snapshot-dim-inputs" id="snapshotDimInputs">
+              <label class="snapshot-dim-field" data-dim="trigger" hidden>
+                <span data-i18n="signalTrigger">触发事件</span>
+                <p class="snapshot-dim-guide" data-i18n="snapshotDimTriggerGuide">什么情况让这种感觉出现了？</p>
+                <textarea class="input-field snapshot-dim-input" data-dim="trigger" rows="2"></textarea>
+              </label>
+              <label class="snapshot-dim-field" data-dim="body" hidden>
+                <span data-i18n="signalBody">身体信号</span>
+                <p class="snapshot-dim-guide" data-i18n="snapshotDimBodyGuide">当时身体有什么反应？</p>
+                <textarea class="input-field snapshot-dim-input" data-dim="body" rows="2"></textarea>
+              </label>
+              <label class="snapshot-dim-field" data-dim="meaning" hidden>
+                <span data-i18n="signalMeaning">意义解读</span>
+                <p class="snapshot-dim-guide" data-i18n="snapshotDimMeaningGuide">你当时告诉自己这意味着什么？</p>
+                <textarea class="input-field snapshot-dim-input" data-dim="meaning" rows="2"></textarea>
+              </label>
+              <label class="snapshot-dim-field" data-dim="action" hidden>
+                <span data-i18n="signalAction">行动选择</span>
+                <p class="snapshot-dim-guide" data-i18n="snapshotDimActionGuide">你做了什么，或者想做什么却没做？</p>
+                <textarea class="input-field snapshot-dim-input" data-dim="action" rows="2"></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-actions snapshot-actions">
+            <button type="button" class="btn btn-primary" id="generateSnapshotBtn" data-i18n="generateSnapshot">生成我的焦虑快照</button>
+          </div>
+
+          <article class="snapshot-result card" id="snapshotResult" hidden>
+            <p class="snapshot-result-label" data-i18n="snapshotCardTitle">我的焦虑快照</p>
+            <div id="snapshotResultContent"></div>
+            <div class="form-actions" style="margin-top:16px">
+              <button type="button" class="btn btn-primary" id="projectSnapshotBtn" data-i18n="projectSnapshot">投射到大屏</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 2: Brain pathways -->
+      <section class="lecture-section" id="section3" data-section="2" hidden>
+        <div class="section-header card">
+          <span class="section-badge" data-i18n="section3Badge">第二部分</span>
+          <h2 data-i18n="section3Title">杏仁核 vs 皮层通道</h2>
+          <p data-i18n="section3Intro">面对威胁，大脑有两条通路：杏仁核的「快车道」和皮层的「慢车道」。点击示意图各区域，了解它们如何影响你的反应。</p>
+        </div>
+
+        <div class="brain-layout">
+          <div class="brain-diagram card" id="brainDiagram">
+            <div class="pathway-selector">
+              <div class="pathway-option">
+                <button type="button" class="btn btn-sm btn-secondary pathway-btn" data-pathway="amygdala" data-i18n="selectAmygdalaPath">杏仁核通道</button>
+                <p class="pathway-option-desc" data-i18n="amygdalaPathDesc">感觉信息直达杏仁核，约12毫秒触发警报。大脑将危险经历与特定信号配对记忆，日后遇到相似信号就自动激活焦虑反应，不经过思考。</p>
+              </div>
+              <div class="pathway-option">
+                <button type="button" class="btn btn-sm btn-secondary pathway-btn" data-pathway="cortex" data-i18n="selectCortexPath">皮层通道</button>
+                <p class="pathway-option-desc" data-i18n="cortexPathDesc">信息经过大脑皮层的分析和解读，约300毫秒后才到达杏仁核。皮层可以通过想象、预期、过度分析等方式主动制造威胁，即使没有真实危险也会触发焦虑。</p>
+              </div>
+            </div>
+            <svg viewBox="0 0 480 360" class="brain-svg" id="brainSvg" aria-label="Brain diagram">
+              <defs>
+                <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#eef2f8"/>
+                  <stop offset="100%" stop-color="#d8e0ec"/>
+                </linearGradient>
+                <linearGradient id="cortexGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(26,39,68,0.35)"/>
+                  <stop offset="100%" stop-color="rgba(26,39,68,0.15)"/>
+                </linearGradient>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6" fill="#c0392b"/>
+                </marker>
+                <marker id="arrowNavy" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6" fill="#1a2744"/>
+                </marker>
+              </defs>
+
+              <!-- Brain outline (sagittal stylized) -->
+              <path d="M 70 200 C 70 120 130 60 240 55 C 350 50 410 110 415 190 C 418 260 360 310 250 315 C 140 318 75 270 70 200 Z" fill="url(#brainGrad)" stroke="#1a2744" stroke-width="2.5"/>
+
+              <!-- PFC -->
+              <path class="brain-region" data-region="cortex" id="region-cortex"
+                d="M 120 95 C 180 70 320 75 370 110 C 385 130 375 160 340 155 C 280 145 200 150 140 145 C 105 140 100 115 120 95 Z"
+                fill="url(#cortexGrad)" stroke="#1a2744" stroke-width="2" tabindex="0" role="button"/>
+              <text x="250" y="118" text-anchor="middle" class="brain-label" data-i18n-svg="cortexLabel">前额叶皮层</text>
+
+              <!-- Thalamus -->
+              <ellipse class="brain-region" data-region="thalamus" id="region-thalamus" cx="248" cy="188" rx="36" ry="26"
+                fill="rgba(100,130,180,0.45)" stroke="#5a6478" stroke-width="2" tabindex="0" role="button"/>
+              <text x="248" y="192" text-anchor="middle" class="brain-label" data-i18n-svg="thalamusLabel">丘脑</text>
+
+              <!-- Hippocampus -->
+              <path class="brain-region" data-region="hippocampus" id="region-hippocampus"
+                d="M 175 230 Q 195 210 220 225 Q 240 240 230 260 Q 210 275 185 265 Q 165 252 175 230 Z"
+                fill="rgba(180,140,80,0.4)" stroke="#8B6914" stroke-width="2" tabindex="0" role="button"/>
+              <text x="205" y="248" text-anchor="middle" class="brain-label brain-label-sm" data-i18n-svg="hippocampusLabel">海马体</text>
+
+              <!-- Amygdala -->
+              <ellipse class="brain-region" data-region="amygdala" id="region-amygdala" cx="155" cy="210" rx="38" ry="30"
+                fill="rgba(220,80,60,0.45)" stroke="#c0392b" stroke-width="2.5" tabindex="0" role="button"/>
+              <text x="155" y="214" text-anchor="middle" class="brain-label" data-i18n-svg="amygdalaLabel">杏仁核</text>
+
+              <!-- Sensory input -->
+              <text x="248" y="42" text-anchor="middle" class="brain-label brain-input-label" data-i18n-svg="sensoryInput">感觉输入</text>
+              <line x1="248" y1="48" x2="248" y2="158" stroke="#8a93a3" stroke-width="2" stroke-dasharray="4 3"/>
+
+              <!-- Amygdala pathway (fast): thalamus -> amygdala -->
+              <path class="flow-path path-amygdala" id="path-amygdala-1" d="M 230 200 Q 200 205 175 210" marker-end="url(#arrowRed)"/>
+              <path class="flow-path path-amygdala" id="path-amygdala-2" d="M 248 158 L 248 168" marker-end="url(#arrowRed)"/>
+
+              <!-- Cortex pathway (slow): thalamus -> cortex -> hippocampus -> amygdala modulate -->
+              <path class="flow-path path-cortex" id="path-cortex-1" d="M 260 175 Q 280 140 300 120" marker-end="url(#arrowNavy)"/>
+              <path class="flow-path path-cortex" id="path-cortex-2" d="M 248 158 L 248 168" marker-end="url(#arrowNavy)"/>
+              <path class="flow-path path-cortex" id="path-cortex-3" d="M 300 130 Q 260 180 220 235" marker-end="url(#arrowNavy)"/>
+              <path class="flow-path path-cortex" id="path-cortex-4" d="M 210 250 Q 185 235 165 220" marker-end="url(#arrowNavy)"/>
+
+              <text x="195" y="178" class="path-label path-label-fast" data-i18n-svg="fastPath">快车道 ~12ms</text>
+              <text x="310" y="108" class="path-label path-label-slow" data-i18n-svg="slowPath">慢车道 ~300ms</text>
+            </svg>
+            <p class="brain-hint" data-i18n="brainHint">选择通路或点击脑区查看详情</p>
+
+            <div class="brain-detail-panel" id="brainDetailPanel">
+              <h3 id="brainInfoTitle" data-i18n="brainDefaultTitle">选择通路</h3>
+              <p id="brainInfoDesc" data-i18n="brainDefaultDesc">点击「杏仁核通道」或「皮层通道」观看信号流动动画，下方显示生理反应与应对策略。</p>
+              <div class="pathway-detail" id="pathwayDetail" hidden>
+              <div class="pathway-timing" id="pathwayTiming"></div>
+              <h4 class="pathway-subtitle" data-i18n="physioTitle">生理反应</h4>
+              <ul class="pathway-list" id="pathwayPhysio"></ul>
+              <h4 class="pathway-subtitle" data-i18n="strategyTitle">应对策略</h4>
+              <ul class="pathway-list" id="pathwayStrategy"></ul>
+
+              <div class="cortex-interactive" id="cortexInteractive" hidden>
+                <section class="cortex-patterns-section">
+                  <h4 class="amygdala-section-title" data-i18n="section2Title">8 种焦虑思维模式</h4>
+                  <p class="cortex-patterns-intro" data-i18n="section2Intro">每种模式下方可直接编辑案例、用滑块评估焦虑程度，一键投射到大屏与听众互动。</p>
+                  <div class="patterns-grid" id="patternsGrid"></div>
+
+                  <div class="form-actions pattern-snapshot-actions">
+                    <button type="button" class="btn btn-primary" id="generatePatternSnapshotBtn" data-i18n="generatePatternSnapshot">生成思维模式快照</button>
+                  </div>
+                  <article class="pattern-snapshot-result card" id="patternSnapshotResult" hidden>
+                    <p class="pattern-snapshot-label" data-i18n="patternSnapshotCardTitle">我的思维模式快照</p>
+                    <div id="patternSnapshotContent"></div>
+                    <div class="form-actions" style="margin-top:16px">
+                      <button type="button" class="btn btn-primary" id="projectPatternSnapshotBtn" data-i18n="projectPatternSnapshot">投射到大屏</button>
+                    </div>
+                  </article>
+                </section>
+              </div>
+            </div>
+
+            <div class="amygdala-interactive" id="amygdalaInteractive" hidden>
+              <section class="trigger-map-section">
+                <h4 class="amygdala-section-title" data-i18n="triggerMapTitle">我的触发点地图</h4>
+                <div class="trigger-map-body">
+                  <div class="trigger-map-flow">
+                    <div class="trigger-map-step">
+                      <label class="trigger-map-label" for="triggerNegativeEvent">
+                        <span class="trigger-map-label-main" data-i18n="triggerNegativeEvent">负面事件</span>
+                        <span class="trigger-map-label-hint" data-i18n="triggerNegativeEventHint">什么情况触发了焦虑？</span>
+                      </label>
+                      <textarea class="input-field trigger-map-input amygdala-editable-example" id="triggerNegativeEvent" rows="2"></textarea>
+                    </div>
+                    <div class="trigger-map-arrow" aria-hidden="true"><span>→</span></div>
+                    <div class="trigger-map-step">
+                      <label class="trigger-map-label" for="triggerSpontaneous">
+                        <span class="trigger-map-label-main" data-i18n="triggerSpontaneous">自发情绪反应</span>
+                        <span class="trigger-map-label-hint" data-i18n="triggerSpontaneousHint">身体和情绪立刻出现了什么？</span>
+                      </label>
+                      <textarea class="input-field trigger-map-input amygdala-editable-example" id="triggerSpontaneous" rows="2"></textarea>
+                    </div>
+                    <div class="trigger-map-arrow" aria-hidden="true"><span>→</span></div>
+                    <div class="trigger-map-step">
+                      <label class="trigger-map-label" for="triggerLearnedDefense">
+                        <span class="trigger-map-label-main" data-i18n="triggerLearnedDefense">习得式防御反应</span>
+                        <span class="trigger-map-label-hint" data-i18n="triggerLearnedDefenseHint">你学会了用什么方式回避或应对？</span>
+                      </label>
+                      <textarea class="input-field trigger-map-input amygdala-editable-example" id="triggerLearnedDefense" rows="2"></textarea>
+                    </div>
+                  </div>
+                  <div class="trigger-map-anxiety-panel">
+                    <div class="slider-header">
+                      <span data-i18n="triggerMapAnxiety">焦虑程度</span>
+                      <span class="slider-val" id="triggerMapAnxietyVal">5</span>
+                    </div>
+                    <input type="range" class="range-input" id="triggerMapAnxiety" min="0" max="10" step="1" value="5">
+                    <div class="slider-ticks-row"><span>0</span><span>5</span><span>10</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="exposure-practice-section">
+                <h4 class="amygdala-section-title" data-i18n="exposurePracticeTitle">练习：重新训练杏仁核</h4>
+                <div class="exposure-user-grid">
+                  <label class="exposure-grid-cell field-label" for="exposureTarget">
+                    <span data-i18n="exposureTarget">我想让杏仁核停止过度反应的事情</span>
+                    <textarea class="input-field amygdala-editable-example" id="exposureTarget" rows="3"></textarea>
+                  </label>
+                  <label class="exposure-grid-cell field-label" for="exposurePlan">
+                    <span data-i18n="exposurePlan">我打算如何面对它</span>
+                    <textarea class="input-field amygdala-editable-example" id="exposurePlan" rows="3"></textarea>
+                  </label>
+                  <div class="exposure-grid-cell exposure-slider-cell">
+                    <div class="slider-header">
+                      <span data-i18n="exposureLevel">暴露程度</span>
+                      <span class="slider-val" id="exposureLevelVal">5</span>
+                    </div>
+                    <input type="range" class="range-input" id="exposureLevel" min="0" max="10" step="1" value="5">
+                    <div class="slider-ticks-row slider-ticks-labeled">
+                      <span data-i18n="exposureLevelLow">0=仅想象</span>
+                      <span data-i18n="exposureLevelHigh">10=完全暴露</span>
+                    </div>
+                  </div>
+                  <div class="exposure-grid-cell exposure-slider-cell">
+                    <div class="slider-header">
+                      <span data-i18n="distressLevel">主观痛苦等级</span>
+                      <span class="slider-val" id="distressLevelVal">5</span>
+                    </div>
+                    <input type="range" class="range-input" id="distressLevel" min="0" max="10" step="1" value="5">
+                    <div class="slider-ticks-row"><span>0</span><span>5</span><span>10</span></div>
+                  </div>
+                </div>
+                <p class="exposure-examples-heading" data-i18n="exposureExamplesTitle">同一事件 · 暴露程度渐增示例（可编辑）</p>
+                <div class="exposure-examples-grid" id="exposureExamplesGrid"></div>
+                <div class="exposure-tips-box">
+                  <p class="exposure-tips-title" data-i18n="exposureTipsTitle">注意事项</p>
+                  <p class="exposure-tips-text" data-i18n="exposureTips">暴露练习适合作为自我探索工具，如有严重焦虑或创伤史，建议在专业治疗师的指导下进行。可以从痛苦程度4-5分的情境开始，既有挑战性，又在可承受范围内。</p>
+                </div>
+              </section>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Calm amygdala -->
+      <section class="lecture-section" id="sectionCalm" data-section="3" hidden>
+        <div class="section-header card">
+          <span class="section-badge" data-i18n="sectionCalmBadge">第三部分</span>
+          <h2 data-i18n="sectionCalmTitle">平静杏仁核</h2>
+          <p data-i18n="sectionCalmIntro">当杏仁核发出警报，可以用呼吸练习主动激活副交感神经，帮助身体从「战斗/逃跑」模式回到平静。</p>
+        </div>
+
+        <div class="breath-practice card">
+          <h3 class="breath-practice-title" data-i18n="breathPracticeTitle">深呼吸练习</h3>
+          <div class="breath-layout">
+            <div class="breath-circle-stage">
+              <div class="breath-circle" id="breathCircle" aria-hidden="true">
+                <div class="breath-circle-inner">
+                  <p class="breath-phase" id="breathPhase" data-i18n="breathInhale">吸气</p>
+                  <p class="breath-countdown" id="breathCountdown">12</p>
+                </div>
+              </div>
+            </div>
+            <ul class="breath-cues">
+              <li data-i18n="breathCue1">横膈膜下沉→肺部充分扩张</li>
+              <li data-i18n="breathCue2">迷走神经激活→副交感神经介入</li>
+              <li data-i18n="breathCue3">心率逐渐放缓→警报解除</li>
+            </ul>
+          </div>
+          <div class="form-actions breath-controls">
+            <button type="button" class="btn btn-primary" id="breathStartBtn" data-i18n="breathStart">开始练习</button>
+            <button type="button" class="btn btn-secondary" id="breathPauseBtn" data-i18n="breathPause">暂停</button>
+          </div>
+        </div>
+
+        <div class="imagined-relax card">
+          <p class="calm-subsection-label" data-i18n="imaginedRelaxTitle">想象放松</p>
+          <h3 class="calm-module-title" data-i18n="safePlaceTitle">找到你的安全场所</h3>
+          <textarea class="input-field calm-editable-example" id="safePlaceInput" rows="4"></textarea>
+        </div>
+
+        <div class="pmr-practice card">
+          <h3 class="calm-module-title" data-i18n="pmrTitle">渐进式肌肉放松</h3>
+          <div class="pmr-layout">
+            <ol class="pmr-checklist" id="pmrChecklist" aria-label="PMR body parts"></ol>
+            <div class="pmr-step-column">
+              <div class="pmr-step-panel" id="pmrStepPanel">
+                <p class="pmr-part-name" id="pmrPartName"></p>
+                <p class="pmr-step-hint" data-i18n="pmrStepHint">收紧5秒→放松</p>
+                <div class="pmr-instruction-block">
+                  <span class="pmr-instruction-label" data-i18n="pmrTightenLabel">收紧</span>
+                  <p class="pmr-instruction-text" id="pmrTightenText"></p>
+                </div>
+                <div class="pmr-countdown-wrap" id="pmrCountdownWrap">
+                  <span class="pmr-countdown-num" id="pmrCountdown">5</span>
+                </div>
+                <div class="pmr-instruction-block">
+                  <span class="pmr-instruction-label" data-i18n="pmrRelaxLabel">放松</span>
+                  <p class="pmr-instruction-text" id="pmrRelaxText"></p>
+                </div>
+              </div>
+              <div class="form-actions pmr-controls">
+                <button type="button" class="btn btn-primary" id="pmrStartBtn" data-i18n="breathStart">开始练习</button>
+                <button type="button" class="btn btn-secondary" id="pmrPauseBtn" data-i18n="breathPause">暂停</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calm-checklist-section card">
+          <h3 class="calm-module-title" data-i18n="sleepChecklistTitle">健康睡眠清单</h3>
+          <ul class="calm-checklist" id="sleepChecklist"></ul>
+        </div>
+
+        <div class="calm-checklist-section card">
+          <h3 class="calm-module-title" data-i18n="exerciseChecklistTitle">本周运动计划</h3>
+          <ul class="calm-checklist" id="exerciseChecklist"></ul>
+        </div>
+
+        <div class="calm-checklist-section card">
+          <h3 class="calm-module-title" data-i18n="dietChecklistTitle">稳定血糖指南</h3>
+          <ul class="calm-checklist" id="dietChecklist"></ul>
+        </div>
+      </section>
+
+      <!-- Section 4: Use anxiety -->
+      <section class="lecture-section" id="section4" data-section="4" hidden>
+        <div class="section-header card">
+          <span class="section-badge" data-i18n="section4Badge">第四部分</span>
+          <h2 data-i18n="section4Title">如何使用焦虑</h2>
+          <p data-i18n="section4Intro">焦虑程度应与目标重要性匹配。太低则缺乏动力，太高则瘫痪——关键是找到「最佳功能区」。</p>
+        </div>
+
+        <div class="yerkes-panel card" id="yerkesPanel">
+          <h3 data-i18n="yerkesTitle">Yerkes-Dodson 实时匹配</h3>
+          <p class="table-desc" data-i18n="yerkesDesc">拖动双滑块，实时计算目标重要性与焦虑程度的最佳匹配区间。</p>
+          <label class="my-goal-field field-label" for="myGoalInput">
+            <span data-i18n="myGoalLabel">我的目标</span>
+            <textarea class="input-field" id="myGoalInput" rows="2" data-i18n-placeholder="myGoalPlaceholder"></textarea>
+          </label>
+          <div class="dual-slider-grid">
+            <div class="slider-block">
+              <div class="slider-header">
+                <span data-i18n="goalImportance">目标重要性</span>
+                <span class="slider-val" id="goalSliderVal">5</span>
+              </div>
+              <input type="range" class="range-input" id="goalSlider" min="0" max="10" step="1" value="5">
+              <div class="slider-ticks-row"><span>0</span><span>5</span><span>10</span></div>
+            </div>
+            <div class="slider-block">
+              <div class="slider-header">
+                <span data-i18n="currentAnxiety">当前焦虑</span>
+                <span class="slider-val" id="anxietySliderVal">5</span>
+              </div>
+              <input type="range" class="range-input" id="anxietySlider" min="0" max="10" step="1" value="5">
+              <div class="slider-ticks-row"><span>0</span><span>5</span><span>10</span></div>
+            </div>
+          </div>
+          <div class="yerkes-match card" id="yerkesMatch">
+            <div class="yerkes-match-badge" id="yerkesMatchBadge"></div>
+            <p class="yerkes-optimal-range" id="yerkesOptimalRange"></p>
+            <p class="yerkes-delta" id="yerkesDelta"></p>
+          </div>
+        </div>
+
+        <div class="table-card card">
+          <h3 data-i18n="tableTitle">目标 × 焦虑程度 匹配表</h3>
+          <p class="table-desc" data-i18n="tableDescSlider">滑块实时高亮对应格子；绿色区域为 Yerkes-Dodson 最佳匹配。</p>
+          <div class="matrix-wrap">
+            <table class="goal-matrix" id="goalMatrix">
+              <thead>
+                <tr>
+                  <th data-i18n="matrixCorner">目标 \ 焦虑</th>
+                  <th data-i18n="anxietyLow">过低</th>
+                  <th data-i18n="anxietyOptimal">最佳</th>
+                  <th data-i18n="anxietyHigh">过高</th>
+                </tr>
+              </thead>
+              <tbody id="matrixBody"></tbody>
+            </table>
+          </div>
+          <div class="matrix-detail card" id="matrixDetail">
+            <h4 id="matrixDetailTitle"></h4>
+            <p id="matrixDetailDesc"></p>
+          </div>
+        </div>
+
+        <div class="use-steps card">
+          <h3 data-i18n="useStepsTitle">四步使用焦虑</h3>
+          <div class="use-steps-grid" id="useStepsGrid"></div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- Presenter Panel -->
+  <aside class="presenter-panel" id="presenterPanel" hidden>
+    <div class="presenter-panel-inner card">
+      <div class="presenter-panel-header">
+        <h3 data-i18n="presenterPanelTitle">演示者控制台</h3>
+        <button type="button" class="btn-icon" id="closePresenterPanel" aria-label="Close">×</button>
+      </div>
+      <p class="presenter-hint" data-i18n="presenterHint">在此输入听众案例，选择模式后投射到大屏。也可在各章节互动区直接操作。</p>
+      <label class="field-label">
+        <span data-i18n="caseLabel">案例描述</span>
+        <textarea class="input-field" id="presenterCaseInput" rows="4"></textarea>
+      </label>
+      <label class="field-label">
+        <span data-i18n="patternLabel">思维模式（可选）</span>
+        <select class="input-select" id="presenterPattern"></select>
+      </label>
+      <label class="field-label">
+        <span data-i18n="sectionLabel">所属章节</span>
+        <select class="input-select" id="presenterSection">
+          <option value="1" data-i18n="nav1">信号</option>
+          <option value="2" data-i18n="nav2">大脑通路</option>
+          <option value="3" data-i18n="nav3">平静杏仁核</option>
+          <option value="4" data-i18n="nav4">使用焦虑</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary btn-block" id="presenterShowBtn" data-i18n="showOnScreen">投射到大屏</button>
+        <button type="button" class="btn btn-secondary btn-block" id="presenterClearBtn" data-i18n="clearBoard">清空大屏</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Display Board Overlay -->
+  <div class="display-board" id="displayBoard" hidden>
+    <div class="display-board-inner" id="displayBoardInner">
+      <button type="button" class="display-close" id="closeDisplayBoard" aria-label="Close">×</button>
+
+      <!-- Snapshot mode (section 1 anxiety snapshot) -->
+      <div id="displaySnapshotMode" hidden>
+        <div id="snapshotDisplayContent"></div>
+      </div>
+
+      <!-- Pattern snapshot mode (cortex thinking patterns) -->
+      <div id="displayPatternSnapshotMode" hidden>
+        <div id="patternSnapshotDisplayContent"></div>
+      </div>
+
+      <!-- Simple mode (other sections) -->
+      <div id="displaySimpleMode">
+        <p class="display-label" id="displayLabel"></p>
+        <h2 class="display-title" id="displayTitle"></h2>
+        <blockquote class="display-quote" id="displayQuote"></blockquote>
+        <p class="display-meta" id="displayMeta"></p>
+        <p class="display-action" id="displayAction"></p>
+      </div>
+
+      <!-- Pattern mode (section 2) -->
+      <div id="displayPatternMode" hidden>
+        <div class="board-case-top" id="displayPatternCase"></div>
+        <div class="board-suggestions-section">
+          <div class="board-suggestions-header">
+            <h3 class="board-section-title" data-i18n="displayAudienceSuggestions">如果是你，你会怎么做？</h3>
+            <button type="button" class="btn btn-sm btn-secondary board-add-btn" id="addSuggestionBtn" aria-label="Add">+</button>
+          </div>
+          <ul class="board-suggestions-list" id="boardSuggestionsList"></ul>
+        </div>
+        <div class="board-strategies-section">
+          <button type="button" class="btn btn-secondary board-strategies-toggle" id="toggleStrategiesBtn" data-i18n="showReferenceStrategies">查看参考策略</button>
+          <div class="board-strategies-wrap" id="boardStrategiesWrap" hidden>
+            <h3 class="board-section-title" data-i18n="referenceStrategiesTitle">参考应对策略</h3>
+            <div class="board-strategy-list" id="boardStrategyList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

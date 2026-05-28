@@ -36,9 +36,12 @@
       card_tem_title: "Talent Ecology Matrix",
       card_tem_desc:
         "Map your desired talents, socially perceived strengths, developmental ease, constraints, and long-term talent ecology.",
-        card_ssd_title: "Support System Dynamics",
-        card_ssd_desc:
+      card_ssd_title: "Support System Dynamics",
+      card_ssd_desc:
         "Map support continuity, perceived support, accessibility, and recovery structures across changing life conditions.",
+      card_anxiety_signal_title: "Anxiety as Signal",
+      card_anxiety_signal_desc:
+        "An interactive educational tool for understanding anxiety, the amygdala, and cortical regulation.",
     },
     zh: {
       metaTitle: "Mind Strategy Lab 心智策略实验室",
@@ -68,7 +71,10 @@
         "理解你的理想天赋、他人感知优势、发展顺畅度、限制条件与长期天赋生态。",
       card_ssd_title: "支持系统动力学",
       card_ssd_desc:
-      "映射资源存在、支持感知、支持可达性与结构恢复能力。",
+        "映射资源存在、支持感知、支持可达性与结构恢复能力。",
+      card_anxiety_signal_title: "焦虑是信号，不是敌人",
+      card_anxiety_signal_desc:
+        "一套用于理解焦虑、杏仁核与皮层通路的互动式教育工具。",
     },
   };
 
@@ -119,6 +125,14 @@
       probeUrl: "./support-system-dynamic/index.html",
       titleKey: "card_ssd_title",
       descKey: "card_ssd_desc",
+    },
+    {
+      id: "anxiety_signal",
+      href: "./anxiety_signal/",
+      status: "available",
+      probeUrl: "./anxiety_signal/index.html",
+      titleKey: "card_anxiety_signal_title",
+      descKey: "card_anxiety_signal_desc",
     },
   ];
 
