@@ -127,10 +127,10 @@
       descKey: "card_ssd_desc",
     },
     {
-      id: "anxiety_signal",
-      href: "./anxiety_signal/",
+      id: "anxiety-signal",
+      href: "/anxiety-signal/index.html",
       status: "available",
-      probeUrl: "./anxiety_signal/index.html",
+      probeUrl: "/anxiety-signal/index.html",
       titleKey: "card_anxiety_signal_title",
       descKey: "card_anxiety_signal_desc",
     },
