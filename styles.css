@@ -96,6 +96,8 @@ body {
 .brand-title {
   font-weight: 750;
   letter-spacing: 0.2px;
+  font-size: clamp(0.92rem, 2.4vw, 1.05rem);
+  line-height: 1.3;
 }
 
 .brand-subtitle {
@@ -167,10 +169,43 @@ body {
   line-height: 1.6;
 }
 
-.card--welcome .lead {
+.welcome-body {
   width: 100%;
   max-width: none;
+}
+
+.welcome-body--compact {
+  display: none;
+}
+
+.welcome-block + .welcome-block {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(10, 16, 24, 0.06);
+}
+
+.welcome-section-title {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.welcome-p {
+  margin: 0 0 0.65rem;
+  color: var(--muted);
+  font-size: 15px;
   line-height: 1.7;
+}
+
+.welcome-p:last-child {
+  margin-bottom: 0;
+}
+
+.welcome-p--zh {
+  color: var(--faint);
 }
 
 .section-title {
@@ -258,13 +293,25 @@ a.assessment-card {
   color: var(--muted);
 }
 
-.status--available {
+.status--free {
   border-color: rgba(28, 120, 90, 0.28);
   background: rgba(28, 120, 90, 0.08);
   color: rgba(18, 78, 58, 0.92);
 }
 
-.status--soon {
+.status--limited-free {
+  border-color: rgba(36, 104, 150, 0.28);
+  background: rgba(36, 104, 150, 0.08);
+  color: rgba(20, 68, 102, 0.92);
+}
+
+.status--early-access {
+  border-color: rgba(16, 38, 72, 0.22);
+  background: rgba(16, 38, 72, 0.07);
+  color: rgba(16, 38, 72, 0.9);
+}
+
+.status--coming-soon {
   border-color: rgba(186, 154, 83, 0.35);
   background: rgba(186, 154, 83, 0.12);
   color: rgba(20, 24, 31, 0.82);
@@ -306,6 +353,24 @@ a.assessment-card {
   text-align: center;
 }
 
+.footer-note {
+  margin: 0 0 12px;
+  max-width: 52rem;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.footer-note-line {
+  display: block;
+}
+
+.footer-note-line + .footer-note-line {
+  margin-top: 4px;
+}
+
 .footer a {
   color: var(--navy);
   font-weight: 700;
@@ -320,6 +385,22 @@ a.assessment-card {
 @media (max-width: 720px) {
   .catalog-grid {
     grid-template-columns: 1fr;
+  }
+
+  .welcome-body--full {
+    display: none;
+  }
+
+  .welcome-body--compact {
+    display: block;
+  }
+
+  .status {
+    font-size: 10px;
+    padding: 5px 8px;
+    max-width: 9.5rem;
+    text-align: right;
+    line-height: 1.25;
   }
 }
 
@@ -338,6 +419,17 @@ a.assessment-card {
   }
 
   .h1 {
-    font-size: 24px;
+    font-size: 22px;
+    line-height: 1.25;
+  }
+
+  .card__head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status {
+    max-width: none;
+    text-align: left;
   }
 }
