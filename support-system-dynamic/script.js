@@ -24,9 +24,38 @@
     completion: "screenCompletion",
   };
 
-  let state = SSDStorage.load();
+  let state;
   let currentScreen = "home";
   let currentLayer = null;
+
+  /**
+   * Stripe return detection — must run before state load / any paywall rendering.
+   * Accepts ?premium=1, ?paid=true, #premium, etc.
+   */
+  const checkPremiumRedirectUnlock = () => {
+    const params = new URLSearchParams(window.location.search);
+    const hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+    const truthy = (value) => {
+      const v = String(value ?? "").toLowerCase();
+      return v === "1" || v === "true" || v === "yes";
+    };
+    const queryKeys = [
+      PAYMENT_RETURN_PREMIUM_PARAM,
+      "paid",
+      "success",
+      "unlocked",
+      "ssd_unlocked",
+      PAYMENT_SUCCESS_PARAM,
+    ];
+    const queryUnlock = queryKeys.some((key) => truthy(params.get(key)));
+    const hashUnlock = hash === "premium" || hash === "unlocked";
+    if (!queryUnlock && !hashUnlock) return false;
+    SSDStorage.persistAllPremiumUnlockKeys("stripe");
+    if (window.location.search || window.location.hash) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    return true;
+  };
 
   const lang = () => (state.language === "zh" ? "zh" : "en");
   const ui = (key, ...args) => SSDI18n.ui(lang(), key, ...args);
@@ -63,22 +92,49 @@
   };
 
   const updatePremiumUI = () => {
-    const unlocked = SSDStorage.readPremiumUnlocked();
+    const unlocked = isPremiumUnlocked();
     state.premiumUnlocked = unlocked;
     $("premiumBadge")?.classList.toggle("hidden", !unlocked);
     $("resultsPremiumBadge")?.classList.toggle("hidden", !unlocked);
     $("btnDownloadReport")?.classList.toggle("hidden", !unlocked);
     if ($("btnStripeCheckout")) $("btnStripeCheckout").href = SSD_STRIPE_PAYMENT_LINK;
+    if (unlocked) hidePaywallSection();
     updateResultsContinueButton();
   };
 
-  const isPremiumUnlocked = () => SSDStorage.readPremiumUnlocked();
+  const isPremiumUnlocked = () => {
+    if (typeof SSDStorage?.readPremiumUnlocked === "function") {
+      return SSDStorage.readPremiumUnlocked();
+    }
+    try {
+      return localStorage.getItem("ssd_paid_unlocked") === "true";
+    } catch {
+      return false;
+    }
+  };
+
+  const hidePaywallSection = () => {
+    const paywall = $("inlinePaywall");
+    if (!paywall) return;
+    paywall.classList.add("hidden");
+    paywall.style.display = "none";
+    paywall.setAttribute("aria-hidden", "true");
+  };
+
+  const showPaywallSectionIfNeeded = () => {
+    const paywall = $("inlinePaywall");
+    if (!paywall) return;
+    paywall.style.display = "";
+    paywall.removeAttribute("aria-hidden");
+    const show = state.freeResultsViewed && !state.paywallSkipped;
+    paywall.classList.toggle("hidden", !show);
+  };
 
   const unlockPremiumInline = (opts = {}) => {
     state.premiumUnlocked = true;
     state.paywallSkipped = false;
     state.freeResultsViewed = true;
-    $("inlinePaywall")?.classList.add("hidden");
+    hidePaywallSection();
     $("promoModal")?.close?.();
     persist();
     if (currentScreen !== "freeResults" && state.assessmentCompleted) {
@@ -93,57 +149,45 @@
     }
   };
 
-  const PAYMENT_RETURN_QUERY_KEYS = [
-    PAYMENT_RETURN_PREMIUM_PARAM,
-    "ssd_unlocked",
-    "unlocked",
-    "success",
-    "paid",
-    PAYMENT_SUCCESS_PARAM,
-  ];
-
-  const PAYMENT_RETURN_TRUTHY = new Set(["1", "true", "yes"]);
-
-  const hasPaymentSuccessInUrl = () => {
-    const params = new URLSearchParams(window.location.search);
-    return PAYMENT_RETURN_QUERY_KEYS.some((key) =>
-      PAYMENT_RETURN_TRUTHY.has(String(params.get(key) ?? "").toLowerCase()),
-    );
-  };
-
-  const stripPaymentSuccessParamsFromUrl = () => {
-    if (!window.location.search) return;
-    window.history.replaceState({}, document.title, window.location.pathname);
-  };
-
-  const showFullPaidReport = (opts = {}) => {
-    state.premiumUnlocked = true;
-    state.freeResultsViewed = true;
-    state.paywallSkipped = false;
-    $("inlinePaywall")?.classList.add("hidden");
-    if (state.assessmentCompleted && state.results) {
-      currentScreen = "freeResults";
-      state.flowStage = "freeResults";
-      Object.entries(SCREEN_IDS).forEach(([key, id]) => {
-        const el = $(id);
-        if (el) el.classList.toggle("hidden", key !== "freeResults");
-      });
-      renderResultsPage();
-      if (opts.scroll !== false) {
-        requestAnimationFrame(() => {
-          $("premiumReportExpand")?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
+  const ensureAssessmentResults = () => {
+    const layersDone = SSDStorage.allLayersComplete(state);
+    if (state.results || layersDone || state.flowStage === "freeResults") {
+      state.assessmentCompleted = true;
     }
-    persist();
+    if (!state.assessmentCompleted) return false;
+    if (!state.results) {
+      state.results = SSDScoring.computeResults(state.responses);
+      SSDStorage.save(state);
+    }
+    return !!state.results;
   };
 
-  /** @returns {boolean} true when a Stripe success redirect was handled */
-  const checkPaymentReturn = () => {
-    if (!hasPaymentSuccessInUrl()) return false;
-    SSDStorage.applyPaymentUnlock();
-    stripPaymentSuccessParamsFromUrl();
-    showFullPaidReport({ scroll: true });
+  const syncPremiumUnlockIntoState = () => {
+    const unlocked = isPremiumUnlocked();
+    state.premiumUnlocked = unlocked;
+    if (!unlocked) return false;
+    state.paywallSkipped = false;
+    state.freeResultsViewed = true;
+    hidePaywallSection();
+    return true;
+  };
+
+  const showPaidResultsScreen = (opts = {}) => {
+    if (!ensureAssessmentResults()) return false;
+    syncPremiumUnlockIntoState();
+    currentScreen = "freeResults";
+    state.flowStage = "freeResults";
+    Object.entries(SCREEN_IDS).forEach(([key, id]) => {
+      const el = $(id);
+      if (el) el.classList.toggle("hidden", key !== "freeResults");
+    });
+    renderResultsPage();
+    persist();
+    if (opts.scroll !== false) {
+      requestAnimationFrame(() => {
+        $("premiumReportExpand")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
     return true;
   };
 
@@ -651,16 +695,19 @@
   };
 
   const updateInlinePaywallVisibility = () => {
-    const paywall = $("inlinePaywall");
-    if (!paywall) return;
-    const show =
-      state.freeResultsViewed && !isPremiumUnlocked() && !state.paywallSkipped;
-    paywall.classList.toggle("hidden", !show);
+    if (isPremiumUnlocked()) {
+      hidePaywallSection();
+      return;
+    }
+    showPaywallSectionIfNeeded();
   };
 
   const renderResultsPage = () => {
-    if (!state.results) state.results = SSDScoring.computeResults(state.responses);
+    if (!state.results && (state.assessmentCompleted || SSDStorage.allLayersComplete(state))) {
+      state.results = SSDScoring.computeResults(state.responses);
+    }
     const premium = isPremiumUnlocked();
+    if (premium) hidePaywallSection();
     const freeReport = SSDResults.buildFreeReport(state.results, lang());
     const typology = SSSTypology.build(state.results, lang(), state.context);
     const arch = typology.primaryArchetype;
@@ -722,7 +769,7 @@
 
   const skipPremium = () => {
     state.paywallSkipped = true;
-    $("inlinePaywall")?.classList.add("hidden");
+    hidePaywallSection();
     persist();
     showScreen("accuracy");
   };
@@ -907,42 +954,39 @@
     });
   };
 
-  const applyStoredPaidUnlock = () => {
-    if (!isPremiumUnlocked()) return false;
-    state.premiumUnlocked = true;
-    state.paywallSkipped = false;
-    $("inlinePaywall")?.classList.add("hidden");
-    if (!state.assessmentCompleted || !state.results) return false;
-    state.freeResultsViewed = true;
-    currentScreen = "freeResults";
-    state.flowStage = "freeResults";
-    Object.entries(SCREEN_IDS).forEach(([key, id]) => {
-      const el = $(id);
-      if (el) el.classList.toggle("hidden", key !== "freeResults");
-    });
-    renderResultsPage();
-    return true;
-  };
-
   const init = () => {
+    checkPremiumRedirectUnlock();
+    state = SSDStorage.load();
+    const premiumUnlocked = isPremiumUnlocked();
+    console.log("[SSD] premium unlocked:", premiumUnlocked);
+
     bindEvents();
-    const handledPaymentReturn = checkPaymentReturn();
-    const canShowPaidReport = state.assessmentCompleted && state.results;
-    if (!handledPaymentReturn) {
-      if (!applyStoredPaidUnlock()) resumeScreen();
-    } else if (!canShowPaidReport) {
+    syncPremiumUnlockIntoState();
+
+    if (premiumUnlocked && ensureAssessmentResults()) {
+      showPaidResultsScreen({ scroll: true });
+    } else {
       resumeScreen();
     }
-    if (isPremiumUnlocked() && canShowPaidReport) {
-      state.freeResultsViewed = true;
-      $("inlinePaywall")?.classList.add("hidden");
-      if (currentScreen !== "freeResults") {
-        applyStoredPaidUnlock();
-      } else {
-        renderResultsPage();
+
+    if (isPremiumUnlocked()) {
+      syncPremiumUnlockIntoState();
+      if (ensureAssessmentResults()) {
+        if (currentScreen !== "freeResults") {
+          showPaidResultsScreen({ scroll: false });
+        } else {
+          renderResultsPage();
+        }
+      }
+      if (window.location.search || window.location.hash) {
+        window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
+
     renderLanguage();
+
+    if (isPremiumUnlocked()) hidePaywallSection();
+    console.log("[SSD] premium unlocked:", isPremiumUnlocked());
   };
 
   if (document.readyState === "loading") {

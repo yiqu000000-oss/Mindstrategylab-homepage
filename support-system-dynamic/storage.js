@@ -81,12 +81,51 @@ const SSDStorage = (() => {
       return v != null && v >= 1 && v <= 7;
     }).length;
 
+  const PAYMENT_UNLOCK_URL_KEYS = [
+    PAYMENT_RETURN_PREMIUM_PARAM,
+    "paid",
+    "success",
+    "unlocked",
+    "ssd_unlocked",
+    PAYMENT_SUCCESS_PARAM,
+  ];
+
+  const isTruthyUnlockParam = (value) => {
+    const v = String(value ?? "").toLowerCase();
+    return v === "1" || v === "true" || v === "yes";
+  };
+
+  const hasPaymentUnlockInUrl = () => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    const hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+    if (hash === "premium" || hash === "unlocked") return true;
+    return PAYMENT_UNLOCK_URL_KEYS.some((key) => isTruthyUnlockParam(params.get(key)));
+  };
+
+  const persistAllPremiumUnlockKeys = (source = "stripe") => {
+    try {
+      SSD_PREMIUM_UNLOCK_LS_KEYS.forEach((key) => localStorage.setItem(key, "true"));
+      if (source === "stripe") {
+        localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "stripe");
+        localStorage.removeItem(PREMIUM_PROMO_CODE_LS_KEY);
+      } else if (source === "promo") {
+        localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "promo");
+        localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, "demo");
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const readPremiumUnlocked = () => {
     try {
-      return (
-        localStorage.getItem(PREMIUM_UNLOCKED_LS_KEY) === "true" ||
-        localStorage.getItem(SSD_PAID_UNLOCKED_LS_KEY) === "true"
-      );
+      if (hasPaymentUnlockInUrl()) {
+        persistAllPremiumUnlockKeys("stripe");
+        return true;
+      }
+      return SSD_PREMIUM_UNLOCK_LS_KEYS.some((key) => localStorage.getItem(key) === "true");
     } catch {
       return false;
     }
@@ -195,6 +234,9 @@ const SSDStorage = (() => {
   };
 
   const resolveResumeScreen = (state) => {
+    if (readPremiumUnlocked() && state.assessmentCompleted && state.results) {
+      return "freeResults";
+    }
     if (state.studyCompleted) return "completion";
     if (state.feedback?.submitted) return "completion";
     if (state.accuracyCompleted) return "feedback";
@@ -234,33 +276,15 @@ const SSDStorage = (() => {
       (async () => ({ valid: false, reason: "invalid" }));
     const result = await validate(code, "support-system-dynamic");
     if (!result?.valid) return false;
-    try {
-      localStorage.setItem(PREMIUM_UNLOCKED_LS_KEY, "true");
-      localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "promo");
-      localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, "demo");
-      return true;
-    } catch {
-      return false;
-    }
+    return persistAllPremiumUnlockKeys("promo");
   };
 
-  const applyPaymentUnlock = () => {
-    try {
-      localStorage.setItem(PREMIUM_UNLOCKED_LS_KEY, "true");
-      localStorage.setItem(SSD_PAID_UNLOCKED_LS_KEY, "true");
-      localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "stripe");
-      localStorage.removeItem(PREMIUM_PROMO_CODE_LS_KEY);
-      return true;
-    } catch {
-      return false;
-    }
-  };
+  const applyPaymentUnlock = () => persistAllPremiumUnlockKeys("stripe");
 
   const clear = () => {
     try {
       localStorage.removeItem(PROGRESS_STORAGE_KEY);
-      localStorage.removeItem(PREMIUM_UNLOCKED_LS_KEY);
-      localStorage.removeItem(SSD_PAID_UNLOCKED_LS_KEY);
+      SSD_PREMIUM_UNLOCK_LS_KEYS.forEach((key) => localStorage.removeItem(key));
       localStorage.removeItem(PREMIUM_UNLOCK_SOURCE_LS_KEY);
       localStorage.removeItem(PREMIUM_PROMO_CODE_LS_KEY);
     } catch {
@@ -271,6 +295,10 @@ const SSDStorage = (() => {
   const progressPercent = (state) =>
     Math.round((answeredCount(state) / SSD_ITEMS.length) * 100);
 
+  if (typeof window !== "undefined" && hasPaymentUnlockInUrl()) {
+    persistAllPremiumUnlockKeys("stripe");
+  }
+
   return {
     load,
     save,
@@ -278,6 +306,7 @@ const SSDStorage = (() => {
     defaultState,
     applyPromoUnlock,
     applyPaymentUnlock,
+    persistAllPremiumUnlockKeys,
     readPremiumUnlocked,
     answeredCount,
     progressPercent,

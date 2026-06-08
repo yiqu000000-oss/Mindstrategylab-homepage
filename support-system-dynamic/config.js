@@ -13,6 +13,16 @@ const PAYMENT_SUCCESS_PARAM = "ssd_paid";
 const PAYMENT_RETURN_PREMIUM_PARAM = "premium";
 const SSD_PAID_UNLOCKED_LS_KEY = "ssd_paid_unlocked";
 
+/** All localStorage keys treated as premium unlock flags (any one "true" unlocks). */
+const SSD_PREMIUM_UNLOCK_LS_KEYS = [
+  SSD_PAID_UNLOCKED_LS_KEY,
+  "ssd_premium_unlocked",
+  "support_system_dynamic_premium_unlocked",
+  "supportSystemDynamicPremiumUnlocked",
+  "premiumUnlocked",
+  PREMIUM_UNLOCKED_LS_KEY,
+];
+
 const SSD_STRIPE_PAYMENT_LINK = "https://buy.stripe.com/eVq6oGfxMcSd9mKf3TeUU07";
 const PREMIUM_PRICE_DISPLAY = "$4.99";
 
