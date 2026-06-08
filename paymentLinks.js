@@ -14,6 +14,16 @@
 // These are Stripe LIVE MODE links (production).
 
 const PAYMENT_LINKS = {
+    // CDA — Connection Dynamics Analysis detailed report (strategic-intimacy)
+    cdaDetailedReport: {
+      productName: 'Connection Dynamics Analysis – Detailed Report',
+      price: 4.99,
+      currency: 'USD',
+      billingType: 'one_time',
+      url: 'https://buy.stripe.com/14A4gy0CS6tP0QebRHeUU08',
+      successUrl: 'https://mindstrategylab.com/strategic-intimacy/index.html?premium=1'
+    },
+
     // One-time purchase: unlock the complete assessment experience
     full: {
       productName: 'Mind Strategy Lab – Full Test Experience',
@@ -44,6 +54,7 @@ const PAYMENT_LINKS = {
   
   // Optional helper shortcuts
   const PAYMENT_URLS = {
+    cdaDetailedReport: PAYMENT_LINKS.cdaDetailedReport.url,
     full: PAYMENT_LINKS.full.url,
     report: PAYMENT_LINKS.report.url,
     membership: PAYMENT_LINKS.membership.url
