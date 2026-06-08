@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindStrategyLab｜心智图谱</title>
+    <title>MindStrategyLab</title>
     <meta
       name="description"
-      content="MindStrategyLab｜心智图谱 — early-stage psychological strategy and self-reflection tools."
+      content="MindStrategyLab — psychological strategy tools for self-understanding and growth."
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -17,8 +17,8 @@
         <div class="topbar__brand" role="banner">
           <div class="brand-mark" aria-hidden="true"></div>
           <div class="brand-text">
-            <div class="brand-title" id="brandTitle">MindStrategyLab｜心智图谱</div>
-            <div class="brand-subtitle" id="brandSubtitle">Psychological strategy tools</div>
+            <div class="brand-title" id="brandTitle">MindStrategyLab</div>
+            <div class="brand-subtitle" id="brandSubtitle">Psychological strategy tools for self-understanding and growth</div>
           </div>
         </div>
         <div class="topbar__actions">
@@ -30,20 +30,34 @@
       </header>
 
       <main class="main" id="main">
-        <section class="card card--welcome" aria-labelledby="welcomeHeading">
-          <h1 class="h1" id="welcomeHeading">Welcome to MindStrategyLab｜心智图谱</h1>
-          <div class="welcome-body welcome-body--full" id="welcomeBodyFull"></div>
-          <div class="welcome-body welcome-body--compact" id="welcomeBodyCompact"></div>
+        <section class="card card--hero" aria-labelledby="heroTitle" id="hero">
+          <h1 class="h1" id="heroTitle">Map your mind. Understand your patterns.</h1>
+          <p class="hero-lead" id="heroLead"></p>
+          <p class="hero-body" id="heroBody"></p>
+          <p class="hero-disclaimer" id="heroDisclaimer"></p>
+          <a class="hero-cta" href="#tools" id="heroCta">Explore tools</a>
+          <p class="hero-note" id="heroNote"></p>
         </section>
 
-        <section class="card" aria-labelledby="assessmentsHeading">
-          <div class="section-title" id="assessmentsHeading">Assessments</div>
+        <section class="card card--info" aria-label="Additional information" id="info">
+          <details class="accordion">
+            <summary id="accordionStageTitle">Current stage</summary>
+            <p id="accordionStageBody"></p>
+          </details>
+          <details class="accordion">
+            <summary id="accordionPrivacyTitle">Data and privacy</summary>
+            <p id="accordionPrivacyBody"></p>
+          </details>
+        </section>
+
+        <section class="card" aria-labelledby="assessmentsHeading" id="tools">
+          <h2 class="section-heading" id="assessmentsHeading">Explore the tools</h2>
+          <p class="section-intro" id="assessmentsIntro"></p>
           <div class="catalog-grid" id="catalogCards"></div>
         </section>
       </main>
 
       <footer class="footer">
-        <p class="footer-note" id="footerNote"></p>
         <div id="contactLine"></div>
       </footer>
     </div>

@@ -266,17 +266,20 @@ const TEMStorage = (() => {
   };
 
   /**
-   * Apply founder promo unlock to standalone localStorage keys.
+   * Apply demo access-code unlock to standalone localStorage keys.
    * @param {string} code
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
-  const applyPromoUnlock = (code) => {
-    const entered = String(code ?? "").trim();
-    if (entered !== TEM_FOUNDER_PROMO_CODE) return false;
+  const applyPromoUnlock = async (code) => {
+    const validate =
+      window.MSLAccessControl?.validatePremiumAccessCode ||
+      (async () => ({ valid: false, reason: "invalid" }));
+    const result = await validate(code, "talent-ecology-matrix");
+    if (!result?.valid) return false;
     try {
       localStorage.setItem(PREMIUM_UNLOCKED_LS_KEY, "true");
       localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "promo");
-      localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, TEM_FOUNDER_PROMO_CODE);
+      localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, "demo");
       return true;
     } catch {
       return false;

@@ -268,9 +268,9 @@
     clearPromoStatus();
   };
 
-  const submitPremiumPromo = () => {
+  const submitPremiumPromo = async () => {
     const code = ($("premiumPromoInput")?.value ?? "").trim();
-    if (!TEMStorage.applyPromoUnlock(code)) {
+    if (!(await TEMStorage.applyPromoUnlock(code))) {
       showPromoInvalid();
       return;
     }
@@ -278,7 +278,7 @@
     state.premium_unlocked = true;
     state.premiumUnlocked = true;
     state.premium_unlock_source = "promo";
-    state.premium_promo_code = TEM_FOUNDER_PROMO_CODE;
+    state.premium_promo_code = "demo";
     state.premium_unlocked_at = nowIso();
     persist();
     closePremiumUnlockModal();

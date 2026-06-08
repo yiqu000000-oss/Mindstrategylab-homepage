@@ -25,7 +25,7 @@ const footerAndModal = `
           <div class="modal__body">
             <div class="field field--full">
               <label class="label" id="premiumPromoLabel" for="premiumPromoInput">Access code</label>
-              <input class="input" id="premiumPromoInput" type="text" autocomplete="off" spellcheck="false" />
+              <input class="input" id="premiumPromoInput" type="password" autocomplete="off" spellcheck="false" />
             </motion>
             <p class="modal__status" id="premiumPromoStatus" aria-live="polite"></p>
             <div class="modal__actions">

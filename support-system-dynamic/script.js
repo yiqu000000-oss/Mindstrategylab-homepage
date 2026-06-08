@@ -851,8 +851,8 @@
       $("promoInput").value = "";
       $("promoModal").showModal();
     });
-    $("btnPromoSubmit")?.addEventListener("click", () => {
-      if (SSDStorage.applyPromoUnlock($("promoInput").value)) {
+    $("btnPromoSubmit")?.addEventListener("click", async () => {
+      if (await SSDStorage.applyPromoUnlock($("promoInput").value)) {
         unlockPremiumInline({ scroll: true });
       } else {
         $("promoError").classList.remove("hidden");

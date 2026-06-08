@@ -225,13 +225,16 @@ const SSDStorage = (() => {
     }
   };
 
-  const applyPromoUnlock = (code) => {
-    const entered = String(code ?? "").trim();
-    if (entered !== SSD_INVITE_CODE) return false;
+  const applyPromoUnlock = async (code) => {
+    const validate =
+      window.MSLAccessControl?.validatePremiumAccessCode ||
+      (async () => ({ valid: false, reason: "invalid" }));
+    const result = await validate(code, "support-system-dynamic");
+    if (!result?.valid) return false;
     try {
       localStorage.setItem(PREMIUM_UNLOCKED_LS_KEY, "true");
       localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "promo");
-      localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, SSD_INVITE_CODE);
+      localStorage.setItem(PREMIUM_PROMO_CODE_LS_KEY, "demo");
       return true;
     } catch {
       return false;

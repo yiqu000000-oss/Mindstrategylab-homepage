@@ -2,73 +2,38 @@
   "use strict";
 
   /** @typedef {'en'|'zh'} Lang */
-  /** @typedef {'free'|'limited_free'|'early_access'|'coming_soon'} BadgeTier */
+  /** @typedef {'free'|'limited_free'|'early_access'} BadgeTier */
 
-  const BRAND_NAME = "MindStrategyLab｜心智图谱";
-
-  const BADGE_LABELS = {
-    free: "Free｜免费",
-    limited_free: "Limited Free｜限时免费",
-    early_access: "Early Access｜早期体验",
-    coming_soon: "Coming Soon｜即将上线",
-  };
-
-  const WELCOME = {
-    heading: "Welcome to MindStrategyLab｜心智图谱",
-    footerNote:
-      "Currently in early access. Some tools are free or temporarily free while the platform continues to improve.\n当前处于早期体验阶段。部分工具将在平台持续完善期间保持免费或限时免费。",
-    full: [
-      {
-        en: "MindStrategyLab｜心智图谱 is an early-stage platform for psychological strategy and self-reflection tools.",
-        zh: "这里不是简单的心理测试网站，而是一组正在持续发展的心智图谱工具。我们希望帮助你把模糊的情绪信号、关系困惑、影响力模式、天赋生态和成长压力，转化为更清晰、更可理解的自我地图。",
-      },
-      {
-        title: "Current Stage｜当前阶段",
-        en: "Some tools are currently free or temporarily free, while deeper reports may be offered at a low early-access price as the platform continues to improve.",
-        zh: "目前，部分工具将保持免费或限时免费，部分深层报告会以较低的早期体验价格开放。随着系统逐步完善，未来的功能、报告深度和定价都可能调整。",
-      },
-      {
-        title: "What You Can Get｜你可以获得什么",
-        en: "Through these tools, you may receive structured reflections on your emotional signals, relationship patterns, influence style, talent ecology, support system, and decision-making tendencies.",
-        zh: "通过这些测试，你可以获得关于情绪信号、关系模式、影响力风格、天赋生态、支持系统和决策倾向的结构化反馈。",
-      },
-      {
-        en: "These tools are not medical diagnoses or clinical assessments. They are designed for self-reflection, personal insight, and growth-oriented exploration.",
-        zh: "这些工具不提供医学诊断，也不替代心理咨询或临床评估。它们更适合作为自我理解、结构化洞察和成长探索的辅助工具。",
-      },
-      {
-        title: "Data and Privacy｜数据与隐私",
-        en: "We may collect anonymous usage data, such as page visits, completion progress, and button clicks, to improve the tool experience. Unless a separate research consent process is provided in the future, these data will not be used for academic research.",
-        zh: "我们可能会收集匿名使用数据，例如页面访问、完成进度与按钮点击，用于改进产品体验。除非未来另行提供正式研究知情同意流程，否则这些数据不会被用于学术研究。",
-      },
-    ],
-    compact: [
-      {
-        en: "MindStrategyLab｜心智图谱 is an early-stage platform for psychological strategy and self-reflection tools.",
-        zh: "在这里，你可以探索免费、限时免费和早期体验版本的测试，用来理解自己的情绪信号、关系模式、影响力风格、天赋生态和成长倾向。",
-      },
-      {
-        en: "These tools are not clinical diagnoses. They are designed for self-reflection, structured insight, and growth-oriented exploration.",
-        zh: "这些工具不提供临床诊断，也不替代心理咨询。它们更适合作为自我理解、结构化洞察和成长探索的辅助工具。",
-      },
-    ],
-  };
-
-  /**
-   * UI copy. Add keys here when you add new strings.
-   * Card titles and descriptions use `card_*` keys referenced from CARDS below.
-   */
   const STRINGS = {
     en: {
-      metaTitle: BRAND_NAME,
+      metaTitle: "MindStrategyLab",
       metaDescription:
-        "MindStrategyLab｜心智图谱 — early-stage psychological strategy and self-reflection tools.",
-      brandTitle: BRAND_NAME,
-      brandSubtitle: "Psychological strategy tools",
+        "MindStrategyLab — psychological strategy tools for self-understanding and growth.",
+      brandTitle: "MindStrategyLab",
+      brandSubtitle: "Psychological strategy tools for self-understanding and growth",
       langAria: "Language",
-      welcomeHeading: WELCOME.heading,
-      assessmentsHeading: "Tools",
+      heroTitle: "Map your mind. Understand your patterns.",
+      heroLead:
+        "Want to understand your talents, cognitive style, relationship patterns, influence style, and inner support system more clearly?",
+      heroBody:
+        "MindStrategyLab offers structured psychological strategy tools that help you turn vague feelings and complex life patterns into clearer self-understanding maps.",
+      heroDisclaimer:
+        "These tools are designed for reflection, growth, and personal insight — not for clinical diagnosis.",
+      heroCta: "Explore tools",
+      heroNote:
+        "Some tools are currently free or temporarily free. Deeper reports may be offered at a low early-access price.",
+      accordionStageTitle: "Current stage",
+      accordionStageBody:
+        "MindStrategyLab is currently in an early access stage. Some tools are free or temporarily free, while deeper reports may be offered at a low early-access price as the platform continues to improve. Future features, report depth, and pricing may change.",
+      accordionPrivacyTitle: "Data and privacy",
+      accordionPrivacyBody:
+        "We may collect anonymous usage data, such as page visits, completion progress, and button clicks, to improve the tool experience. Unless a separate research consent process is provided in the future, these data will not be used for academic research. These tools are not medical diagnoses or clinical assessments.",
+      assessmentsHeading: "Explore the tools",
+      assessmentsIntro: "Choose the map that matches what you want to understand today.",
       contactEmail: "mindstrategylab@gmail.com",
+      badge_free: "Free",
+      badge_limited_free: "Limited Free",
+      badge_early_access: "Early Access",
       ctaOpen: "Open",
       cta_tem_open: "Open",
       card_influence_title: "Influence Analysis",
@@ -91,15 +56,34 @@
         "An interactive educational tool for understanding anxiety, the amygdala, and cortical regulation.",
     },
     zh: {
-      metaTitle: BRAND_NAME,
+      metaTitle: "MindStrategyLab | 心智图谱",
       metaDescription:
-        "MindStrategyLab｜心智图谱 — 心理策略与自我探索工具的早期平台。",
-      brandTitle: BRAND_NAME,
-      brandSubtitle: "心理策略与自我探索工具",
+        "MindStrategyLab | 心智图谱 — 用于自我理解与成长的心理策略工具。",
+      brandTitle: "MindStrategyLab | 心智图谱",
+      brandSubtitle: "用于自我理解与成长的心理策略工具",
       langAria: "语言",
-      welcomeHeading: WELCOME.heading,
-      assessmentsHeading: "工具",
+      heroTitle: "看见你的心智结构，理解你的成长模式",
+      heroLead:
+        "你是否想更清楚地了解自己的才能、认知方式、关系状态、影响力风格，以及内在支持系统？",
+      heroBody:
+        "MindStrategyLab | 心智图谱 提供一组结构化的心理策略工具，帮助你把模糊的感受、复杂的关系经验和成长困惑，转化为更清晰的自我理解图谱。",
+      heroDisclaimer:
+        "这些工具用于自我反思、成长探索和个人洞察，不提供临床诊断。",
+      heroCta: "探索工具",
+      heroNote:
+        "部分工具目前免费或限时免费，深层报告将以较低的早期体验价格开放。",
+      accordionStageTitle: "当前阶段",
+      accordionStageBody:
+        "MindStrategyLab | 心智图谱 目前处于早期体验阶段。部分工具将保持免费或限时免费，部分深层报告会以较低的早期体验价格开放。随着平台逐步完善，未来的功能、报告深度和定价都可能调整。",
+      accordionPrivacyTitle: "数据与隐私",
+      accordionPrivacyBody:
+        "我们可能会收集匿名使用数据，例如页面访问、完成进度与按钮点击，用于改进产品体验。除非未来另行提供正式研究知情同意流程，否则这些数据不会被用于学术研究。这些工具不提供医学诊断，也不替代心理咨询或临床评估。",
+      assessmentsHeading: "探索工具",
+      assessmentsIntro: "选择一个与你当下最想理解的问题相对应的图谱。",
       contactEmail: "mindstrategylab@gmail.com",
+      badge_free: "免费",
+      badge_limited_free: "限时免费",
+      badge_early_access: "早期体验",
       ctaOpen: "进入",
       cta_tem_open: "打开",
       card_influence_title: "影响力分析",
@@ -121,19 +105,10 @@
     },
   };
 
-  /**
-   * Catalog entries. To add an assessment, append an object:
-   * - titleKey / descKey: keys on STRINGS.en / STRINGS.zh
-   * - href: path to the assessment folder (trailing slash recommended)
-   * - status: "available" | "coming_soon" | "auto"
-   * - badgeTier: free | limited_free | early_access (when launchable)
-   * - probeUrl (optional, with status "auto"): URL to check; if reachable, shows launchable
-   */
   const CARDS = [
     {
       id: "talent-ecology-matrix",
       href: "./talent-ecology-matrix/",
-      status: "available",
       badgeTier: "early_access",
       titleKey: "card_tem_title",
       descKey: "card_tem_desc",
@@ -142,86 +117,41 @@
     {
       id: "influence-analysis",
       href: "/influence-analysis/",
-      status: "auto",
       badgeTier: "limited_free",
-      probeUrl: "/influence-analysis/index.html",
       titleKey: "card_influence_title",
       descKey: "card_influence_desc",
     },
     {
       id: "rps",
       href: "/rps/",
-      status: "auto",
       badgeTier: "early_access",
-      probeUrl: "/rps/index.html",
       titleKey: "card_rps_title",
       descKey: "card_rps_desc",
     },
     {
       id: "strategic-intimacy",
       href: "./strategic-intimacy/",
-      status: "available",
       badgeTier: "early_access",
-      probeUrl: "./strategic-intimacy/index.html",
       titleKey: "card_strategic_intimacy_title",
       descKey: "card_strategic_intimacy_desc",
     },
     {
       id: "ssd",
       href: "./support-system-dynamic/",
-      status: "available",
       badgeTier: "early_access",
-      probeUrl: "./support-system-dynamic/index.html",
       titleKey: "card_ssd_title",
       descKey: "card_ssd_desc",
     },
     {
       id: "anxiety-signal",
       href: "/anxiety-signal/index.html",
-      status: "available",
       badgeTier: "free",
-      probeUrl: "/anxiety-signal/index.html",
       titleKey: "card_anxiety_signal_title",
       descKey: "card_anxiety_signal_desc",
     },
   ];
 
   const LANG_KEY = "msl-home-lang";
-
-  const statusCache = new Map();
-
-  /** @param {string} path */
-  async function probeExists(path) {
-    if (window.location.protocol === "file:" && path.startsWith("./")) return true;
-
-    const tryHead = async () => {
-      const res = await fetch(path, { method: "HEAD", cache: "no-store" });
-      return res.ok;
-    };
-    const tryGet = async () => {
-      const res = await fetch(path, { method: "GET", cache: "no-store" });
-      return res.ok;
-    };
-    try {
-      if (await tryHead()) return true;
-    } catch {
-      /* continue */
-    }
-    try {
-      return await tryGet();
-    } catch {
-      return false;
-    }
-  }
-
-  /** @param {typeof CARDS[number]} card */
-  async function resolveStatus(card) {
-    if (card.status === "auto") {
-      const url = card.probeUrl || card.href;
-      return (await probeExists(url)) ? "available" : "coming_soon";
-    }
-    return card.status;
-  }
 
   function getStoredLang() {
     try {
@@ -244,11 +174,9 @@
 
   /** @param {Lang | null | undefined} [override] */
   function pickLang(override) {
-    const nav = navigator.language || "";
     if (override) return override;
     const stored = getStoredLang();
     if (stored) return stored;
-    if (nav.toLowerCase().startsWith("zh")) return "zh";
     return "en";
   }
 
@@ -257,37 +185,15 @@
     return STRINGS[lang];
   }
 
-  function renderWelcomeBlock(blocks) {
-    return blocks
-      .map((block) => {
-        const title = block.title
-          ? `<h2 class="welcome-section-title">${block.title}</h2>`
-          : "";
-        const en = block.en ? `<p class="welcome-p welcome-p--en">${block.en}</p>` : "";
-        const zh = block.zh ? `<p class="welcome-p welcome-p--zh">${block.zh}</p>` : "";
-        return `<div class="welcome-block">${title}${en}${zh}</div>`;
-      })
-      .join("");
-  }
-
-  function renderWelcome() {
-    const full = document.getElementById("welcomeBodyFull");
-    const compact = document.getElementById("welcomeBodyCompact");
-    const footerNote = document.getElementById("footerNote");
-
-    if (full) full.innerHTML = renderWelcomeBlock(WELCOME.full);
-    if (compact) compact.innerHTML = renderWelcomeBlock(WELCOME.compact);
-    if (footerNote) {
-      footerNote.innerHTML = WELCOME.footerNote
-        .split("\n")
-        .map((line) => `<span class="footer-note-line">${line}</span>`)
-        .join("");
-    }
-  }
-
   /** @param {BadgeTier} tier */
   function badgeClass(tier) {
-    return `status status--${tier.replace("_", "-")}`;
+    return `status status--${tier.replace(/_/g, "-")}`;
+  }
+
+  /** @param {Lang} lang */
+  /** @param {BadgeTier} tier */
+  function badgeLabel(lang, tier) {
+    return t(lang)[`badge_${tier}`];
   }
 
   /** @param {Lang} lang */
@@ -298,18 +204,25 @@
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", s.metaDescription);
 
-    const brandTitle = document.getElementById("brandTitle");
-    const brandSubtitle = document.getElementById("brandSubtitle");
-    if (brandTitle) brandTitle.textContent = s.brandTitle;
-    if (brandSubtitle) brandSubtitle.textContent = s.brandSubtitle;
+    const setText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
 
-    const welcomeHeading = document.getElementById("welcomeHeading");
-    if (welcomeHeading) welcomeHeading.textContent = s.welcomeHeading;
-
-    renderWelcome();
-
-    const assessmentsHeading = document.getElementById("assessmentsHeading");
-    if (assessmentsHeading) assessmentsHeading.textContent = s.assessmentsHeading;
+    setText("brandTitle", s.brandTitle);
+    setText("brandSubtitle", s.brandSubtitle);
+    setText("heroTitle", s.heroTitle);
+    setText("heroLead", s.heroLead);
+    setText("heroBody", s.heroBody);
+    setText("heroDisclaimer", s.heroDisclaimer);
+    setText("heroCta", s.heroCta);
+    setText("heroNote", s.heroNote);
+    setText("accordionStageTitle", s.accordionStageTitle);
+    setText("accordionStageBody", s.accordionStageBody);
+    setText("accordionPrivacyTitle", s.accordionPrivacyTitle);
+    setText("accordionPrivacyBody", s.accordionPrivacyBody);
+    setText("assessmentsHeading", s.assessmentsHeading);
+    setText("assessmentsIntro", s.assessmentsIntro);
 
     const contactLine = document.getElementById("contactLine");
     if (contactLine) {
@@ -344,35 +257,26 @@
     const s = t(lang);
 
     CARDS.forEach((card) => {
-      const resolved = statusCache.get(card.id) || "coming_soon";
-      const launchable = resolved === "available";
-      /** @type {BadgeTier} */
-      const badgeTier = launchable ? card.badgeTier || "early_access" : "coming_soon";
-
+      const badgeTier = card.badgeTier || "early_access";
       const title = s[card.titleKey];
       const desc = s[card.descKey];
       const ctaLabel = card.ctaKey ? s[card.ctaKey] : s.ctaOpen;
 
-      const wrapTag = launchable ? "a" : "div";
-      const el = document.createElement(wrapTag);
-      el.className =
-        "assessment-card" +
-        (launchable ? " assessment-card--interactive" : " assessment-card--soon");
-      if (launchable) {
-        el.href = card.href;
-        el.setAttribute("aria-label", title + " — " + ctaLabel);
-      }
+      const el = document.createElement("a");
+      el.className = "assessment-card assessment-card--interactive";
+      el.href = card.href;
+      el.setAttribute("aria-label", title + " — " + ctaLabel);
 
       const head = document.createElement("div");
       head.className = "card__head";
 
-      const h = document.createElement("h2");
+      const h = document.createElement("h3");
       h.className = "card__title";
       h.textContent = title;
 
       const status = document.createElement("span");
       status.className = badgeClass(badgeTier);
-      status.textContent = BADGE_LABELS[badgeTier];
+      status.textContent = badgeLabel(lang, badgeTier);
 
       head.appendChild(h);
       head.appendChild(status);
@@ -381,32 +285,20 @@
       p.className = "card__desc";
       p.textContent = desc;
 
+      const cta = document.createElement("div");
+      cta.className = "card__cta";
+      cta.append(document.createTextNode(ctaLabel + " "));
+      const arrow = document.createElement("span");
+      arrow.className = "card__cta-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "→";
+      cta.appendChild(arrow);
+
       el.appendChild(head);
       el.appendChild(p);
-
-      if (launchable) {
-        const cta = document.createElement("div");
-        cta.className = "card__cta";
-        cta.append(document.createTextNode(ctaLabel + " "));
-        const arrow = document.createElement("span");
-        arrow.className = "card__cta-arrow";
-        arrow.setAttribute("aria-hidden", "true");
-        arrow.textContent = "→";
-        cta.appendChild(arrow);
-        el.appendChild(cta);
-      }
-
+      el.appendChild(cta);
       root.appendChild(el);
     });
-  }
-
-  async function hydrateStatuses() {
-    await Promise.all(
-      CARDS.map(async (card) => {
-        const st = await resolveStatus(card);
-        statusCache.set(card.id, st);
-      }),
-    );
   }
 
   function init() {
@@ -429,8 +321,6 @@
       setStoredLang(lang);
       applyStrings(lang);
     });
-
-    hydrateStatuses().then(() => applyStrings(lang));
   }
 
   if (document.readyState === "loading") {

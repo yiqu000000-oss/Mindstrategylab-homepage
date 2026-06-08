@@ -12,7 +12,6 @@ const PAYMENT_SUCCESS_PARAM = "ssd_paid";
 
 const SSD_STRIPE_PAYMENT_LINK = "https://buy.stripe.com/eVq6oGfxMcSd9mKf3TeUU07";
 const PREMIUM_PRICE_DISPLAY = "$4.99";
-const SSD_INVITE_CODE = "FREEDOM";
 
 const LIKERT_LABELS = [
   "Strongly Disagree",

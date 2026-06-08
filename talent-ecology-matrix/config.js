@@ -34,9 +34,6 @@ const TEM_DEBUG_STORAGE_FLAG = "tem_debug";
 /** Minimum completed domain modules before meta / matrix unlocks. */
 const MIN_MODULES_FOR_META = 6;
 
-/** Founder-authorized promo code (exact match, case-sensitive after trim). */
-const TEM_FOUNDER_PROMO_CODE = "ANDY200008";
-
 /** Standalone premium unlock flags (promo / special access). */
 const PREMIUM_UNLOCKED_LS_KEY = "talentEcologyMatrixPremiumUnlocked";
 const PREMIUM_UNLOCK_SOURCE_LS_KEY = "talentEcologyMatrixUnlockSource";
