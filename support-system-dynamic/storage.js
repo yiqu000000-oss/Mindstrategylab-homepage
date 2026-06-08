@@ -83,7 +83,10 @@ const SSDStorage = (() => {
 
   const readPremiumUnlocked = () => {
     try {
-      return localStorage.getItem(PREMIUM_UNLOCKED_LS_KEY) === "true";
+      return (
+        localStorage.getItem(PREMIUM_UNLOCKED_LS_KEY) === "true" ||
+        localStorage.getItem(SSD_PAID_UNLOCKED_LS_KEY) === "true"
+      );
     } catch {
       return false;
     }
@@ -244,6 +247,7 @@ const SSDStorage = (() => {
   const applyPaymentUnlock = () => {
     try {
       localStorage.setItem(PREMIUM_UNLOCKED_LS_KEY, "true");
+      localStorage.setItem(SSD_PAID_UNLOCKED_LS_KEY, "true");
       localStorage.setItem(PREMIUM_UNLOCK_SOURCE_LS_KEY, "stripe");
       localStorage.removeItem(PREMIUM_PROMO_CODE_LS_KEY);
       return true;
@@ -256,6 +260,7 @@ const SSDStorage = (() => {
     try {
       localStorage.removeItem(PROGRESS_STORAGE_KEY);
       localStorage.removeItem(PREMIUM_UNLOCKED_LS_KEY);
+      localStorage.removeItem(SSD_PAID_UNLOCKED_LS_KEY);
       localStorage.removeItem(PREMIUM_UNLOCK_SOURCE_LS_KEY);
       localStorage.removeItem(PREMIUM_PROMO_CODE_LS_KEY);
     } catch {

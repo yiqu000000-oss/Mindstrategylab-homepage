@@ -93,21 +93,58 @@
     }
   };
 
-  const checkPaymentReturn = () => {
+  const PAYMENT_RETURN_QUERY_KEYS = [
+    PAYMENT_RETURN_PREMIUM_PARAM,
+    "ssd_unlocked",
+    "unlocked",
+    "success",
+    "paid",
+    PAYMENT_SUCCESS_PARAM,
+  ];
+
+  const PAYMENT_RETURN_TRUTHY = new Set(["1", "true", "yes"]);
+
+  const hasPaymentSuccessInUrl = () => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get(PAYMENT_SUCCESS_PARAM) !== "true") return;
-    SSDStorage.applyPaymentUnlock();
+    return PAYMENT_RETURN_QUERY_KEYS.some((key) =>
+      PAYMENT_RETURN_TRUTHY.has(String(params.get(key) ?? "").toLowerCase()),
+    );
+  };
+
+  const stripPaymentSuccessParamsFromUrl = () => {
+    if (!window.location.search) return;
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  const showFullPaidReport = (opts = {}) => {
+    state.premiumUnlocked = true;
+    state.freeResultsViewed = true;
+    state.paywallSkipped = false;
+    $("inlinePaywall")?.classList.add("hidden");
     if (state.assessmentCompleted && state.results) {
-      state.freeResultsViewed = true;
-      showScreen("freeResults");
-      unlockPremiumInline({ scroll: true });
-    } else {
-      state.premiumUnlocked = true;
-      persist();
+      currentScreen = "freeResults";
+      state.flowStage = "freeResults";
+      Object.entries(SCREEN_IDS).forEach(([key, id]) => {
+        const el = $(id);
+        if (el) el.classList.toggle("hidden", key !== "freeResults");
+      });
+      renderResultsPage();
+      if (opts.scroll !== false) {
+        requestAnimationFrame(() => {
+          $("premiumReportExpand")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
     }
-    params.delete(PAYMENT_SUCCESS_PARAM);
-    const qs = params.toString();
-    window.history.replaceState({}, "", `${window.location.pathname}${qs ? `?${qs}` : ""}`);
+    persist();
+  };
+
+  /** @returns {boolean} true when a Stripe success redirect was handled */
+  const checkPaymentReturn = () => {
+    if (!hasPaymentSuccessInUrl()) return false;
+    SSDStorage.applyPaymentUnlock();
+    stripPaymentSuccessParamsFromUrl();
+    showFullPaidReport({ scroll: true });
+    return true;
   };
 
   /* ── Static UI ── */
@@ -870,10 +907,41 @@
     });
   };
 
+  const applyStoredPaidUnlock = () => {
+    if (!isPremiumUnlocked()) return false;
+    state.premiumUnlocked = true;
+    state.paywallSkipped = false;
+    $("inlinePaywall")?.classList.add("hidden");
+    if (!state.assessmentCompleted || !state.results) return false;
+    state.freeResultsViewed = true;
+    currentScreen = "freeResults";
+    state.flowStage = "freeResults";
+    Object.entries(SCREEN_IDS).forEach(([key, id]) => {
+      const el = $(id);
+      if (el) el.classList.toggle("hidden", key !== "freeResults");
+    });
+    renderResultsPage();
+    return true;
+  };
+
   const init = () => {
     bindEvents();
-    checkPaymentReturn();
-    resumeScreen();
+    const handledPaymentReturn = checkPaymentReturn();
+    const canShowPaidReport = state.assessmentCompleted && state.results;
+    if (!handledPaymentReturn) {
+      if (!applyStoredPaidUnlock()) resumeScreen();
+    } else if (!canShowPaidReport) {
+      resumeScreen();
+    }
+    if (isPremiumUnlocked() && canShowPaidReport) {
+      state.freeResultsViewed = true;
+      $("inlinePaywall")?.classList.add("hidden");
+      if (currentScreen !== "freeResults") {
+        applyStoredPaidUnlock();
+      } else {
+        renderResultsPage();
+      }
+    }
     renderLanguage();
   };
 

@@ -8,7 +8,10 @@ const PROGRESS_STORAGE_KEY = "ssdAssessmentState";
 const PREMIUM_UNLOCKED_LS_KEY = "ssdAssessmentPremiumUnlocked";
 const PREMIUM_UNLOCK_SOURCE_LS_KEY = "ssdAssessmentUnlockSource";
 const PREMIUM_PROMO_CODE_LS_KEY = "ssdAssessmentPromoCode";
+/** Stripe success redirect flag — configure Stripe to: .../index.html?premium=1 */
 const PAYMENT_SUCCESS_PARAM = "ssd_paid";
+const PAYMENT_RETURN_PREMIUM_PARAM = "premium";
+const SSD_PAID_UNLOCKED_LS_KEY = "ssd_paid_unlocked";
 
 const SSD_STRIPE_PAYMENT_LINK = "https://buy.stripe.com/eVq6oGfxMcSd9mKf3TeUU07";
 const PREMIUM_PRICE_DISPLAY = "$4.99";
