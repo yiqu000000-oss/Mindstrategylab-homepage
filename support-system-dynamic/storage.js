@@ -81,26 +81,11 @@ const SSDStorage = (() => {
       return v != null && v >= 1 && v <= 7;
     }).length;
 
-  const PAYMENT_UNLOCK_URL_KEYS = [
-    PAYMENT_RETURN_PREMIUM_PARAM,
-    "paid",
-    "success",
-    "unlocked",
-    "ssd_unlocked",
-    PAYMENT_SUCCESS_PARAM,
-  ];
-
-  const isTruthyUnlockParam = (value) => {
-    const v = String(value ?? "").toLowerCase();
-    return v === "1" || v === "true" || v === "yes";
-  };
-
-  const hasPaymentUnlockInUrl = () => {
+  const hasPaymentAccessTokenInUrl = () => {
     if (typeof window === "undefined") return false;
-    const params = new URLSearchParams(window.location.search);
-    const hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
-    if (hash === "premium" || hash === "unlocked") return true;
-    return PAYMENT_UNLOCK_URL_KEYS.some((key) => isTruthyUnlockParam(params.get(key)));
+    return (
+      new URLSearchParams(window.location.search).get(SSD_ACCESS_PARAM) === SSD_ACCESS_TOKEN
+    );
   };
 
   const persistAllPremiumUnlockKeys = (source = "stripe") => {
@@ -121,10 +106,6 @@ const SSDStorage = (() => {
 
   const readPremiumUnlocked = () => {
     try {
-      if (hasPaymentUnlockInUrl()) {
-        persistAllPremiumUnlockKeys("stripe");
-        return true;
-      }
       return SSD_PREMIUM_UNLOCK_LS_KEYS.some((key) => localStorage.getItem(key) === "true");
     } catch {
       return false;
@@ -295,7 +276,12 @@ const SSDStorage = (() => {
   const progressPercent = (state) =>
     Math.round((answeredCount(state) / SSD_ITEMS.length) * 100);
 
-  if (typeof window !== "undefined" && hasPaymentUnlockInUrl()) {
+  if (typeof window !== "undefined" && hasPaymentAccessTokenInUrl()) {
+    localStorage.setItem("ssd_paid_unlocked", "true");
+    localStorage.setItem("ssd_premium_unlocked", "true");
+    localStorage.setItem("support_system_dynamic_premium_unlocked", "true");
+    localStorage.setItem("supportSystemDynamicPremiumUnlocked", "true");
+    localStorage.setItem("premiumUnlocked", "true");
     persistAllPremiumUnlockKeys("stripe");
   }
 

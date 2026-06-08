@@ -156,6 +156,12 @@ body {
   border-color: rgba(16, 38, 72, 0.95);
   color: #fff;
 }
+.pill--link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .main {
   flex: 1;
@@ -1561,6 +1567,24 @@ body {
 
 .btn--ghost {
   background: transparent;
+}
+
+.btn--retake {
+  background: transparent;
+  border-color: rgba(120, 88, 88, 0.32);
+  color: rgba(92, 64, 64, 0.88);
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn--retake:hover {
+  border-color: rgba(120, 88, 88, 0.48);
+  background: rgba(120, 88, 88, 0.06);
+}
+
+.results-retake {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .btn--gold {

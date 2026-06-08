@@ -1,5 +1,25 @@
 // Support System Dynamics Assessment — modular research platform (bilingual)
 
+{
+  const SSD_ACCESS_TOKEN = "msl_2026_s6d9f1k8q2premium";
+  const SSD_ACCESS_PARAM = new URLSearchParams(window.location.search).get("ssd_access");
+  const SSD_HAS_VALID_ACCESS_TOKEN = SSD_ACCESS_PARAM === SSD_ACCESS_TOKEN;
+
+  if (SSD_HAS_VALID_ACCESS_TOKEN) {
+    localStorage.setItem("ssd_paid_unlocked", "true");
+    localStorage.setItem("ssd_premium_unlocked", "true");
+    localStorage.setItem("support_system_dynamic_premium_unlocked", "true");
+    localStorage.setItem("supportSystemDynamicPremiumUnlocked", "true");
+    localStorage.setItem("premiumUnlocked", "true");
+    console.log("[SSD] valid access token detected:", true);
+    console.log("[SSD] access token from URL:", SSD_ACCESS_PARAM);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else {
+    console.log("[SSD] valid access token detected:", false);
+    console.log("[SSD] access token from URL:", SSD_ACCESS_PARAM);
+  }
+}
+
 (() => {
   "use strict";
 
@@ -28,34 +48,13 @@
   let currentScreen = "home";
   let currentLayer = null;
 
-  /**
-   * Stripe return detection — must run before state load / any paywall rendering.
-   * Accepts ?premium=1, ?paid=true, #premium, etc.
-   */
-  const checkPremiumRedirectUnlock = () => {
-    const params = new URLSearchParams(window.location.search);
-    const hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
-    const truthy = (value) => {
-      const v = String(value ?? "").toLowerCase();
-      return v === "1" || v === "true" || v === "yes";
-    };
-    const queryKeys = [
-      PAYMENT_RETURN_PREMIUM_PARAM,
-      "paid",
-      "success",
-      "unlocked",
-      "ssd_unlocked",
-      PAYMENT_SUCCESS_PARAM,
-    ];
-    const queryUnlock = queryKeys.some((key) => truthy(params.get(key)));
-    const hashUnlock = hash === "premium" || hash === "unlocked";
-    if (!queryUnlock && !hashUnlock) return false;
-    SSDStorage.persistAllPremiumUnlockKeys("stripe");
-    if (window.location.search || window.location.hash) {
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-    return true;
-  };
+  const SSD_PREMIUM_LS_KEYS = [
+    "ssd_paid_unlocked",
+    "ssd_premium_unlocked",
+    "support_system_dynamic_premium_unlocked",
+    "supportSystemDynamicPremiumUnlocked",
+    "premiumUnlocked",
+  ];
 
   const lang = () => (state.language === "zh" ? "zh" : "en");
   const ui = (key, ...args) => SSDI18n.ui(lang(), key, ...args);
@@ -103,11 +102,14 @@
   };
 
   const isPremiumUnlocked = () => {
-    if (typeof SSDStorage?.readPremiumUnlocked === "function") {
-      return SSDStorage.readPremiumUnlocked();
-    }
     try {
-      return localStorage.getItem("ssd_paid_unlocked") === "true";
+      if (SSD_PREMIUM_LS_KEYS.some((key) => localStorage.getItem(key) === "true")) {
+        return true;
+      }
+      if (typeof SSDStorage?.readPremiumUnlocked === "function") {
+        return SSDStorage.readPremiumUnlocked();
+      }
+      return false;
     } catch {
       return false;
     }
@@ -348,6 +350,8 @@
     setText("btnSkipPremium", ui("skipPremium"));
     setText("premiumBadge", ui("premiumUnlockedBadge"));
     setText("btnDownloadReport", ui("downloadReport"));
+    setText("btnClearRetake", ui("clearResultsRetake"));
+    setText("btnHeaderHome", ui("homeLink"));
     updateResultsContinueButton();
 
     setText("accuracyTitle", ui("accuracyTitle"));
@@ -945,6 +949,12 @@
 
     $("btnDownloadReport")?.addEventListener("click", downloadReport);
 
+    $("btnClearRetake")?.addEventListener("click", () => {
+      if (!confirm(ui("clearResultsRetakeConfirm"))) return;
+      SSDStorage.clear();
+      window.location.href = "./index.html";
+    });
+
     $("btnResetAll")?.addEventListener("click", () => {
       if (!confirm(ui("resetConfirm"))) return;
       SSDStorage.clear();
@@ -955,7 +965,6 @@
   };
 
   const init = () => {
-    checkPremiumRedirectUnlock();
     state = SSDStorage.load();
     const premiumUnlocked = isPremiumUnlocked();
     console.log("[SSD] premium unlocked:", premiumUnlocked);

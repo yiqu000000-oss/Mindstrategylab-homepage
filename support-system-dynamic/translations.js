@@ -9,6 +9,10 @@ const SSD_I18N = {
     langSwitchAria: "Language",
     langEnLabel: "English",
     langZhLabel: "中文",
+    homeLink: "Home",
+    clearResultsRetake: "Clear Results and Retake",
+    clearResultsRetakeConfirm:
+      "This will clear your saved SSD results on this browser and restart the assessment. Continue?",
     saveHint: "Progress saved",
     premiumUnlockedBadge: "Premium Unlocked",
 
@@ -299,6 +303,9 @@ const SSD_I18N = {
     langSwitchAria: "语言",
     langEnLabel: "English",
     langZhLabel: "中文",
+    homeLink: "Home",
+    clearResultsRetake: "清空结果并重做",
+    clearResultsRetakeConfirm: "这会清除当前浏览器中保存的 SSD 结果，并重新开始测评。是否继续？",
     saveHint: "进度已保存",
     premiumUnlockedBadge: "高级版已解锁",
 

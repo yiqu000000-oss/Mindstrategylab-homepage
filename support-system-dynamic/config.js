@@ -8,9 +8,12 @@ const PROGRESS_STORAGE_KEY = "ssdAssessmentState";
 const PREMIUM_UNLOCKED_LS_KEY = "ssdAssessmentPremiumUnlocked";
 const PREMIUM_UNLOCK_SOURCE_LS_KEY = "ssdAssessmentUnlockSource";
 const PREMIUM_PROMO_CODE_LS_KEY = "ssdAssessmentPromoCode";
-/** Stripe success redirect flag — configure Stripe to: .../index.html?premium=1 */
-const PAYMENT_SUCCESS_PARAM = "ssd_paid";
-const PAYMENT_RETURN_PREMIUM_PARAM = "premium";
+/**
+ * Stripe success redirect — configure Stripe to:
+ * https://mindstrategylab.com/support-system-dynamic/index.html?ssd_access=msl_2026_s6d9f1k8q2premium
+ */
+const SSD_ACCESS_PARAM = "ssd_access";
+const SSD_ACCESS_TOKEN = "msl_2026_s6d9f1k8q2premium";
 const SSD_PAID_UNLOCKED_LS_KEY = "ssd_paid_unlocked";
 
 /** All localStorage keys treated as premium unlock flags (any one "true" unlocks). */
