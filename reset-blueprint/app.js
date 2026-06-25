@@ -3,10 +3,10 @@
 const I18N = {
   zh: {
     appTitle: '杏仁核重启',
-    heroLabel: '自我觉察工具 · 教育用途',
-    heroTitle: '杏仁核重启 Reset Blueprint',
-    heroDesc: '一个用于识别焦虑信号、区分身体警报与思维放大，并把焦虑转化为下一步行动的自我觉察工具。',
-    enterLecture: '生成我的重启路径',
+    heroLabel: 'Signal Scan · 3 分钟',
+    heroTitle: '杏仁核重启',
+    heroDesc: '用 3 分钟，听懂焦虑想告诉你的信号。',
+    enterLecture: '开始今天的重启',
     homeKicker: '从一个当下的焦虑开始',
     homeQuestion: '现在最牵动你的事情是什么？',
     homeConcernPlaceholder: '例如：我一想到明天的汇报，胸口就紧，脑子一直在想会不会搞砸。',
@@ -17,14 +17,26 @@ const I18N = {
     homeResult1: '信号类型',
     homeResult2: '身体警报',
     homeResult3: '下一步行动',
-    homePathKicker: '重启路径',
-    homePathTitle: '把焦虑拆成可处理的四层信号',
+    homePathKicker: '更深入的重启模块',
+    homePathTitle: '需要时，再打开完整练习。',
+    scanKicker: '信号扫描',
+    scanQuestionState: '此刻，你更接近哪种状态？',
+    scanProgressBody: '正在识别身体信号',
+    scanProgressThought: '正在识别思维模式',
+    scanProgressSource: '正在寻找焦虑来源',
+    scanProgressAction: '正在生成下一步行动',
+    scanContinue: '继续',
+    scanNext: '下一步',
+    scanSeeSignal: '看看信号',
+    resultTitle: '你的重启路径',
+    restartScan: '重新开始',
+    saveScan: '保存这次扫描',
     disclaimerTitle: '非诊断声明',
-    disclaimerDesc: '本工具仅供心理教育与自我觉察参考，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。',
-    outline1Title: '杏仁核重启', outline1Desc: '理解焦虑的功能，对比正性焦虑与负性焦虑。',
-    outline2Title: '杏仁核 vs 皮层', outline2Desc: '理解快慢两条通路；皮层通道含 8 种思维模式互动。',
-    outline3Title: '平静杏仁核', outline3Desc: '深呼吸练习，激活副交感神经、降低唤醒。',
-    outline4Title: '如何使用焦虑', outline4Desc: '双滑块实时计算 Yerkes-Dodson 最佳匹配。',
+    disclaimerDesc: '本工具仅用于心理教育与自我观察，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。',
+    outline1Title: '信号快照', outline1Desc: '把触发事件、身体反应、意义解读和行动选择放到同一张图里。',
+    outline2Title: '思维模式', outline2Desc: '识别焦虑被哪些想法放大。',
+    outline3Title: '身体安抚', outline3Desc: '用呼吸和身体练习让警报先降下来。',
+    outline4Title: '下一步行动', outline4Desc: '把焦虑转成一个小而具体的动作。',
     nav1: '信号', nav2: '大脑通路', nav3: '平静杏仁核', nav4: '使用焦虑', navHome: '首页',
     presenterMode: '演示模式',
     presenterPanelTitle: '演示者控制台',
@@ -218,10 +230,10 @@ const I18N = {
   },
   en: {
     appTitle: 'Reset Blueprint',
-    heroLabel: 'Self-Reflection Tool · Educational',
-    heroTitle: 'Reset Blueprint',
-    heroDesc: 'A self-reflection tool for reading anxiety signals, separating body alarms from thought amplification, and turning anxiety into a grounded next step.',
-    enterLecture: 'Build My Reset Path',
+    heroLabel: 'Signal Scan · 3 minutes',
+    heroTitle: 'Amygdala Reset',
+    heroDesc: 'A 3-minute reflection to understand what your anxiety is trying to signal.',
+    enterLecture: 'Start today’s reset',
     homeKicker: 'Start with one live anxiety signal',
     homeQuestion: 'What is pulling on your nervous system right now?',
     homeConcernPlaceholder: 'Example: When I think about tomorrow’s presentation, my chest tightens and I keep imagining it going wrong.',
@@ -232,14 +244,26 @@ const I18N = {
     homeResult1: 'Signal type',
     homeResult2: 'Body alarm',
     homeResult3: 'Next action',
-    homePathKicker: 'Reset path',
-    homePathTitle: 'Break anxiety into four workable signal layers',
+    homePathKicker: 'Deeper reset modules',
+    homePathTitle: 'Open the full practices when you need more support.',
+    scanKicker: 'Signal Scan',
+    scanQuestionState: 'Which state feels closest right now?',
+    scanProgressBody: 'Reading body signals',
+    scanProgressThought: 'Identifying thought patterns',
+    scanProgressSource: 'Locating the anxiety source',
+    scanProgressAction: 'Generating your next step',
+    scanContinue: 'Continue',
+    scanNext: 'Next',
+    scanSeeSignal: 'See the signal',
+    resultTitle: 'Your Reset Path',
+    restartScan: 'Start over',
+    saveScan: 'Save this scan',
     disclaimerTitle: 'Disclaimer',
-    disclaimerDesc: 'This tool is for psychoeducation and self-awareness only. It does not replace professional diagnosis or treatment. Seek licensed help for ongoing distress, impairment, or crisis.',
-    outline1Title: 'Reset Blueprint', outline1Desc: 'Understand anxiety\'s function; compare positive vs. negative anxiety.',
-    outline2Title: 'Amygdala vs. Cortex', outline2Desc: 'Fast and slow pathways; cortex path includes 8 thinking patterns.',
-    outline3Title: 'Calm Amygdala', outline3Desc: 'Deep breathing to activate the parasympathetic nervous system.',
-    outline4Title: 'Using Anxiety', outline4Desc: 'Dual sliders compute Yerkes-Dodson match in real time.',
+    disclaimerDesc: 'This tool is for psychoeducation and self-reflection only. It does not replace professional psychological or medical diagnosis or treatment. If you feel persistently distressed, impaired, or in crisis, please seek help from a licensed mental health professional.',
+    outline1Title: 'Signal Snapshot', outline1Desc: 'Map the trigger, body response, meaning, and action choice in one place.',
+    outline2Title: 'Thought Patterns', outline2Desc: 'Notice which thoughts are amplifying the alarm.',
+    outline3Title: 'Body Soothing', outline3Desc: 'Use breath and body practice to lower the alarm first.',
+    outline4Title: 'Next Step', outline4Desc: 'Turn anxiety into one small, concrete action.',
     nav1: 'Signal', nav2: 'Brain', nav3: 'Calm', nav4: 'Use', navHome: 'Home',
     presenterMode: 'Presenter',
     presenterPanelTitle: 'Presenter Console',
@@ -430,6 +454,152 @@ const I18N = {
     displayCase: 'Audience Case',
     displayDiscussion: 'Discussion Points',
     goals: { low: 'Routine task', medium: 'Important goal', high: 'Critical goal' }
+  }
+};
+
+const SCAN_FLOW = {
+  zh: {
+    steps: [
+      {
+        key: 'state',
+        progress: 'scanProgressBody',
+        question: '此刻，你更接近哪种状态？',
+        feedback: '收到。我们先不用急着消除焦虑，先看看它在提醒什么。',
+        options: [
+          ['tense', '只是有点紧张'],
+          ['mind', '脑子停不下来'],
+          ['body', '身体已经开始报警'],
+          ['overwhelmed', '我快撑不住了']
+        ]
+      },
+      {
+        key: 'body',
+        progress: 'scanProgressBody',
+        question: '身体最先在哪里发出信号？',
+        feedback: '好的。身体不是在捣乱，它是在帮你把注意力拉回当下。',
+        options: [
+          ['chest', '胸口或呼吸'],
+          ['stomach', '胃部或喉咙'],
+          ['muscle', '肩颈或肌肉'],
+          ['numb', '麻木或空白']
+        ]
+      },
+      {
+        key: 'thought',
+        progress: 'scanProgressThought',
+        question: '此刻最强的念头更像哪一种？',
+        feedback: '看见这个念头，就已经让杏仁核少了一点独自拉警报的压力。',
+        options: [
+          ['failure', '我会搞砸'],
+          ['judged', '别人会怎么看我'],
+          ['control', '我必须马上控制住'],
+          ['uncertain', '我不知道会发生什么']
+        ]
+      },
+      {
+        key: 'source',
+        progress: 'scanProgressSource',
+        question: '这份焦虑可能在保护什么？',
+        feedback: '这里有一个你很在乎的东西。我们把它变成一个小动作。',
+        options: [
+          ['care', '我很在乎的结果'],
+          ['boundary', '一个还没说清的边界'],
+          ['safety', '安全感或稳定感'],
+          ['need', '一个没有被整理的需求']
+        ]
+      }
+    ],
+    result: {
+      signal: '你现在的主要信号',
+      protect: '你的焦虑可能在保护什么',
+      action: '一个可以立刻做的小行动',
+      reframe: '一句重新叙事的话',
+      reframeText: '你的焦虑不是在证明你不够好，而是在提醒你：这里有一个你很在乎、但还没有被整理清楚的需求。'
+    }
+  },
+  en: {
+    steps: [
+      {
+        key: 'state',
+        progress: 'scanProgressBody',
+        question: 'Which state feels closest right now?',
+        feedback: 'Got it. We do not have to erase the anxiety first. Let us listen for what it is signaling.',
+        options: [
+          ['tense', 'A little tense'],
+          ['mind', 'My mind won’t stop'],
+          ['body', 'My body is sounding the alarm'],
+          ['overwhelmed', 'I feel close to overwhelmed']
+        ]
+      },
+      {
+        key: 'body',
+        progress: 'scanProgressBody',
+        question: 'Where is your body signaling first?',
+        feedback: 'Your body is not getting in the way. It is trying to bring you back to the present.',
+        options: [
+          ['chest', 'Chest or breath'],
+          ['stomach', 'Stomach or throat'],
+          ['muscle', 'Shoulders or muscles'],
+          ['numb', 'Numb or blank']
+        ]
+      },
+      {
+        key: 'thought',
+        progress: 'scanProgressThought',
+        question: 'Which thought feels loudest?',
+        feedback: 'Noticing the thought already gives your alarm system a little less work to do alone.',
+        options: [
+          ['failure', 'I will fail'],
+          ['judged', 'What will people think?'],
+          ['control', 'I must control this now'],
+          ['uncertain', 'I do not know what will happen']
+        ]
+      },
+      {
+        key: 'source',
+        progress: 'scanProgressSource',
+        question: 'What might this anxiety be protecting?',
+        feedback: 'There is something you care about here. Let us turn it into one small action.',
+        options: [
+          ['care', 'An outcome I care about'],
+          ['boundary', 'A boundary not yet clear'],
+          ['safety', 'Safety or stability'],
+          ['need', 'A need not yet organized']
+        ]
+      }
+    ],
+    result: {
+      signal: 'Your main signal right now',
+      protect: 'What your anxiety may be protecting',
+      action: 'One small action you can do now',
+      reframe: 'A new narrative sentence',
+      reframeText: 'Your anxiety may not mean you are failing. It may be pointing to something you care about that has not been organized yet.'
+    }
+  }
+};
+
+const SCAN_RESULT_COPY = {
+  zh: {
+    tense: '轻度紧张：系统已经醒来，但还没有进入强警报。',
+    mind: '思维反刍：皮层正在反复模拟风险。',
+    body: '身体警报：杏仁核正在优先保护安全。',
+    overwhelmed: '接近过载：现在最重要的是先降低负荷。',
+    care: '一个你很在乎的结果，需要被拆小和整理。',
+    boundary: '一个边界或期待可能还没有被说清。',
+    safety: '你可能正在寻找更多稳定感和确定性。',
+    need: '一个真实需求正在等待被命名。',
+    actionDefault: '把下一步缩小到 2 分钟内能完成的一件事：喝水、写一句话、发一个澄清消息，或离开屏幕呼吸 6 次。'
+  },
+  en: {
+    tense: 'Mild tension: your system is awake, but not in full alarm.',
+    mind: 'Mental looping: your cortex is repeatedly simulating risk.',
+    body: 'Body alarm: your amygdala is prioritizing safety.',
+    overwhelmed: 'Near overload: the first task is to lower the load.',
+    care: 'An outcome you care about may need to be made smaller and clearer.',
+    boundary: 'A boundary or expectation may not be clear yet.',
+    safety: 'You may be looking for more stability and certainty.',
+    need: 'A real need may be waiting to be named.',
+    actionDefault: 'Shrink the next step to something you can do in 2 minutes: drink water, write one sentence, send one clarifying message, or step away and take 6 breaths.'
   }
 };
 
@@ -1015,15 +1185,18 @@ const state = {
   signalUserEdited: { trigger: false, body: false, meaning: false, action: false },
   signalLastDefault: { trigger: '', body: '', meaning: '', action: '' },
   signalExpanded: { trigger: false, body: false, meaning: false, action: false },
-  homeFocus: null
+  homeFocus: null,
+  scanStep: 0,
+  scanAnswers: {}
 };
 
 const els = {};
 
 function initEls() {
   [
-    'viewHome', 'viewLecture', 'enterLectureBtn', 'langToggle', 'backHomeBtn',
-    'homeConcern', 'homeLevel', 'homeLevelVal',
+    'viewHome', 'viewLecture', 'enterLectureBtn', 'resetStartBtn', 'langToggle', 'backHomeBtn',
+    'signalScan', 'scanStepCount', 'scanProgressText', 'scanFeedback', 'scanStage', 'scanQuestion', 'scanOptions',
+    'scanResult', 'scanResultGrid', 'restartScanBtn', 'saveScanBtn',
     'sectionNav', 'positiveList', 'negativeList', 'patternsGrid', 'goalMatrix', 'matrixBody',
     'matrixDetail', 'matrixDetailTitle', 'matrixDetailDesc', 'useStepsGrid',
     'brainInfoTitle', 'brainInfoDesc', 'brainDiagram',
@@ -2600,6 +2773,108 @@ function bindSnapshotExercise() {
   els.projectPatternSnapshotBtn?.addEventListener('click', projectPatternSnapshot);
 }
 
+function getScanCopy() {
+  return SCAN_FLOW[state.lang];
+}
+
+function resetSignalScan() {
+  state.scanStep = 0;
+  state.scanAnswers = {};
+  if (els.scanResult) els.scanResult.hidden = true;
+  if (els.scanStage) els.scanStage.hidden = false;
+  if (els.scanFeedback) {
+    els.scanFeedback.hidden = true;
+    els.scanFeedback.textContent = '';
+  }
+  renderSignalScan();
+}
+
+function renderSignalScan() {
+  if (!els.scanQuestion || !els.scanOptions) return;
+  const copy = getScanCopy();
+  const step = copy.steps[state.scanStep];
+  if (!step) return renderScanResult();
+  els.scanStepCount.textContent = `${state.scanStep + 1} / ${copy.steps.length}`;
+  els.scanProgressText.textContent = t(step.progress);
+  document.querySelectorAll('.scan-dot').forEach((dot, idx) => {
+    dot.classList.toggle('active', idx <= state.scanStep);
+  });
+  els.scanStage.classList.remove('scan-stage-enter');
+  void els.scanStage.offsetWidth;
+  els.scanStage.classList.add('scan-stage-enter');
+  els.scanQuestion.textContent = step.question;
+  els.scanOptions.innerHTML = step.options.map(([value, label]) => `
+    <button type="button" class="scan-option-card" data-scan-value="${value}">
+      <span>${escapeHtml(label)}</span>
+    </button>
+  `).join('');
+}
+
+function chooseScanOption(value) {
+  const copy = getScanCopy();
+  const step = copy.steps[state.scanStep];
+  state.scanAnswers[step.key] = value;
+  els.scanFeedback.textContent = step.feedback;
+  els.scanFeedback.hidden = false;
+  setTimeout(() => {
+    state.scanStep += 1;
+    if (state.scanStep >= copy.steps.length) renderScanResult();
+    else renderSignalScan();
+  }, 520);
+}
+
+function renderScanResult() {
+  const copy = getScanCopy();
+  const resultCopy = SCAN_RESULT_COPY[state.lang];
+  const answers = state.scanAnswers;
+  const signal = resultCopy[answers.state] || resultCopy.tense;
+  const protect = resultCopy[answers.source] || resultCopy.need;
+  const action = resultCopy.actionDefault;
+  const cards = [
+    [copy.result.signal, signal],
+    [copy.result.protect, protect],
+    [copy.result.action, action],
+    [copy.result.reframe, copy.result.reframeText]
+  ];
+  els.scanProgressText.textContent = t('scanProgressAction');
+  els.scanStepCount.textContent = '4 / 4';
+  document.querySelectorAll('.scan-dot').forEach(dot => dot.classList.add('active'));
+  if (els.scanStage) els.scanStage.hidden = true;
+  if (els.scanFeedback) {
+    els.scanFeedback.textContent = state.lang === 'zh'
+      ? '已经生成。你可以先带着一个小动作离开这里。'
+      : 'Generated. You can leave with one small action for now.';
+    els.scanFeedback.hidden = false;
+  }
+  els.scanResultGrid.innerHTML = cards.map(([title, body]) => `
+    <section class="scan-result-item">
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(body)}</p>
+    </section>
+  `).join('');
+  els.scanResult.hidden = false;
+}
+
+function bindSignalScan() {
+  els.resetStartBtn?.addEventListener('click', () => {
+    els.signalScan?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    resetSignalScan();
+  });
+  els.scanOptions?.addEventListener('click', e => {
+    const option = e.target.closest('[data-scan-value]');
+    if (!option) return;
+    chooseScanOption(option.dataset.scanValue);
+  });
+  els.restartScanBtn?.addEventListener('click', resetSignalScan);
+  els.saveScanBtn?.addEventListener('click', () => {
+    const text = els.scanResultGrid?.innerText || '';
+    if (navigator.clipboard && text) navigator.clipboard.writeText(text).catch(() => {});
+    els.saveScanBtn.textContent = state.lang === 'zh' ? '已复制' : 'Copied';
+    setTimeout(() => { els.saveScanBtn.textContent = t('saveScan'); }, 1400);
+  });
+  resetSignalScan();
+}
+
 function startResetPath() {
   const concern = els.homeConcern?.value.trim() || '';
   const level = els.homeLevel?.value || '5';
@@ -2621,7 +2896,7 @@ function startResetPath() {
 }
 
 function bindEvents() {
-  els.enterLectureBtn.addEventListener('click', e => {
+  els.enterLectureBtn?.addEventListener('click', e => {
     e.preventDefault();
     startResetPath();
   });
@@ -2654,6 +2929,7 @@ function bindEvents() {
   els.langToggle.addEventListener('click', () => {
     state.lang = state.lang === 'zh' ? 'en' : 'zh';
     applyI18n();
+    resetSignalScan();
   });
 
   if (els.goalSlider) {
@@ -2793,6 +3069,7 @@ function bindEvents() {
 function init() {
   initEls();
   bindEvents();
+  bindSignalScan();
   bindSnapshotExercise();
   bindUseStepCards();
   initSnapshotCatRows();
@@ -2807,5 +3084,6 @@ function init() {
 }
 
 init();
+
 
 

@@ -17,6 +17,7 @@
         <span class="logo-text" data-i18n="appTitle">杏仁核重启</span>
       </div>
       <div class="header-actions">
+        <button type="button" class="btn btn-sm btn-secondary presenter-toggle" id="presenterToggle" data-i18n="presenterMode">演示模式</button>
         <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">
           <span class="lang-option active" data-lang="zh">中</span>
           <span class="lang-divider">/</span>
@@ -28,71 +29,72 @@
 
   <!-- Home -->
   <section class="view view-home active" id="viewHome">
-    <main class="main-content home-main">
-      <section class="app-hero card">
-        <div class="app-hero-copy">
-          <p class="hero-label" data-i18n="heroLabel">自我觉察工具 · 教育用途</p>
-          <h1 class="hero-title" data-i18n="heroTitle">杏仁核重启 Reset Blueprint</h1>
-          <p class="hero-desc" data-i18n="heroDesc">一个用于识别焦虑信号、区分身体警报与思维放大，并把焦虑转化为下一步行动的自我觉察工具。</p>
-          <div class="hero-result-strip" aria-label="Result preview">
-            <span data-i18n="homeResult1">信号类型</span>
-            <span data-i18n="homeResult2">身体警报</span>
-            <span data-i18n="homeResult3">下一步行动</span>
-          </div>
+    <main class="main-content app-main">
+      <section class="reset-hero">
+        <div class="reset-hero-copy">
+          <p class="hero-label" data-i18n="heroLabel">Signal Scan · 3 分钟</p>
+          <h1 class="hero-title" data-i18n="heroTitle">杏仁核重启</h1>
+          <p class="hero-desc" data-i18n="heroDesc">用 3 分钟，听懂焦虑想告诉你的信号。</p>
+          <button type="button" class="btn btn-primary btn-lg reset-start-btn" id="resetStartBtn" data-i18n="enterLecture">开始今天的重启</button>
         </div>
-        <form class="quick-start-panel" id="quickStartPanel">
-          <p class="quick-start-kicker" data-i18n="homeKicker">从一个当下的焦虑开始</p>
-          <label class="quick-start-field" for="homeConcern">
-            <span data-i18n="homeQuestion">现在最牵动你的事情是什么？</span>
-            <textarea class="input-field" id="homeConcern" rows="4" data-i18n-placeholder="homeConcernPlaceholder"></textarea>
-          </label>
-          <div class="quick-focus-group" aria-label="Focus area">
-            <button type="button" class="quick-focus-btn" data-focus="body" data-i18n="homeFocusBody">身体先警报</button>
-            <button type="button" class="quick-focus-btn" data-focus="thought" data-i18n="homeFocusThought">思维停不下</button>
-            <button type="button" class="quick-focus-btn" data-focus="action" data-i18n="homeFocusAction">不知道怎么做</button>
+        <section class="signal-scan-card card" id="signalScan" aria-live="polite">
+          <div class="scan-topline">
+            <span class="scan-kicker" data-i18n="scanKicker">信号扫描</span>
+            <span class="scan-step-count" id="scanStepCount">1 / 4</span>
           </div>
-          <div class="quick-level-row">
-            <label for="homeLevel" data-i18n="homeLevelLabel">当前强度</label>
-            <span class="slider-val" id="homeLevelVal">5</span>
+          <div class="scan-progress" aria-hidden="true">
+            <span class="scan-dot active" data-scan-dot="0"></span>
+            <span class="scan-dot" data-scan-dot="1"></span>
+            <span class="scan-dot" data-scan-dot="2"></span>
+            <span class="scan-dot" data-scan-dot="3"></span>
           </div>
-          <input type="range" class="range-input" id="homeLevel" min="0" max="10" step="1" value="5">
-          <button type="submit" class="btn btn-primary btn-lg quick-start-btn" id="enterLectureBtn" data-i18n="enterLecture">生成我的重启路径</button>
-        </form>
+          <p class="scan-progress-text" id="scanProgressText" data-i18n="scanProgressBody">正在识别身体信号</p>
+          <p class="scan-feedback" id="scanFeedback" hidden></p>
+          <div class="scan-stage active" id="scanStage">
+            <h2 class="scan-question" id="scanQuestion">此刻，你更接近哪种状态？</h2>
+            <div class="scan-options" id="scanOptions"></div>
+          </div>
+          <article class="scan-result" id="scanResult" hidden>
+            <p class="scan-result-label" data-i18n="resultTitle">你的重启路径</p>
+            <div class="scan-result-grid" id="scanResultGrid"></div>
+            <div class="scan-actions">
+              <button type="button" class="btn btn-secondary" id="restartScanBtn" data-i18n="restartScan">重新开始</button>
+              <button type="button" class="btn btn-primary" id="saveScanBtn" data-i18n="saveScan">保存这次扫描</button>
+            </div>
+          </article>
+        </section>
       </section>
 
-      <article class="disclaimer-card card compact-disclaimer">
-        <div class="disclaimer-icon" aria-hidden="true">⚕️</div>
-        <div>
-          <h2 data-i18n="disclaimerTitle">非诊断声明</h2>
-          <p data-i18n="disclaimerDesc">本工具仅供心理教育与自我觉察参考，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。</p>
-        </div>
-      </article>
+      <details class="disclaimer-inline">
+        <summary data-i18n="disclaimerTitle">非诊断声明</summary>
+        <p data-i18n="disclaimerDesc">本工具仅用于心理教育与自我观察，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。</p>
+      </details>
 
-      <section class="tool-path-section" aria-label="Tool path">
+      <section class="tool-path-section soft-path" aria-label="Tool path">
         <div class="tool-path-heading">
-          <p class="quick-start-kicker" data-i18n="homePathKicker">重启路径</p>
-          <h2 data-i18n="homePathTitle">把焦虑拆成可处理的四层信号</h2>
+          <p class="quick-start-kicker" data-i18n="homePathKicker">更深入的重启模块</p>
+          <h2 data-i18n="homePathTitle">需要时，再打开完整练习。</h2>
         </div>
         <div class="outline-grid tool-path-grid">
           <article class="outline-card card" data-goto="1">
             <span class="outline-num">01</span>
-            <h3 data-i18n="outline1Title">杏仁核重启</h3>
-            <p data-i18n="outline1Desc">理解焦虑的功能，对比正性焦虑与负性焦虑。</p>
+            <h3 data-i18n="outline1Title">信号快照</h3>
+            <p data-i18n="outline1Desc">把触发事件、身体反应、意义解读和行动选择放到同一张图里。</p>
           </article>
           <article class="outline-card card" data-goto="2">
             <span class="outline-num">02</span>
-            <h3 data-i18n="outline2Title">杏仁核 vs 皮层</h3>
-            <p data-i18n="outline2Desc">理解快慢两条通路；皮层通道含 8 种思维模式互动。</p>
+            <h3 data-i18n="outline2Title">思维模式</h3>
+            <p data-i18n="outline2Desc">识别焦虑被哪些想法放大。</p>
           </article>
           <article class="outline-card card" data-goto="3">
             <span class="outline-num">03</span>
-            <h3 data-i18n="outline3Title">平静杏仁核</h3>
-            <p data-i18n="outline3Desc">深呼吸练习，激活副交感神经、降低唤醒。</p>
+            <h3 data-i18n="outline3Title">身体安抚</h3>
+            <p data-i18n="outline3Desc">用呼吸和身体练习让警报先降下来。</p>
           </article>
           <article class="outline-card card" data-goto="4">
             <span class="outline-num">04</span>
-            <h3 data-i18n="outline4Title">如何使用焦虑</h3>
-            <p data-i18n="outline4Desc">双滑块实时计算 Yerkes-Dodson 最佳匹配。</p>
+            <h3 data-i18n="outline4Title">下一步行动</h3>
+            <p data-i18n="outline4Desc">把焦虑转成一个小而具体的动作。</p>
           </article>
         </div>
       </section>
@@ -643,6 +645,38 @@
       </section>
     </main>
   </section>
+
+  <!-- Presenter Panel -->
+  <aside class="presenter-panel" id="presenterPanel" hidden>
+    <div class="presenter-panel-inner card">
+      <div class="presenter-panel-header">
+        <h3 data-i18n="presenterPanelTitle">演示者控制台</h3>
+        <button type="button" class="btn-icon" id="closePresenterPanel" aria-label="Close">×</button>
+      </div>
+      <p class="presenter-hint" data-i18n="presenterHint">在此输入案例，选择模式后投射到大屏。也可在各章节互动区直接操作。</p>
+      <label class="field-label">
+        <span data-i18n="caseLabel">案例描述</span>
+        <textarea class="input-field" id="presenterCaseInput" rows="4"></textarea>
+      </label>
+      <label class="field-label">
+        <span data-i18n="patternLabel">思维模式（可选）</span>
+        <select class="input-select" id="presenterPattern"></select>
+      </label>
+      <label class="field-label">
+        <span data-i18n="sectionLabel">所属章节</span>
+        <select class="input-select" id="presenterSection">
+          <option value="1" data-i18n="nav1">信号</option>
+          <option value="2" data-i18n="nav2">大脑通路</option>
+          <option value="3" data-i18n="nav3">平静杏仁核</option>
+          <option value="4" data-i18n="nav4">使用焦虑</option>
+        </select>
+      </label>
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary btn-block" id="presenterShowBtn" data-i18n="showOnScreen">投射到大屏</button>
+        <button type="button" class="btn btn-secondary btn-block" id="presenterClearBtn" data-i18n="clearBoard">清空大屏</button>
+      </div>
+    </div>
+  </aside>
 
   <!-- Display Board Overlay -->
   <div class="display-board" id="displayBoard" hidden>
