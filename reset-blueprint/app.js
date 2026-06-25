@@ -1254,6 +1254,8 @@ function applyI18n() {
     el.classList.toggle('active', el.dataset.lang === lang);
   });
 
+  renderSignalScan();
+
   renderCompareLists();
   renderPatterns();
   renderMatrix();
@@ -2920,13 +2922,13 @@ function bindEvents() {
     });
   });
 
-  els.backHomeBtn.addEventListener('click', () => showView('home'));
+  els.backHomeBtn?.addEventListener('click', () => showView('home'));
 
   document.querySelectorAll('.section-tab[data-section]').forEach(tab => {
     tab.addEventListener('click', () => goToSection(parseInt(tab.dataset.section, 10)));
   });
 
-  els.langToggle.addEventListener('click', () => {
+  els.langToggle?.addEventListener('click', () => {
     state.lang = state.lang === 'zh' ? 'en' : 'zh';
     applyI18n();
     resetSignalScan();
@@ -2945,7 +2947,7 @@ function bindEvents() {
     });
   }
 
-  els.patternsGrid.addEventListener('input', e => {
+  els.patternsGrid?.addEventListener('input', e => {
     if (e.target.classList.contains('pattern-scenario-input')) {
       savePatternScenario(e.target.dataset.pattern, e.target.value);
     }
@@ -2954,7 +2956,7 @@ function bindEvents() {
     }
   });
 
-  els.patternsGrid.addEventListener('click', e => {
+  els.patternsGrid?.addEventListener('click', e => {
     const showBtn = e.target.closest('.pattern-show-btn');
     if (showBtn) {
       const id = showBtn.dataset.pattern;
@@ -3053,8 +3055,8 @@ function bindEvents() {
 
   els.presenterClearBtn?.addEventListener('click', hideBoard);
 
-  els.closeDisplayBoard.addEventListener('click', hideBoard);
-  els.displayBoard.addEventListener('click', e => {
+  els.closeDisplayBoard?.addEventListener('click', hideBoard);
+  els.displayBoard?.addEventListener('click', e => {
     if (e.target === els.displayBoard) hideBoard();
   });
 
@@ -3066,21 +3068,30 @@ function bindEvents() {
   });
 }
 
+function safely(label, fn) {
+  try {
+    fn();
+  } catch (error) {
+    console.error(`[Reset Blueprint] ${label} failed`, error);
+  }
+}
+
 function init() {
   initEls();
-  bindEvents();
+  renderSignalScan();
   bindSignalScan();
-  bindSnapshotExercise();
-  bindUseStepCards();
-  initSnapshotCatRows();
-  initUseStepTexts();
-  bindBrainRegions();
-  bindAmygdalaSliders();
-  bindBreathPractice();
-  bindCalmSection();
-  bindSignalNodes();
-  applyI18n();
-  updateYerkesUI();
+  safely('bindEvents', bindEvents);
+  safely('bindSnapshotExercise', bindSnapshotExercise);
+  safely('bindUseStepCards', bindUseStepCards);
+  safely('initSnapshotCatRows', initSnapshotCatRows);
+  safely('initUseStepTexts', initUseStepTexts);
+  safely('bindBrainRegions', bindBrainRegions);
+  safely('bindAmygdalaSliders', bindAmygdalaSliders);
+  safely('bindBreathPractice', bindBreathPractice);
+  safely('bindCalmSection', bindCalmSection);
+  safely('bindSignalNodes', bindSignalNodes);
+  safely('applyI18n', applyI18n);
+  safely('updateYerkesUI', updateYerkesUI);
 }
 
 init();

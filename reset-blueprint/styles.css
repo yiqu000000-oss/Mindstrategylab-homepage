@@ -3695,3 +3695,144 @@ body {
   .reset-start-btn { width: 100%; }
   .scan-option-card { min-height: 58px; }
 }
+
+
+/* App shell repair: keep the first screen aligned and interactive */
+.app-main {
+  max-width: 1120px;
+  padding-top: clamp(20px, 4vh, 40px);
+}
+
+.reset-hero {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(420px, 1.22fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  min-height: min(650px, calc(100vh - 118px));
+  margin-bottom: 24px;
+}
+
+.reset-hero-copy {
+  min-width: 0;
+  padding: 0;
+}
+
+.reset-hero .hero-label {
+  margin-bottom: 14px;
+}
+
+.reset-hero .hero-title {
+  font-size: clamp(3rem, 6.4vw, 5.25rem);
+  letter-spacing: 0;
+  margin-bottom: 18px;
+}
+
+.reset-hero .hero-desc {
+  margin: 0 0 30px;
+  max-width: 460px;
+  text-align: left;
+  line-height: 1.7;
+}
+
+.reset-start-btn {
+  width: fit-content;
+  min-width: 220px;
+}
+
+.signal-scan-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 520px;
+  padding: clamp(24px, 3vw, 34px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.scan-stage {
+  display: block;
+  flex: 1;
+}
+
+.scan-stage[hidden],
+.scan-result[hidden],
+.scan-feedback[hidden] {
+  display: none !important;
+}
+
+.scan-question {
+  margin: 18px 0 18px;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+}
+
+.scan-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.scan-option-card {
+  position: relative;
+  z-index: 3;
+  min-height: 68px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scan-option-card span {
+  pointer-events: none;
+}
+
+.disclaimer-inline {
+  margin-top: 8px;
+  margin-bottom: 30px;
+}
+
+.soft-path {
+  margin-top: 18px;
+}
+
+@media (max-width: 960px) {
+  .reset-hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 24px;
+  }
+
+  .reset-hero-copy {
+    padding-top: 10px;
+  }
+
+  .reset-hero .hero-title {
+    font-size: clamp(2.75rem, 10vw, 4.8rem);
+  }
+
+  .signal-scan-card {
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .reset-start-btn {
+    width: 100%;
+  }
+
+  .signal-scan-card {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .scan-option-card {
+    min-height: 60px;
+  }
+}
