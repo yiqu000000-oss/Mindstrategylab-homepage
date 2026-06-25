@@ -6,9 +6,21 @@ const I18N = {
     heroLabel: '自我觉察工具 · 教育用途',
     heroTitle: '杏仁核重启 Reset Blueprint',
     heroDesc: '一个用于识别焦虑信号、区分身体警报与思维放大，并把焦虑转化为下一步行动的自我觉察工具。',
-    enterLecture: '开始重启',
+    enterLecture: '生成我的重启路径',
+    homeKicker: '从一个当下的焦虑开始',
+    homeQuestion: '现在最牵动你的事情是什么？',
+    homeConcernPlaceholder: '例如：我一想到明天的汇报，胸口就紧，脑子一直在想会不会搞砸。',
+    homeFocusBody: '身体先警报',
+    homeFocusThought: '思维停不下',
+    homeFocusAction: '不知道怎么做',
+    homeLevelLabel: '当前强度',
+    homeResult1: '信号类型',
+    homeResult2: '身体警报',
+    homeResult3: '下一步行动',
+    homePathKicker: '重启路径',
+    homePathTitle: '把焦虑拆成可处理的四层信号',
     disclaimerTitle: '非诊断声明',
-    disclaimerDesc: '本讲座内容仅供心理教育与自我觉察参考，不能替代专业心理或医疗诊断与治疗。若您或听众感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。',
+    disclaimerDesc: '本工具仅供心理教育与自我觉察参考，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。',
     outline1Title: '杏仁核重启', outline1Desc: '理解焦虑的功能，对比正性焦虑与负性焦虑。',
     outline2Title: '杏仁核 vs 皮层', outline2Desc: '理解快慢两条通路；皮层通道含 8 种思维模式互动。',
     outline3Title: '平静杏仁核', outline3Desc: '深呼吸练习，激活副交感神经、降低唤醒。',
@@ -208,10 +220,22 @@ const I18N = {
     appTitle: 'Reset Blueprint',
     heroLabel: 'Self-Reflection Tool · Educational',
     heroTitle: 'Reset Blueprint',
-    heroDesc: 'An interactive lecture on anxiety, thinking patterns, and brain pathways. Presenters can input audience cases live and project results on screen.',
-    enterLecture: 'Start Reset',
+    heroDesc: 'A self-reflection tool for reading anxiety signals, separating body alarms from thought amplification, and turning anxiety into a grounded next step.',
+    enterLecture: 'Build My Reset Path',
+    homeKicker: 'Start with one live anxiety signal',
+    homeQuestion: 'What is pulling on your nervous system right now?',
+    homeConcernPlaceholder: 'Example: When I think about tomorrow’s presentation, my chest tightens and I keep imagining it going wrong.',
+    homeFocusBody: 'Body alarm first',
+    homeFocusThought: 'Thoughts won’t stop',
+    homeFocusAction: 'Unsure what to do',
+    homeLevelLabel: 'Current intensity',
+    homeResult1: 'Signal type',
+    homeResult2: 'Body alarm',
+    homeResult3: 'Next action',
+    homePathKicker: 'Reset path',
+    homePathTitle: 'Break anxiety into four workable signal layers',
     disclaimerTitle: 'Disclaimer',
-    disclaimerDesc: 'This lecture is for psychoeducation and self-awareness only. It does not replace professional diagnosis or treatment. Seek licensed help for ongoing distress, impairment, or crisis.',
+    disclaimerDesc: 'This tool is for psychoeducation and self-awareness only. It does not replace professional diagnosis or treatment. Seek licensed help for ongoing distress, impairment, or crisis.',
     outline1Title: 'Reset Blueprint', outline1Desc: 'Understand anxiety\'s function; compare positive vs. negative anxiety.',
     outline2Title: 'Amygdala vs. Cortex', outline2Desc: 'Fast and slow pathways; cortex path includes 8 thinking patterns.',
     outline3Title: 'Calm Amygdala', outline3Desc: 'Deep breathing to activate the parasympathetic nervous system.',
@@ -990,7 +1014,8 @@ const state = {
   lastPatternSnapshotData: null,
   signalUserEdited: { trigger: false, body: false, meaning: false, action: false },
   signalLastDefault: { trigger: '', body: '', meaning: '', action: '' },
-  signalExpanded: { trigger: false, body: false, meaning: false, action: false }
+  signalExpanded: { trigger: false, body: false, meaning: false, action: false },
+  homeFocus: null
 };
 
 const els = {};
@@ -998,6 +1023,7 @@ const els = {};
 function initEls() {
   [
     'viewHome', 'viewLecture', 'enterLectureBtn', 'langToggle', 'backHomeBtn',
+    'homeConcern', 'homeLevel', 'homeLevelVal',
     'sectionNav', 'positiveList', 'negativeList', 'patternsGrid', 'goalMatrix', 'matrixBody',
     'matrixDetail', 'matrixDetailTitle', 'matrixDetailDesc', 'useStepsGrid',
     'brainInfoTitle', 'brainInfoDesc', 'brainDiagram',
@@ -2574,10 +2600,42 @@ function bindSnapshotExercise() {
   els.projectPatternSnapshotBtn?.addEventListener('click', projectPatternSnapshot);
 }
 
+function startResetPath() {
+  const concern = els.homeConcern?.value.trim() || '';
+  const level = els.homeLevel?.value || '5';
+  if (els.snapshotEvent && concern) els.snapshotEvent.value = concern;
+  if (els.snapshotLevel) {
+    els.snapshotLevel.value = level;
+    if (els.snapshotLevelVal) els.snapshotLevelVal.textContent = level;
+  }
+  const targetSection = state.homeFocus === 'thought' ? 2 : state.homeFocus === 'body' ? 3 : state.homeFocus === 'action' ? 4 : 1;
+  showView('lecture');
+  goToSection(targetSection);
+  setTimeout(() => {
+    const target = targetSection === 1
+      ? (document.getElementById('snapshotExercise') || document.getElementById('section1'))
+      : document.querySelector(`[data-section="${targetSection}"]`);
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (targetSection === 1 && !concern) els.snapshotEvent?.focus();
+  }, 80);
+}
+
 function bindEvents() {
-  els.enterLectureBtn.addEventListener('click', () => {
-    showView('lecture');
-    goToSection(1);
+  els.enterLectureBtn.addEventListener('click', e => {
+    e.preventDefault();
+    startResetPath();
+  });
+
+  els.homeLevel?.addEventListener('input', () => {
+    els.homeLevelVal.textContent = els.homeLevel.value;
+  });
+
+  document.querySelectorAll('.quick-focus-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.quick-focus-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.homeFocus = btn.dataset.focus;
+    });
   });
 
   document.querySelectorAll('.outline-card').forEach(card => {
@@ -2678,14 +2736,14 @@ function bindEvents() {
   });
 
   // Presenter panel
-  els.presenterToggle.addEventListener('click', () => {
+  els.presenterToggle?.addEventListener('click', () => {
     els.presenterPanel.hidden = !els.presenterPanel.hidden;
   });
-  els.closePresenterPanel.addEventListener('click', () => {
+  els.closePresenterPanel?.addEventListener('click', () => {
     els.presenterPanel.hidden = true;
   });
 
-  els.presenterShowBtn.addEventListener('click', () => {
+  els.presenterShowBtn?.addEventListener('click', () => {
     const caseText = els.presenterCaseInput.value.trim();
     const patternId = els.presenterPattern.value;
     const section = els.presenterSection.value;
@@ -2717,7 +2775,7 @@ function bindEvents() {
     });
   });
 
-  els.presenterClearBtn.addEventListener('click', hideBoard);
+  els.presenterClearBtn?.addEventListener('click', hideBoard);
 
   els.closeDisplayBoard.addEventListener('click', hideBoard);
   els.displayBoard.addEventListener('click', e => {
@@ -2727,7 +2785,7 @@ function bindEvents() {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       hideBoard();
-      els.presenterPanel.hidden = true;
+      if (els.presenterPanel) els.presenterPanel.hidden = true;
     }
   });
 }
@@ -2749,4 +2807,5 @@ function init() {
 }
 
 init();
+
 
