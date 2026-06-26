@@ -7,13 +7,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=777f016">
+  <link rel="stylesheet" href="styles.css?v=handcrafted-208c1ad">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <div class="logo">
-        <span class="logo-icon" aria-hidden="true">◈</span>
+        <span class="logo-icon logo-doodle" aria-hidden="true">
+          <svg viewBox="0 0 28 28" focusable="false">
+            <path d="M14 4.2 23.1 14 14 23.8 4.9 14Z" />
+            <path d="M14 9.2 18.4 14 14 18.8 9.6 14Z" />
+          </svg>
+        </span>
         <span class="logo-text" data-i18n="appTitle">杏仁核重启</span>
       </div>
       <div class="header-actions">
@@ -36,8 +41,27 @@
           <h1 class="hero-title" data-i18n="heroTitle">杏仁核重启</h1>
           <p class="hero-desc" data-i18n="heroDesc">用 3 分钟，听懂焦虑想告诉你的信号。</p>
           <button type="button" class="btn btn-primary btn-lg reset-start-btn" id="resetStartBtn" data-i18n="enterLecture">开始今天的重启</button>
+          <div class="hero-note-doodle" aria-hidden="true">
+            <svg viewBox="0 0 260 120" focusable="false">
+              <path class="doodle-line" d="M28 81c30-23 53-21 75-7 19 13 42 15 67-5 17-13 35-18 58-7" />
+              <path class="doodle-leaf" d="M58 63c13-22 33-28 53-24-4 18-18 32-39 34" />
+              <path class="doodle-leaf" d="M181 55c9-18 24-26 43-25-1 18-13 31-31 36" />
+              <path class="doodle-star" d="M128 25l4 8 8 2-7 5 1 9-6-6-8 3 4-8-5-7 8 1z" />
+            </svg>
+          </div>
         </div>
         <section class="signal-scan-card card" id="signalScan" aria-live="polite">
+          <div class="paper-tape paper-tape-top" aria-hidden="true"></div>
+          <div class="scan-illustration" aria-hidden="true">
+            <svg viewBox="0 0 150 118" focusable="false">
+              <path class="doodle-water" d="M16 96c18-8 31 8 49 0s31 8 49 0 26 1 32 5" />
+              <path class="doodle-lighthouse" d="M60 91 70 39h25l11 52Z" />
+              <path class="doodle-lighthouse" d="M70 39 82 25l13 14" />
+              <path class="doodle-lighthouse" d="M74 55h24M71 70h30" />
+              <path class="doodle-beam" d="M95 43c16-9 29-12 40-11M95 48c20 2 33 8 43 17" />
+              <circle class="doodle-sun" cx="42" cy="38" r="10" />
+            </svg>
+          </div>
           <div class="scan-topline">
             <span class="scan-kicker" data-i18n="scanKicker">信号扫描</span>
             <span class="scan-step-count" id="scanStepCount">1 / 4</span>
@@ -77,22 +101,22 @@
         </div>
         <div class="outline-grid tool-path-grid">
           <article class="outline-card card" data-goto="1">
-            <span class="outline-num">01</span>
+            <span class="outline-illustration path-signal" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M20 60 28 24h18l8 36Z"/><path d="M28 24 37 14l9 10"/><path d="M48 28c12-8 22-10 31-8"/><path d="M50 36c10 1 19 5 27 12"/></svg></span><span class="outline-num">01</span>
             <h3 data-i18n="outline1Title">信号快照</h3>
             <p data-i18n="outline1Desc">把触发事件、身体反应、意义解读和行动选择放到同一张图里。</p>
           </article>
           <article class="outline-card card" data-goto="2">
-            <span class="outline-num">02</span>
+            <span class="outline-illustration path-need" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M42 56C23 43 16 33 20 23c3-8 13-9 22 1 9-10 20-9 23 0 4 10-4 20-23 32Z"/><path d="M20 60c14-5 29-5 44 0"/></svg></span><span class="outline-num">02</span>
             <h3 data-i18n="outline2Title">思维模式</h3>
             <p data-i18n="outline2Desc">识别焦虑被哪些想法放大。</p>
           </article>
           <article class="outline-card card" data-goto="3">
-            <span class="outline-num">03</span>
+            <span class="outline-illustration path-cup" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M24 31h30v13c0 9-6 16-15 16s-15-7-15-16Z"/><path d="M54 35h8c5 0 6 12-4 13h-4"/><path d="M29 23c-4-6 6-7 2-13M41 23c-4-6 6-7 2-13"/><path d="M20 61h42"/></svg></span><span class="outline-num">03</span>
             <h3 data-i18n="outline3Title">身体安抚</h3>
             <p data-i18n="outline3Desc">用呼吸和身体练习让警报先降下来。</p>
           </article>
           <article class="outline-card card" data-goto="4">
-            <span class="outline-num">04</span>
+            <span class="outline-illustration path-foot" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M26 45c9-8 16-7 18 1 2 7-6 13-14 11-7-2-9-7-4-12Z"/><path d="M50 29c7-7 14-6 16 1 1 7-5 11-12 10-7-1-9-6-4-11Z"/><path d="M22 22c10-8 24-11 40-7"/></svg></span><span class="outline-num">04</span>
             <h3 data-i18n="outline4Title">下一步行动</h3>
             <p data-i18n="outline4Desc">把焦虑转成一个小而具体的动作。</p>
           </article>
@@ -727,7 +751,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=777f016"></script>
+  <script src="app.js?v=handcrafted-208c1ad"></script>
 </body>
 </html>
 

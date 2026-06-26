@@ -2825,6 +2825,16 @@ function chooseScanOption(value) {
   }, 520);
 }
 
+function getResultDoodle(kind) {
+  const doodles = {
+    signal: '<svg viewBox="0 0 72 64" focusable="false"><path d="M19 56 27 21h18l8 35Z"/><path d="M27 21 36 11l9 10"/><path d="M48 25c9-6 16-7 22-6"/><path d="M49 33c9 1 15 4 21 9"/></svg>',
+    protect: '<svg viewBox="0 0 72 64" focusable="false"><path d="M36 52C20 40 15 31 18 22c3-8 11-8 18 1 7-9 16-9 18-1 4 9-2 18-18 30Z"/><path d="M15 56c12-4 29-4 42 0"/></svg>',
+    action: '<svg viewBox="0 0 72 64" focusable="false"><path d="M18 32h27v12c0 8-5 14-13 14s-14-6-14-14Z"/><path d="M45 36h7c5 0 5 10-3 11h-4"/><path d="M23 25c-4-6 5-6 2-12M34 25c-4-6 5-6 2-12"/></svg>',
+    reframe: '<svg viewBox="0 0 72 64" focusable="false"><path d="M36 58V33"/><path d="M36 34c-12-1-18-8-18-19 11 0 18 7 18 19Z"/><path d="M37 39c13-3 20-10 20-23-12 2-19 9-20 23Z"/><path d="M18 59c13-4 25-4 38 0"/></svg>'
+  };
+  return doodles[kind] || doodles.signal;
+}
+
 function renderScanResult() {
   const copy = getScanCopy();
   const resultCopy = SCAN_RESULT_COPY[state.lang];
@@ -2833,10 +2843,10 @@ function renderScanResult() {
   const protect = resultCopy[answers.source] || resultCopy.need;
   const action = resultCopy.actionDefault;
   const cards = [
-    [copy.result.signal, signal],
-    [copy.result.protect, protect],
-    [copy.result.action, action],
-    [copy.result.reframe, copy.result.reframeText]
+    ['signal', copy.result.signal, signal],
+    ['protect', copy.result.protect, protect],
+    ['action', copy.result.action, action],
+    ['reframe', copy.result.reframe, copy.result.reframeText]
   ];
   els.scanProgressText.textContent = t('scanProgressAction');
   els.scanStepCount.textContent = '4 / 4';
@@ -2848,8 +2858,9 @@ function renderScanResult() {
       : 'Generated. You can leave with one small action for now.';
     els.scanFeedback.hidden = false;
   }
-  els.scanResultGrid.innerHTML = cards.map(([title, body]) => `
-    <section class="scan-result-item">
+  els.scanResultGrid.innerHTML = cards.map(([kind, title, body]) => `
+    <section class="scan-result-item scan-result-${kind}">
+      <span class="scan-result-doodle" aria-hidden="true">${getResultDoodle(kind)}</span>
       <h3>${escapeHtml(title)}</h3>
       <p>${escapeHtml(body)}</p>
     </section>
