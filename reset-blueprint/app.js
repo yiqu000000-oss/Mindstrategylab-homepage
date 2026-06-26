@@ -2827,10 +2827,10 @@ function chooseScanOption(value) {
 
 function getResultDoodle(kind) {
   const doodles = {
-    signal: '<svg viewBox="0 0 72 64" focusable="false"><path d="M19 56 27 21h18l8 35Z"/><path d="M27 21 36 11l9 10"/><path d="M48 25c9-6 16-7 22-6"/><path d="M49 33c9 1 15 4 21 9"/></svg>',
-    protect: '<svg viewBox="0 0 72 64" focusable="false"><path d="M36 52C20 40 15 31 18 22c3-8 11-8 18 1 7-9 16-9 18-1 4 9-2 18-18 30Z"/><path d="M15 56c12-4 29-4 42 0"/></svg>',
-    action: '<svg viewBox="0 0 72 64" focusable="false"><path d="M18 32h27v12c0 8-5 14-13 14s-14-6-14-14Z"/><path d="M45 36h7c5 0 5 10-3 11h-4"/><path d="M23 25c-4-6 5-6 2-12M34 25c-4-6 5-6 2-12"/></svg>',
-    reframe: '<svg viewBox="0 0 72 64" focusable="false"><path d="M36 58V33"/><path d="M36 34c-12-1-18-8-18-19 11 0 18 7 18 19Z"/><path d="M37 39c13-3 20-10 20-23-12 2-19 9-20 23Z"/><path d="M18 59c13-4 25-4 38 0"/></svg>'
+    signal: '<svg viewBox="0 0 96 76" focusable="false"><path class="crayon-fill fill-sky" d="M36 63 43 23h18l8 40c-10 4-23 4-33 0Z"/><path class="crayon-jitter" d="M35 63 43 23h18l8 40M43 23l9-10 9 10"/><path d="M36 63 43 23h18l8 40M43 23l9-10 9 10M41 37c9 2 19 2 26 0M39 51c11 3 22 3 31 0"/><path class="doodle-beam" d="M61 27c13-6 22-8 32-7M61 32c14 2 23 7 31 15"/><path class="doodle-water" d="M8 70c15-5 24 4 39 0 16-5 25 5 40 0"/></svg>',
+    protect: '<svg viewBox="0 0 96 76" focusable="false"><path class="crayon-scribble fill-heart" d="M48 62C27 47 19 35 22 25c4-10 15-10 26 2 10-12 22-12 26-1 5 11-6 23-26 36Z"/><path class="crayon-jitter" d="M48 61C28 47 20 35 23 26c4-11 15-9 25 2 10-12 22-12 25-2 5 11-5 23-25 35Z"/><path d="M48 62C27 47 19 35 22 25c4-10 15-10 26 2 10-12 22-12 26-1 5 11-6 23-26 36Z"/><path class="doodle-ground" d="M20 67c17-4 39-4 57 0"/></svg>',
+    action: '<svg viewBox="0 0 96 76" focusable="false"><path class="crayon-fill fill-cup" d="M22 35h35v16c0 11-7 18-18 18S22 62 22 51Z"/><path class="crayon-jitter" d="M23 35h34v17c0 10-7 17-18 17s-17-7-16-18Z"/><path d="M22 35h35v16c0 11-7 18-18 18S22 62 22 51Z"/><path d="M57 40h10c7 0 7 15-4 16h-6"/><path class="doodle-steam" d="M29 27c-5-8 6-8 3-17M43 27c-5-8 6-8 3-17"/><path class="doodle-ground" d="M17 70h58"/></svg>',
+    reframe: '<svg viewBox="0 0 96 76" focusable="false"><path class="crayon-fill fill-leaf" d="M48 68V39"/><path class="crayon-fill fill-leaf" d="M48 41c-16-1-23-10-23-24 14 1 22 10 23 24Z"/><path class="crayon-fill fill-leaf" d="M50 47c17-4 26-14 27-30-16 2-25 12-27 30Z"/><path class="crayon-jitter" d="M48 68V39M48 41c-16-1-23-10-23-24 14 1 22 10 23 24ZM50 47c17-4 26-14 27-30-16 2-25 12-27 30Z"/><path d="M48 68V39M48 41c-16-1-23-10-23-24 14 1 22 10 23 24ZM50 47c17-4 26-14 27-30-16 2-25 12-27 30Z"/><path class="doodle-ground" d="M18 70c17-5 40-5 60 0"/></svg>'
   };
   return doodles[kind] || doodles.signal;
 }

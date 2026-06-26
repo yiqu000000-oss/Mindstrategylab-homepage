@@ -7,16 +7,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=handcrafted-208c1ad">
+  <link rel="stylesheet" href="styles.css?v=crayon-1d1504c">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <div class="logo">
         <span class="logo-icon logo-doodle" aria-hidden="true">
-          <svg viewBox="0 0 28 28" focusable="false">
-            <path d="M14 4.2 23.1 14 14 23.8 4.9 14Z" />
-            <path d="M14 9.2 18.4 14 14 18.8 9.6 14Z" />
+          <svg viewBox="0 0 32 32" focusable="false">
+            <path class="crayon-fill fill-sky" d="M16 5c6 3 9 7 11 11-3 5-6 8-11 11C10 24 6 20 5 16 7 11 10 8 16 5Z" />
+            <path class="crayon-jitter" d="M16.4 4.5c5.3 3.1 8.8 6.5 10.4 11.1-2.4 4.9-6.2 8.3-10.5 11.7C10.6 24.7 6 20.8 5.2 16.2 6.9 11.4 10.2 7.7 16.4 4.5Z" />
+            <path d="M16 5c6 3 9 7 11 11-3 5-6 8-11 11C10 24 6 20 5 16 7 11 10 8 16 5Z" />
+            <path d="M16 10.5c3.4 1.6 5.1 3.6 6.2 5.5-1.4 2.2-3.1 4-6.2 5.7-3.1-1.6-5-3.7-6-5.7 1.2-2.1 3-4.1 6-5.5Z" />
+            <path class="crayon-small" d="M16 2.5v5M16 24.3v5M2.8 16h5M24.2 16h5" />
           </svg>
         </span>
         <span class="logo-text" data-i18n="appTitle">杏仁核重启</span>
@@ -41,25 +44,38 @@
           <h1 class="hero-title" data-i18n="heroTitle">杏仁核重启</h1>
           <p class="hero-desc" data-i18n="heroDesc">用 3 分钟，听懂焦虑想告诉你的信号。</p>
           <button type="button" class="btn btn-primary btn-lg reset-start-btn" id="resetStartBtn" data-i18n="enterLecture">开始今天的重启</button>
-          <div class="hero-note-doodle" aria-hidden="true">
-            <svg viewBox="0 0 260 120" focusable="false">
-              <path class="doodle-line" d="M28 81c30-23 53-21 75-7 19 13 42 15 67-5 17-13 35-18 58-7" />
-              <path class="doodle-leaf" d="M58 63c13-22 33-28 53-24-4 18-18 32-39 34" />
-              <path class="doodle-leaf" d="M181 55c9-18 24-26 43-25-1 18-13 31-31 36" />
-              <path class="doodle-star" d="M128 25l4 8 8 2-7 5 1 9-6-6-8 3 4-8-5-7 8 1z" />
+          <div class="hero-note-doodle hero-lighthouse-scene" aria-hidden="true">
+            <svg viewBox="0 0 310 188" focusable="false">
+              <path class="crayon-scribble fill-sun" d="M64 27c7-6 16-5 20 1 5 8 1 18-8 21-9 3-18-2-19-11-.4-4 2-8 7-11Z" />
+              <path class="crayon-fill fill-rock" d="M104 150c16-19 55-20 76-7 12 7 27 5 41 10-23 16-96 19-137 4 6-3 13-4 20-7Z" />
+              <path class="crayon-fill fill-sky" d="M144 137 155 63l31 1 13 74c-19 7-38 7-55-1Z" />
+              <path class="crayon-jitter" d="M143 138c5-24 8-49 12-74 8-3 21-2 31 0 6 25 10 49 13 74" />
+              <path class="doodle-lighthouse" d="M144 137 155 63l31 1 13 74" />
+              <path class="doodle-lighthouse" d="M155 63 170 45l16 19" />
+              <path class="doodle-lighthouse" d="M151 86c12 3 29 3 41 0M148 108c15 4 34 4 48-1M145 127c17 4 36 4 53 0" />
+              <path class="doodle-lighthouse crayon-small" d="M165 75h12M164 94h18M162 116h24" />
+              <path class="doodle-beam" d="M185 68c23-10 45-16 66-14M185 73c28 5 50 14 67 28" />
+              <path class="doodle-beam crayon-jitter" d="M185 70c25-8 45-13 64-10M184 75c30 5 48 13 63 25" />
+              <path class="doodle-water" d="M28 165c32-9 47 7 78-1 29-8 48 8 77 0 31-8 51 7 89-2" />
+              <path class="doodle-water crayon-jitter" d="M36 173c31-7 48 7 75 0 27-8 47 6 74-1 31-8 54 6 88 0" />
+              <path class="doodle-rock" d="M87 157c32 12 103 12 138-1M115 149c20-10 47-11 68-2" />
+              <path class="doodle-bird" d="M240 112c5-5 10-5 15 0M258 108c5-5 10-5 15 0" />
+              <path class="doodle-star" d="M29 61l5 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1Z" />
             </svg>
           </div>
         </div>
         <section class="signal-scan-card card" id="signalScan" aria-live="polite">
           <div class="paper-tape paper-tape-top" aria-hidden="true"></div>
           <div class="scan-illustration" aria-hidden="true">
-            <svg viewBox="0 0 150 118" focusable="false">
-              <path class="doodle-water" d="M16 96c18-8 31 8 49 0s31 8 49 0 26 1 32 5" />
-              <path class="doodle-lighthouse" d="M60 91 70 39h25l11 52Z" />
-              <path class="doodle-lighthouse" d="M70 39 82 25l13 14" />
-              <path class="doodle-lighthouse" d="M74 55h24M71 70h30" />
-              <path class="doodle-beam" d="M95 43c16-9 29-12 40-11M95 48c20 2 33 8 43 17" />
-              <circle class="doodle-sun" cx="42" cy="38" r="10" />
+            <svg viewBox="0 0 170 132" focusable="false">
+              <path class="crayon-scribble fill-sun" d="M35 27c7-5 18-4 22 3 4 8-2 18-11 19-9 1-16-5-16-13 0-4 2-7 5-9Z" />
+              <path class="crayon-fill fill-rock" d="M57 108c18-14 45-13 61-2 9 6 18 5 30 8-22 11-78 13-109 3 5-4 11-5 18-9Z" />
+              <path class="crayon-fill fill-sky" d="M76 101 85 45h25l10 56c-14 5-31 5-44 0Z" />
+              <path class="doodle-lighthouse crayon-jitter" d="M75 101 84 45h26l10 56M84 45l13-15 14 15" />
+              <path class="doodle-lighthouse" d="M76 101 85 45h25l10 56M85 45l12-15 13 15M82 62c11 3 24 3 33 0M80 79c13 3 27 3 39 0" />
+              <path class="doodle-beam" d="M110 50c18-8 33-11 48-9M110 55c20 3 35 10 48 21" />
+              <path class="doodle-water" d="M14 119c23-7 36 6 58 0 22-6 36 6 58 0 18-5 27 1 35 4" />
+              <path class="doodle-bird" d="M132 87c4-4 8-4 12 0M146 84c4-4 8-4 12 0" />
             </svg>
           </div>
           <div class="scan-topline">
@@ -101,22 +117,22 @@
         </div>
         <div class="outline-grid tool-path-grid">
           <article class="outline-card card" data-goto="1">
-            <span class="outline-illustration path-signal" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M20 60 28 24h18l8 36Z"/><path d="M28 24 37 14l9 10"/><path d="M48 28c12-8 22-10 31-8"/><path d="M50 36c10 1 19 5 27 12"/></svg></span><span class="outline-num">01</span>
+            <span class="outline-illustration path-signal" aria-hidden="true"><svg viewBox="0 0 112 86"><path class="crayon-fill fill-sky" d="M43 70 50 28h20l8 42c-10 4-24 4-35 0Z"/><path class="doodle-lighthouse crayon-jitter" d="M42 70 50 28h20l8 42M50 28l10-12 10 12"/><path d="M43 70 50 28h20l8 42M50 28l10-12 10 12M48 43c9 2 19 2 27 0M46 56c12 3 23 3 31 0"/><path class="doodle-beam" d="M70 32c15-7 26-9 38-7M70 37c16 3 27 8 37 16"/><path class="doodle-water" d="M8 78c17-5 27 4 43 0 18-5 28 5 45 0"/></svg></span><span class="outline-num">01</span>
             <h3 data-i18n="outline1Title">信号快照</h3>
             <p data-i18n="outline1Desc">把触发事件、身体反应、意义解读和行动选择放到同一张图里。</p>
           </article>
           <article class="outline-card card" data-goto="2">
-            <span class="outline-illustration path-need" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M42 56C23 43 16 33 20 23c3-8 13-9 22 1 9-10 20-9 23 0 4 10-4 20-23 32Z"/><path d="M20 60c14-5 29-5 44 0"/></svg></span><span class="outline-num">02</span>
+            <span class="outline-illustration path-need" aria-hidden="true"><svg viewBox="0 0 112 86"><path class="crayon-scribble fill-heart" d="M56 70C31 53 22 39 26 27c4-11 18-11 30 2 12-13 26-13 31-1 5 14-7 27-31 42Z"/><path class="crayon-jitter" d="M55 69C33 53 23 40 27 28c5-12 18-10 29 2 10-13 25-13 30-2 5 13-6 27-31 41Z"/><path d="M56 70C31 53 22 39 26 27c4-11 18-11 30 2 12-13 26-13 31-1 5 14-7 27-31 42Z"/><path class="doodle-ground" d="M24 76c20-5 42-5 64 0"/></svg></span><span class="outline-num">02</span>
             <h3 data-i18n="outline2Title">思维模式</h3>
             <p data-i18n="outline2Desc">识别焦虑被哪些想法放大。</p>
           </article>
           <article class="outline-card card" data-goto="3">
-            <span class="outline-illustration path-cup" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M24 31h30v13c0 9-6 16-15 16s-15-7-15-16Z"/><path d="M54 35h8c5 0 6 12-4 13h-4"/><path d="M29 23c-4-6 6-7 2-13M41 23c-4-6 6-7 2-13"/><path d="M20 61h42"/></svg></span><span class="outline-num">03</span>
+            <span class="outline-illustration path-cup" aria-hidden="true"><svg viewBox="0 0 112 86"><path class="crayon-fill fill-cup" d="M30 38h39v17c0 12-8 20-20 20S30 67 30 55Z"/><path class="crayon-jitter" d="M31 39h38v17c0 12-8 19-20 19-11 0-19-7-18-20Z"/><path d="M30 38h39v17c0 12-8 20-20 20S30 67 30 55Z"/><path d="M69 43h11c8 0 8 17-4 18h-7"/><path class="doodle-steam" d="M38 29c-6-8 7-9 3-18M54 29c-6-8 7-9 3-18"/><path class="doodle-ground" d="M22 77h62"/></svg></span><span class="outline-num">03</span>
             <h3 data-i18n="outline3Title">身体安抚</h3>
             <p data-i18n="outline3Desc">用呼吸和身体练习让警报先降下来。</p>
           </article>
           <article class="outline-card card" data-goto="4">
-            <span class="outline-illustration path-foot" aria-hidden="true"><svg viewBox="0 0 84 70"><path d="M26 45c9-8 16-7 18 1 2 7-6 13-14 11-7-2-9-7-4-12Z"/><path d="M50 29c7-7 14-6 16 1 1 7-5 11-12 10-7-1-9-6-4-11Z"/><path d="M22 22c10-8 24-11 40-7"/></svg></span><span class="outline-num">04</span>
+            <span class="outline-illustration path-foot" aria-hidden="true"><svg viewBox="0 0 112 86"><path class="crayon-fill fill-leaf" d="M54 68V42"/><path class="crayon-fill fill-leaf" d="M54 44c-17-1-25-11-25-26 16 1 24 11 25 26Z"/><path class="crayon-fill fill-leaf" d="M56 50c18-4 28-15 29-32-18 2-28 13-29 32Z"/><path class="crayon-jitter" d="M54 68V42M54 44c-17-1-25-11-25-26 16 1 24 11 25 26ZM56 50c18-4 28-15 29-32-18 2-28 13-29 32Z"/><path d="M54 68V42M54 44c-17-1-25-11-25-26 16 1 24 11 25 26ZM56 50c18-4 28-15 29-32-18 2-28 13-29 32Z"/><path class="doodle-ground" d="M24 75c20-6 43-6 64 0"/></svg></span><span class="outline-num">04</span>
             <h3 data-i18n="outline4Title">下一步行动</h3>
             <p data-i18n="outline4Desc">把焦虑转成一个小而具体的动作。</p>
           </article>
@@ -751,7 +767,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=handcrafted-208c1ad"></script>
+  <script src="app.js?v=crayon-1d1504c"></script>
 </body>
 </html>
 
