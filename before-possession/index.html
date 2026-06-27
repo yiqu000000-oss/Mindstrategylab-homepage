@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>爱之秩序</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="vellum-noise" aria-hidden="true"></div>
+  <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch language">EN</button>
+
+  <main>
+    <section class="intro" id="intro">
+      <div class="intro-copy">
+        <p class="kicker">一场关于爱的漫游</p>
+        <h1>占有之前</h1>
+        <p class="subtitle">爱、真理与现代主体</p>
+      </div>
+      <div class="question" id="question">是爱，还是需要？</div>
+    </section>
+
+    <section class="love-astrolabe" id="loveAstrolabe">
+      <div class="love-copy">
+        <p class="micro">四爱星盘</p>
+        <h2 id="loveTitle"><span class="love-lang">storgē · στοργή</span><span class="love-cn">亲情之爱</span></h2>
+        <p id="loveDesc">熟悉、归属、庇护、家族、日常依赖。</p>
+      </div>
+
+      <div class="relief-orbit">
+        <button class="relief-main" id="reliefMain" aria-label="切换四种爱">
+          <img id="reliefImage" src="./assets/love-storge.png" alt="亲情之爱浮雕" />
+        </button>
+        <button class="love-dot active" style="--a:-90deg" data-love="0">storgē</button>
+        <button class="love-dot" style="--a:0deg" data-love="1">philia</button>
+        <button class="love-dot" style="--a:90deg" data-love="2">erōs</button>
+        <button class="love-dot" style="--a:180deg" data-love="3">agápē</button>
+      </div>
+
+      <div class="love-elements" aria-label="爱的三种元素">
+        <p class="footnote-hint">每一种爱都可被三种光照见。一道光落在一种爱上，便生成一则注脚。</p>
+        <button class="love-element" type="button" data-element="need">
+          <b>Need-love</b>
+          <span>我需要</span>
+          <p id="needText">我需要熟悉、照顾、归属。</p>
+        </button>
+        <button class="love-element" type="button" data-element="gift">
+          <b>Gift-love</b>
+          <span>我给予</span>
+          <p id="giftText">我照料你、保护你。</p>
+        </button>
+        <button class="love-element" type="button" data-element="appreciation">
+          <b>Appreciative-love</b>
+          <span>我欣赏</span>
+          <p id="appText">我珍惜你的存在与日常陪伴。</p>
+        </button>
+      </div>
+    </section>
+
+    <section class="love-footnote" id="loveFootnote" aria-hidden="true">
+      <article class="footnote-card">
+        <div class="footnote-card-head">
+          <div class="note-seal" aria-hidden="true"><span id="noteSealText">栖身</span></div>
+          <div>
+            <p class="micro" id="noteKicker">爱之注脚</p>
+            <h2 id="noteName">栖身之爱</h2>
+            <p class="note-motto" id="noteMotto">人最初不是靠独立活下来，而是靠有人在。</p>
+          </div>
+        </div>
+        <div class="note-tabs">
+          <button type="button" data-note-state="shadow">阴影</button>
+          <button type="button" data-note-state="light" class="active">其光</button>
+          <button type="button" data-note-state="return">回返</button>
+        </div>
+        <div class="note-body" id="noteBody">
+          <h3 id="noteTitle">栖身之爱</h3>
+          <p>我需要熟悉、照顾与归属。亲情之爱让世界先有一个可以停靠的地方。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="axis" id="axis">
+      <aside class="side-note" id="sideNote">
+        <p class="micro">当前卡牌</p>
+        <h2>柏拉图</h2>
+        <p>爱不是把美握在手里，而是被美牵引，向更高的真与善上升。</p>
+      </aside>
+
+      <div class="track-shell" id="trackShell">
+        <div class="era-line"></div>
+        <div class="lane-label lane-west">西方</div>
+        <div class="lane-label lane-east">东方</div>
+        <div class="card-track" id="cardTrack"></div>
+        <div class="spread-stage" id="spreadStage" aria-live="polite"></div>
+      </div>
+
+      <div class="axis-control">
+        <span>古典</span>
+        <input id="axisRange" type="range" min="0" max="7" value="0" aria-label="时间轴" />
+        <span>现代</span>
+      </div>
+    </section>
+
+    <section class="ending echo-section" id="echo">
+      <div class="echo-copy echo-journey" id="echoJourney">
+        <p class="kicker" id="echoTitle">星图回声</p>
+        <div class="echo-page-mark" id="echoPageMark"></div>
+
+        <div class="echo-pages" id="echoPages">
+          <article class="echo-page active" data-echo-page="0">
+            <p class="echo-small" id="echoEntryKicker"></p>
+            <h2 id="echoEntryTitle"></h2>
+            <p class="closing echo-intro" id="echoIntro"></p>
+            <button class="echo-primary" id="echoStart" type="button"></button>
+          </article>
+
+          <article class="echo-page" data-echo-page="1">
+            <div class="echo-grid">
+              <div class="echo-notebook">
+                <div class="picked-question" id="pickedQuestion" hidden>
+                  <span id="pickedQuestionText"></span>
+                  <button id="removePrompt" type="button" aria-label="移除这一问">×</button>
+                </div>
+                <textarea id="echoText" spellcheck="false"></textarea>
+                <div class="echo-actions">
+                  <button id="echoSave" type="button">保存到此设备</button>
+                  <button id="echoCopy" type="button">复制手记</button>
+                  <button id="echoClear" type="button">清空</button>
+                  <span id="echoStatus" aria-live="polite"></span>
+                </div>
+              </div>
+              <aside class="echo-margin">
+                <p class="echo-small" id="promptShelfTitle"></p>
+                <p class="echo-soft" id="promptShelfHint"></p>
+                <div class="prompt-tabs" id="promptTabs"></div>
+                <div class="echo-prompts" id="echoPrompts"></div>
+              </aside>
+            </div>
+            <p class="echo-privacy" id="echoPrivacy"></p>
+          </article>
+
+          <article class="echo-page" data-echo-page="2">
+            <div class="echo-grid book-spread">
+              <div class="page-free-note" contenteditable="true" data-journey-note="need"></div>
+              <aside class="echo-margin">
+                <p class="echo-small" id="needKicker"></p>
+                <h2 id="needTitle"></h2>
+                <div class="reflection-pool" id="needPool"></div>
+              </aside>
+            </div>
+          </article>
+
+          <article class="echo-page" data-echo-page="3">
+            <div class="echo-grid book-spread">
+              <div class="page-free-note" contenteditable="true" data-journey-note="freedom"></div>
+              <aside class="echo-margin">
+                <p class="echo-small" id="freedomKicker"></p>
+                <h2 id="freedomTitle"></h2>
+                <p class="echo-soft" id="freedomIntro"></p>
+                <div class="reflection-pool" id="freedomPool"></div>
+                <button class="echo-primary" id="echoGenerate" type="button"></button>
+              </aside>
+            </div>
+          </article>
+
+          <article class="echo-page" data-echo-page="4">
+            <div class="echo-grid book-spread">
+              <div class="page-free-note" contenteditable="true" data-journey-note="feedback"></div>
+              <aside class="echo-margin">
+                <p class="echo-small" id="feedbackKicker"></p>
+                <h2 id="feedbackTitle"></h2>
+                <p class="echo-soft" id="feedbackSubtitle"></p>
+                <div class="echo-feedback" id="echoFeedback"></div>
+                <div class="self-love-declaration" id="selfLoveDeclaration"></div>
+                <div class="echo-actions declaration-actions">
+                  <button id="copyDeclaration" type="button"></button>
+                </div>
+              </aside>
+            </div>
+          </article>
+        </div>
+
+        <nav class="echo-nav" aria-label="星图手札翻页">
+          <button id="echoPrev" type="button"></button>
+          <div class="echo-dots" id="echoDots"></div>
+          <button id="echoNext" type="button"></button>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
