@@ -163,24 +163,33 @@ h3 {
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   background: var(--gold-soft);
-  padding: 10px 16px;
+  padding: 11px 18px;
   color: #7e6125;
   font-size: 14px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.home-link {
+.language-switch {
   display: inline-flex;
+  gap: 10px;
+}
+
+.lang-button {
   min-height: 44px;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   padding: 0 18px;
   color: var(--navy);
   font-weight: 800;
-  text-decoration: none;
-  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.lang-button.active {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: white;
+  box-shadow: 0 14px 28px rgba(16, 42, 82, 0.18);
 }
 
 .shell {
@@ -544,6 +553,14 @@ textarea {
 
   .topbar {
     width: min(100vw - 28px, 680px);
+  }
+
+  .header-actions {
+    justify-content: flex-start;
+  }
+
+  .status-pill {
+    white-space: normal;
   }
 
   .sidebar {

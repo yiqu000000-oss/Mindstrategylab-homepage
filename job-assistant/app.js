@@ -1,4 +1,170 @@
 const STORAGE_KEY = "msl_job_assistant_static_v2";
+const DEFAULT_LANG = "zh";
+
+const COPY = {
+  zh: {
+    brandTitle: "求职助手",
+    brandSubtitle: "以经历库为地基的求职准备工具",
+    nav: {
+      entry: "入口选择",
+      jd: "JD 入手",
+      explore: "探索入手",
+      library: "经历库",
+      dashboard: "数据看板",
+      editor: "录入经历"
+    },
+    entryEyebrow: "Start Here",
+    entryTitle: "你现在的情况更接近哪种?",
+    choiceA: "A. 手上已经有想投的岗位,需要尽快准备材料",
+    choiceADesc: "从 JD 开始，拆必要技能/经验，再生成材料和演练问题。",
+    choiceB: "B. 还没锁定具体岗位,想先弄清楚自己适合什么",
+    choiceBDesc: "从经历、技能、兴趣开始，先整理方向和能力缺口。",
+    deadlineTitle: "最近的截止时间?",
+    deadlines: ["一周内", "两周内", "一个月以上", "不确定"],
+    continue: "继续",
+    reset: "重新选择",
+    helperNone: "先选择 A 或 B。",
+    helperDeadline: "请选择最近的截止时间。",
+    helperJdReady: "已记录截止时间，可以进入 JD 入手流程。",
+    helperExploreReady: "可以进入探索入手流程。",
+    situationJd: "A: JD 入手",
+    situationExplore: "B: 探索入手",
+    deadlinePending: "待选截止时间",
+    deadlinePrefix: "截止",
+    noVariables: "未记录变量",
+    jdTitle: "以 JD 入手",
+    jdNextTitle: "下一步会做什么",
+    jdNextText: "贴入目标 JD 后，agent 会整理必要技能、经验要求和行为原语。用户可以附上简历、补充相关经历，或回答探针问题。",
+    jdOutputsTitle: "预计产出",
+    jdOutputs: ["定制 CV 文案", "投递邮件模板", "面试演练问题", "缺口追问和补强建议"],
+    jdPasteTitle: "JD 粘贴区",
+    jdPlaceholder: "这里先作为静态预览。下一期会接入 JD 解构和匹配运算。",
+    exploreTitle: "以专长 / 技能 / 兴趣入手",
+    exploreAgentTitle: "agent 会整理什么",
+    exploreAgentText: "先把经历、兴趣和技能聚类，推测适配岗位方向，再分析和理想岗位之间欠缺的能力与证据。",
+    exploreFillTitle: "补全方式",
+    exploreFillText: "通过追问挖出被忽略的经历，并提示可补的项目、作品集证据或官方证明/证书。",
+    addExperience: "新增经历",
+    libraryTitle: "经历库",
+    editorTitle: "录入经历",
+    form: {
+      title: "一句话标题",
+      titlePlaceholder: "例如：组织职业分享会并提升报名转化",
+      context: "情境 / 任务",
+      actions: "具体行为",
+      results: "结果",
+      evidence: "证据",
+      save: "保存",
+      clear: "清空"
+    },
+    dashboardTitle: "数据看板",
+    resetDemo: "重置示例",
+    tagDistribution: "能力标签分布",
+    assetStatus: "经历资产状态",
+    metrics: {
+      records: "经历记录",
+      evidence: "证据覆盖",
+      complete: "STAR 完整",
+      topTag: "主能力标签",
+      none: "暂无",
+      withEvidence: "with evidence",
+      completeHint: "complete"
+    },
+    quality: {
+      context: "有情境/任务",
+      actions: "有具体行为",
+      results: "有结果",
+      evidence: "有证据",
+      average: "平均完整度"
+    },
+    emptyData: "暂无数据",
+    emptyLibrary: "暂无经历记录",
+    noDescription: "未填写描述",
+    edit: "编辑",
+    delete: "删除"
+  },
+  en: {
+    brandTitle: "Job Assistant",
+    brandSubtitle: "Career prep powered by a reusable experience library",
+    nav: {
+      entry: "Entry",
+      jd: "JD First",
+      explore: "Self First",
+      library: "Library",
+      dashboard: "Dashboard",
+      editor: "Add Experience"
+    },
+    entryEyebrow: "Start Here",
+    entryTitle: "Which situation is closer to yours right now?",
+    choiceA: "A. I already have target roles and need materials soon",
+    choiceADesc: "Start from a JD, extract required skills/experience, then draft materials and practice questions.",
+    choiceB: "B. I have not locked a role and want to clarify fit first",
+    choiceBDesc: "Start from your experiences, skills, and interests to map direction and gaps.",
+    deadlineTitle: "Nearest deadline?",
+    deadlines: ["Within 1 week", "Within 2 weeks", "Over 1 month", "Not sure"],
+    continue: "Continue",
+    reset: "Reset",
+    helperNone: "Choose A or B first.",
+    helperDeadline: "Choose the nearest deadline.",
+    helperJdReady: "Deadline recorded. You can continue to the JD-first flow.",
+    helperExploreReady: "You can continue to the self-first flow.",
+    situationJd: "A: JD First",
+    situationExplore: "B: Self First",
+    deadlinePending: "Deadline pending",
+    deadlinePrefix: "Deadline",
+    noVariables: "No variables recorded",
+    jdTitle: "Start From A JD",
+    jdNextTitle: "What happens next",
+    jdNextText: "After you paste a target JD, the agent will organize required skills, experience requirements, and behavioral primitives. You can attach a resume, add relevant experience, or answer probe questions.",
+    jdOutputsTitle: "Expected outputs",
+    jdOutputs: ["Tailored CV copy", "Application email template", "Interview practice questions", "Gap probes and strengthening suggestions"],
+    jdPasteTitle: "JD paste area",
+    jdPlaceholder: "Static preview for now. JD parsing and matching will be added next.",
+    exploreTitle: "Start From Strengths / Skills / Interests",
+    exploreAgentTitle: "What the agent organizes",
+    exploreAgentText: "It clusters your experiences, interests, and skills, suggests fitting role directions, then compares them with your ideal role gaps.",
+    exploreFillTitle: "How gaps get filled",
+    exploreFillText: "Follow-up questions recover overlooked experience, and suggest projects, portfolio evidence, or official certifications/proofs.",
+    addExperience: "Add Experience",
+    libraryTitle: "Experience Library",
+    editorTitle: "Add Experience",
+    form: {
+      title: "One-line title",
+      titlePlaceholder: "Example: Organized a career event and improved signup conversion",
+      context: "Situation / Task",
+      actions: "Actions",
+      results: "Results",
+      evidence: "Evidence",
+      save: "Save",
+      clear: "Clear"
+    },
+    dashboardTitle: "Dashboard",
+    resetDemo: "Reset Demo",
+    tagDistribution: "Skill Tag Distribution",
+    assetStatus: "Experience Asset Status",
+    metrics: {
+      records: "Experience Records",
+      evidence: "Evidence Coverage",
+      complete: "STAR Complete",
+      topTag: "Top Skill Tag",
+      none: "None",
+      withEvidence: "with evidence",
+      completeHint: "complete"
+    },
+    quality: {
+      context: "Has situation/task",
+      actions: "Has actions",
+      results: "Has results",
+      evidence: "Has evidence",
+      average: "Average completeness"
+    },
+    emptyData: "No data yet",
+    emptyLibrary: "No experience records yet",
+    noDescription: "No description yet",
+    edit: "Edit",
+    delete: "Delete"
+  }
+};
 
 const SKILL_TAGS = [
   "内容创作",
@@ -83,6 +249,8 @@ function loadState() {
   }
 
   return {
+    lang: DEFAULT_LANG,
+    currentView: "entry",
     situation: null,
     deadline: null,
     experiences: DEMO_EXPERIENCES
@@ -91,6 +259,10 @@ function loadState() {
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function t(key) {
+  return key.split(".").reduce((value, part) => value?.[part], COPY[state.lang || DEFAULT_LANG]);
 }
 
 function classifySkillTags(fields) {
@@ -102,12 +274,22 @@ function classifySkillTags(fields) {
 }
 
 function setView(viewName) {
+  state.currentView = viewName;
+  saveState();
   document.querySelectorAll(".view").forEach((view) => {
     view.classList.toggle("active", view.id === viewName);
   });
   document.querySelectorAll(".nav-button").forEach((button) => {
     button.classList.toggle("active", button.dataset.view === viewName);
   });
+  renderStatus();
+}
+
+function setLanguage(lang) {
+  state.lang = lang;
+  saveState();
+  applyLanguage();
+  render();
 }
 
 function setSituation(situation) {
@@ -125,6 +307,92 @@ function setDeadline(deadline) {
   renderEntry();
 }
 
+function applyLanguage() {
+  const lang = state.lang || DEFAULT_LANG;
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+  document.querySelector("#brand-title").textContent = t("brandTitle");
+  document.querySelector("#brand-subtitle").textContent = t("brandSubtitle");
+
+  document.querySelectorAll(".lang-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === lang);
+  });
+
+  document.querySelectorAll(".nav-button").forEach((button) => {
+    button.textContent = t(`nav.${button.dataset.view}`);
+  });
+
+  document.querySelector("#entry .eyebrow").textContent = t("entryEyebrow");
+  document.querySelector("#entry-title").textContent = t("entryTitle");
+  document.querySelector('[data-situation="jd"] strong').textContent = t("choiceA");
+  document.querySelector('[data-situation="jd"] span').textContent = t("choiceADesc");
+  document.querySelector('[data-situation="explore"] strong').textContent = t("choiceB");
+  document.querySelector('[data-situation="explore"] span').textContent = t("choiceBDesc");
+  document.querySelector("#deadline-panel h3").textContent = t("deadlineTitle");
+  document.querySelectorAll(".deadline-option").forEach((button, index) => {
+    button.textContent = t("deadlines")[index];
+  });
+  document.querySelector("#entry-next").textContent = t("continue");
+  document.querySelector("#entry-reset").textContent = t("reset");
+
+  document.querySelector("#jd-title").textContent = t("jdTitle");
+  document.querySelector("#jd .panel:nth-of-type(1) h3").textContent = t("jdNextTitle");
+  document.querySelector("#jd .panel:nth-of-type(1) p").textContent = t("jdNextText");
+  document.querySelector("#jd .panel:nth-of-type(2) h3").textContent = t("jdOutputsTitle");
+  document.querySelector("#jd .plain-list").innerHTML = t("jdOutputs").map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  document.querySelector(".prompt-panel h3").textContent = t("jdPasteTitle");
+  document.querySelector("#jd-text").placeholder = t("jdPlaceholder");
+
+  document.querySelector("#explore-title").textContent = t("exploreTitle");
+  document.querySelector("#explore [data-open-editor]").textContent = t("addExperience");
+  document.querySelector("#explore .panel:nth-of-type(1) h3").textContent = t("exploreAgentTitle");
+  document.querySelector("#explore .panel:nth-of-type(1) p").textContent = t("exploreAgentText");
+  document.querySelector("#explore .panel:nth-of-type(2) h3").textContent = t("exploreFillTitle");
+  document.querySelector("#explore .panel:nth-of-type(2) p").textContent = t("exploreFillText");
+
+  document.querySelector("#library-title").textContent = t("libraryTitle");
+  document.querySelector("#library [data-open-editor]").textContent = t("addExperience");
+  document.querySelector("#editor-title").textContent = t("editorTitle");
+  const labels = document.querySelectorAll("#experience-form label span");
+  labels[0].textContent = t("form.title");
+  labels[1].textContent = t("form.context");
+  labels[2].textContent = t("form.actions");
+  labels[3].textContent = t("form.results");
+  labels[4].textContent = t("form.evidence");
+  document.querySelector("#title").placeholder = t("form.titlePlaceholder");
+  document.querySelector("#experience-form .primary-button").textContent = t("form.save");
+  document.querySelector("#clear-form").textContent = t("form.clear");
+
+  document.querySelector("#dashboard-title").textContent = t("dashboardTitle");
+  document.querySelector("#seed-data").textContent = t("resetDemo");
+  document.querySelector("#tag-bars").closest(".panel").querySelector("h3").textContent = t("tagDistribution");
+  document.querySelector("#quality-bars").closest(".panel").querySelector("h3").textContent = t("assetStatus");
+}
+
+function renderStatus() {
+  const currentView = state.currentView || "entry";
+  const variables = [];
+  if (state.situation === "jd") {
+    variables.push(t("situationJd"));
+    variables.push(state.deadline ? `${t("deadlinePrefix")}: ${translateDeadline(state.deadline)}` : t("deadlinePending"));
+  } else if (state.situation === "explore") {
+    variables.push(t("situationExplore"));
+  } else {
+    variables.push(t("noVariables"));
+  }
+
+  variables.push(`${t("libraryTitle")}: ${state.experiences.length}`);
+  document.querySelector("#status-pill").textContent = `${t(`nav.${currentView}`)} · ${variables.join(" · ")}`;
+}
+
+function translateDeadline(deadline) {
+  const zhDeadlines = COPY.zh.deadlines;
+  const index = zhDeadlines.indexOf(deadline);
+  if (index === -1) {
+    return deadline;
+  }
+  return t("deadlines")[index];
+}
+
 function renderEntry() {
   document.querySelectorAll(".choice-card").forEach((button) => {
     button.classList.toggle("active", button.dataset.situation === state.situation);
@@ -135,17 +403,14 @@ function renderEntry() {
   });
 
   const helper = document.querySelector("#entry-helper");
-  const pill = document.querySelector("#status-pill");
   if (state.situation === "jd") {
-    helper.textContent = state.deadline ? "已记录截止时间，可以进入 JD 入手流程。" : "请选择最近的截止时间。";
-    pill.textContent = state.deadline ? `JD 入手 · ${state.deadline}` : "JD 入手 · 待选截止时间";
+    helper.textContent = state.deadline ? t("helperJdReady") : t("helperDeadline");
   } else if (state.situation === "explore") {
-    helper.textContent = "可以进入探索入手流程。";
-    pill.textContent = "探索入手";
+    helper.textContent = t("helperExploreReady");
   } else {
-    helper.textContent = "先选择 A 或 B。";
-    pill.textContent = "未选择入口";
+    helper.textContent = t("helperNone");
   }
+  renderStatus();
 }
 
 function continueFromEntry() {
@@ -186,23 +451,23 @@ function renderDashboard() {
     ? Math.round(experiences.reduce((sum, item) => sum + completeness(item), 0) / total)
     : 0;
   const tagCounts = countTags(experiences);
-  const topTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "暂无";
+  const topTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || t("metrics.none");
 
   document.querySelector("#metrics").innerHTML = [
-    metric("经历记录", total, "Experience records"),
-    metric("证据覆盖", `${percent(evidenceCount, total)}%`, `${evidenceCount}/${total} with evidence`),
-    metric("STAR 完整", `${percent(completeCount, total)}%`, `${completeCount}/${total} complete`),
-    metric("主能力标签", topTag, "Most frequent tag")
+    metric(t("metrics.records"), total, "Experience records"),
+    metric(t("metrics.evidence"), `${percent(evidenceCount, total)}%`, `${evidenceCount}/${total} ${t("metrics.withEvidence")}`),
+    metric(t("metrics.complete"), `${percent(completeCount, total)}%`, `${completeCount}/${total} ${t("metrics.completeHint")}`),
+    metric(t("metrics.topTag"), topTag, "Most frequent tag")
   ].join("");
 
   renderBars("#tag-bars", tagCounts);
-  renderBars("#quality-bars", {
-    "有情境/任务": experiences.filter((item) => item.context.trim()).length,
-    有具体行为: experiences.filter((item) => item.actions.trim()).length,
-    有结果: experiences.filter((item) => item.results.trim()).length,
-    有证据: evidenceCount,
-    平均完整度: Math.round((avgCompleteness / 100) * total)
-  });
+  const qualityCounts = {};
+  qualityCounts[t("quality.context")] = experiences.filter((item) => item.context.trim()).length;
+  qualityCounts[t("quality.actions")] = experiences.filter((item) => item.actions.trim()).length;
+  qualityCounts[t("quality.results")] = experiences.filter((item) => item.results.trim()).length;
+  qualityCounts[t("quality.evidence")] = evidenceCount;
+  qualityCounts[t("quality.average")] = Math.round((avgCompleteness / 100) * total);
+  renderBars("#quality-bars", qualityCounts);
 }
 
 function metric(label, value, hint) {
@@ -234,14 +499,14 @@ function renderBars(selector, counts) {
           `;
         })
         .join("")
-    : `<p class="empty">暂无数据</p>`;
+    : `<p class="empty">${t("emptyData")}</p>`;
   document.querySelector(selector).innerHTML = html;
 }
 
 function renderLibrary() {
   const list = document.querySelector("#experience-list");
   if (!state.experiences.length) {
-    list.innerHTML = `<div class="empty">暂无经历记录</div>`;
+    list.innerHTML = `<div class="empty">${t("emptyLibrary")}</div>`;
     return;
   }
 
@@ -252,11 +517,11 @@ function renderLibrary() {
         <div class="card-head">
           <div>
             <h3>${escapeHtml(item.title)}</h3>
-            <p class="summary">${escapeHtml(item.actions || item.context || "未填写描述")}</p>
+            <p class="summary">${escapeHtml(item.actions || item.context || t("noDescription"))}</p>
           </div>
           <div class="card-actions">
-            <button class="secondary-button" type="button" data-edit="${item.id}">编辑</button>
-            <button class="danger-button" type="button" data-delete="${item.id}">删除</button>
+            <button class="secondary-button" type="button" data-edit="${item.id}">${t("edit")}</button>
+            <button class="danger-button" type="button" data-delete="${item.id}">${t("delete")}</button>
           </div>
         </div>
         <div class="tags">
@@ -327,6 +592,9 @@ function escapeHtml(value) {
 }
 
 function render() {
+  state.lang = state.lang || DEFAULT_LANG;
+  state.currentView = state.currentView || "entry";
+  applyLanguage();
   renderEntry();
   renderDashboard();
   renderLibrary();
@@ -334,6 +602,10 @@ function render() {
 
 document.querySelectorAll(".nav-button").forEach((button) => {
   button.addEventListener("click", () => setView(button.dataset.view));
+});
+
+document.querySelectorAll(".lang-button").forEach((button) => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
 });
 
 document.querySelectorAll(".choice-card").forEach((button) => {
