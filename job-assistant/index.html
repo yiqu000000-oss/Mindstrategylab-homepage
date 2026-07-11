@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>求职助手 | Mind Strategy Lab</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=entry-20260711" />
   </head>
   <body>
     <header class="topbar">
@@ -13,40 +13,102 @@
         <p class="eyebrow">Mind Strategy Lab</p>
         <h1>求职助手</h1>
       </div>
-      <div class="mode-switch" aria-label="模式切换">
-        <button class="mode-button" type="button" data-mode="explore">探索</button>
-        <button class="mode-button" type="button" data-mode="firefight">救火</button>
-      </div>
+      <p class="status-pill" id="status-pill">未选择入口</p>
     </header>
 
     <main class="shell">
       <aside class="sidebar" aria-label="主导航">
-        <button class="nav-button active" type="button" data-view="dashboard">数据看板</button>
+        <button class="nav-button active" type="button" data-view="entry">入口选择</button>
+        <button class="nav-button" type="button" data-view="jd">JD 入手</button>
+        <button class="nav-button" type="button" data-view="explore">探索入手</button>
         <button class="nav-button" type="button" data-view="library">经历库</button>
-        <button class="nav-button" type="button" data-view="editor">录入经历</button>
-        <button class="nav-button" type="button" data-view="jd">JD 入口</button>
+        <button class="nav-button" type="button" data-view="dashboard">数据看板</button>
       </aside>
 
       <section class="workspace">
-        <section class="view active" id="dashboard" aria-labelledby="dashboard-title">
+        <section class="view active" id="entry" aria-labelledby="entry-title">
+          <div class="entry-panel">
+            <p class="eyebrow">Start Here</p>
+            <h2 id="entry-title">你现在的情况更接近哪种?</h2>
+            <div class="choice-grid">
+              <button class="choice-card" type="button" data-situation="jd">
+                <strong>A. 手上已经有想投的岗位,需要尽快准备材料</strong>
+                <span>从 JD 开始，拆必要技能/经验，再生成材料和演练问题。</span>
+              </button>
+              <button class="choice-card" type="button" data-situation="explore">
+                <strong>B. 还没锁定具体岗位,想先弄清楚自己适合什么</strong>
+                <span>从经历、技能、兴趣开始，先整理方向和能力缺口。</span>
+              </button>
+            </div>
+
+            <div class="deadline-panel hidden" id="deadline-panel">
+              <h3>最近的截止时间?</h3>
+              <div class="deadline-grid" role="radiogroup" aria-label="最近的截止时间">
+                <button class="deadline-option" type="button" data-deadline="一周内">一周内</button>
+                <button class="deadline-option" type="button" data-deadline="两周内">两周内</button>
+                <button class="deadline-option" type="button" data-deadline="一个月以上">一个月以上</button>
+                <button class="deadline-option" type="button" data-deadline="不确定">不确定</button>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="button" id="entry-next">继续</button>
+              <button class="secondary-button" type="button" id="entry-reset">重新选择</button>
+            </div>
+            <p class="helper-text" id="entry-helper">先选择 A 或 B。</p>
+          </div>
+        </section>
+
+        <section class="view" id="jd" aria-labelledby="jd-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Overview</p>
-              <h2 id="dashboard-title">数据看板</h2>
+              <p class="eyebrow">JD First</p>
+              <h2 id="jd-title">以 JD 入手</h2>
             </div>
-            <button class="secondary-button" type="button" id="seed-data">重置示例</button>
           </div>
-
-          <div class="metrics" id="metrics"></div>
-
           <div class="grid-two">
             <article class="panel">
-              <h3>能力标签分布</h3>
-              <div class="bars" id="tag-bars"></div>
+              <h3>下一步会做什么</h3>
+              <p class="muted">
+                贴入目标 JD 后，agent 会整理必要技能、经验要求和行为原语。用户可以附上简历、补充相关经历，或回答探针问题。
+              </p>
             </article>
             <article class="panel">
-              <h3>经历资产状态</h3>
-              <div class="bars" id="quality-bars"></div>
+              <h3>预计产出</h3>
+              <ul class="plain-list">
+                <li>定制 CV 文案</li>
+                <li>投递邮件模板</li>
+                <li>面试演练问题</li>
+                <li>缺口追问和补强建议</li>
+              </ul>
+            </article>
+          </div>
+          <article class="panel prompt-panel">
+            <h3>JD 粘贴区</h3>
+            <textarea id="jd-text" rows="8" placeholder="这里先作为静态预览。下一期会接入 JD 解构和匹配运算。"></textarea>
+          </article>
+        </section>
+
+        <section class="view" id="explore" aria-labelledby="explore-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Self First</p>
+              <h2 id="explore-title">以专长 / 技能 / 兴趣入手</h2>
+            </div>
+            <button class="primary-button" type="button" data-open-editor>录入经历</button>
+          </div>
+          <div class="grid-two">
+            <article class="panel">
+              <h3>agent 会整理什么</h3>
+              <p class="muted">
+                先把经历、兴趣和技能聚类，推测适配岗位方向，再分析和理想岗位之间欠缺的能力与证据。
+              </p>
+            </article>
+            <article class="panel">
+              <h3>补全方式</h3>
+              <p class="muted">
+                通过追问挖出被忽略的经历，并提示可补的项目、作品集证据或官方证明/证书。
+              </p>
             </article>
           </div>
         </section>
@@ -99,23 +161,31 @@
           </form>
         </section>
 
-        <section class="view" id="jd" aria-labelledby="jd-title">
+        <section class="view" id="dashboard" aria-labelledby="dashboard-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Phase 2</p>
-              <h2 id="jd-title">JD 入口</h2>
+              <p class="eyebrow">Overview</p>
+              <h2 id="dashboard-title">数据看板</h2>
             </div>
+            <button class="secondary-button" type="button" id="seed-data">重置示例</button>
           </div>
-          <article class="panel">
-            <h3>已保留入口</h3>
-            <p class="muted">
-              JD 解构、匹配运算、简历与邮件生成会在下一期接入。当前页面用于确认隐藏部署路径和经历库数据结构。
-            </p>
-          </article>
+
+          <div class="metrics" id="metrics"></div>
+
+          <div class="grid-two">
+            <article class="panel">
+              <h3>能力标签分布</h3>
+              <div class="bars" id="tag-bars"></div>
+            </article>
+            <article class="panel">
+              <h3>经历资产状态</h3>
+              <div class="bars" id="quality-bars"></div>
+            </article>
+          </div>
         </section>
       </section>
     </main>
 
-    <script src="./app.js"></script>
+    <script src="./app.js?v=entry-20260711"></script>
   </body>
 </html>

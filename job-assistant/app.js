@@ -1,4 +1,4 @@
-const STORAGE_KEY = "msl_job_assistant_static_v1";
+const STORAGE_KEY = "msl_job_assistant_static_v2";
 
 const SKILL_TAGS = [
   "内容创作",
@@ -83,7 +83,8 @@ function loadState() {
   }
 
   return {
-    mode: "explore",
+    situation: null,
+    deadline: null,
     experiences: DEMO_EXPERIENCES
   };
 }
@@ -109,16 +110,61 @@ function setView(viewName) {
   });
 }
 
-function setMode(mode) {
-  state.mode = mode;
+function setSituation(situation) {
+  state.situation = situation;
+  if (situation !== "jd") {
+    state.deadline = null;
+  }
   saveState();
-  renderMode();
+  renderEntry();
 }
 
-function renderMode() {
-  document.querySelectorAll(".mode-button").forEach((button) => {
-    button.classList.toggle("active", button.dataset.mode === state.mode);
+function setDeadline(deadline) {
+  state.deadline = deadline;
+  saveState();
+  renderEntry();
+}
+
+function renderEntry() {
+  document.querySelectorAll(".choice-card").forEach((button) => {
+    button.classList.toggle("active", button.dataset.situation === state.situation);
   });
+  document.querySelector("#deadline-panel").classList.toggle("hidden", state.situation !== "jd");
+  document.querySelectorAll(".deadline-option").forEach((button) => {
+    button.classList.toggle("active", button.dataset.deadline === state.deadline);
+  });
+
+  const helper = document.querySelector("#entry-helper");
+  const pill = document.querySelector("#status-pill");
+  if (state.situation === "jd") {
+    helper.textContent = state.deadline ? "已记录截止时间，可以进入 JD 入手流程。" : "请选择最近的截止时间。";
+    pill.textContent = state.deadline ? `JD 入手 · ${state.deadline}` : "JD 入手 · 待选截止时间";
+  } else if (state.situation === "explore") {
+    helper.textContent = "可以进入探索入手流程。";
+    pill.textContent = "探索入手";
+  } else {
+    helper.textContent = "先选择 A 或 B。";
+    pill.textContent = "未选择入口";
+  }
+}
+
+function continueFromEntry() {
+  if (state.situation === "jd" && state.deadline) {
+    setView("jd");
+    return;
+  }
+  if (state.situation === "explore") {
+    setView("explore");
+    return;
+  }
+  renderEntry();
+}
+
+function resetEntry() {
+  state.situation = null;
+  state.deadline = null;
+  saveState();
+  renderEntry();
 }
 
 function percent(value, total) {
@@ -281,7 +327,7 @@ function escapeHtml(value) {
 }
 
 function render() {
-  renderMode();
+  renderEntry();
   renderDashboard();
   renderLibrary();
 }
@@ -290,9 +336,16 @@ document.querySelectorAll(".nav-button").forEach((button) => {
   button.addEventListener("click", () => setView(button.dataset.view));
 });
 
-document.querySelectorAll(".mode-button").forEach((button) => {
-  button.addEventListener("click", () => setMode(button.dataset.mode));
+document.querySelectorAll(".choice-card").forEach((button) => {
+  button.addEventListener("click", () => setSituation(button.dataset.situation));
 });
+
+document.querySelectorAll(".deadline-option").forEach((button) => {
+  button.addEventListener("click", () => setDeadline(button.dataset.deadline));
+});
+
+document.querySelector("#entry-next").addEventListener("click", continueFromEntry);
+document.querySelector("#entry-reset").addEventListener("click", resetEntry);
 
 document.querySelectorAll("[data-open-editor]").forEach((button) => {
   button.addEventListener("click", () => {
