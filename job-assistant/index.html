@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex,nofollow" />
     <title>求职助手 | Mind Strategy Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=lang-status-20260711" />
+    <link rel="stylesheet" href="./styles.css?v=crystal-20260711" />
   </head>
   <body>
     <header class="topbar">
@@ -77,14 +77,14 @@
           </div>
           <div class="grid-two">
             <article class="panel">
-              <h3>下一步会做什么</h3>
-              <p class="muted">
+              <h3 id="jd-next-title">下一步会做什么</h3>
+              <p class="muted" id="jd-next-text">
                 贴入目标 JD 后，agent 会整理必要技能、经验要求和行为原语。用户可以附上简历、补充相关经历，或回答探针问题。
               </p>
             </article>
             <article class="panel">
-              <h3>预计产出</h3>
-              <ul class="plain-list">
+              <h3 id="jd-outputs-title">预计产出</h3>
+              <ul class="plain-list" id="jd-outputs-list">
                 <li>定制 CV 文案</li>
                 <li>投递邮件模板</li>
                 <li>面试演练问题</li>
@@ -93,7 +93,7 @@
             </article>
           </div>
           <article class="panel prompt-panel">
-            <h3>JD 粘贴区</h3>
+            <h3 id="jd-paste-title">JD 粘贴区</h3>
             <textarea id="jd-text" rows="8" placeholder="这里先作为静态预览。下一期会接入 JD 解构和匹配运算。"></textarea>
           </article>
         </section>
@@ -101,24 +101,77 @@
         <section class="view" id="explore" aria-labelledby="explore-title">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Self First</p>
-              <h2 id="explore-title">以专长 / 技能 / 兴趣入手</h2>
+              <p class="eyebrow" id="explore-eyebrow">Experience Crystal</p>
+              <h2 id="explore-title">经历结晶</h2>
             </div>
-            <button class="primary-button" type="button" data-open-editor>录入经历</button>
+            <button class="secondary-button" type="button" id="crystal-new">新开一段</button>
           </div>
-          <div class="grid-two">
-            <article class="panel">
-              <h3>agent 会整理什么</h3>
-              <p class="muted">
-                先把经历、兴趣和技能聚类，推测适配岗位方向，再分析和理想岗位之间欠缺的能力与证据。
-              </p>
+
+          <div class="crystal-workbench">
+            <article class="panel crystal-chat-panel">
+              <div class="panel-title-row">
+                <div>
+                  <h3 id="crystal-chat-title">讲述区 · 像聊天一样说就行</h3>
+                  <p class="muted" id="crystal-chat-subtitle">不用想措辞，也不用写没做过的事。想不起来就跳过，我们换个话题。</p>
+                </div>
+              </div>
+              <div class="chat-log" id="crystal-chat" aria-live="polite"></div>
+              <div class="crystal-input-row">
+                <textarea id="crystal-input" rows="3" placeholder="接着说，不用想措辞"></textarea>
+                <div class="crystal-input-actions">
+                  <button class="primary-button" type="button" id="crystal-send">发送</button>
+                  <button class="secondary-button" type="button" id="crystal-skip">想不起来</button>
+                </div>
+              </div>
             </article>
-            <article class="panel">
-              <h3>补全方式</h3>
-              <p class="muted">
-                通过追问挖出被忽略的经历，并提示可补的项目、作品集证据或官方证明/证书。
-              </p>
-            </article>
+
+            <div class="crystal-side">
+              <article class="panel crystal-output-panel">
+                <div class="panel-title-row">
+                  <div>
+                    <h3 id="crystal-output-title">这段经历的结晶</h3>
+                    <p class="muted" id="crystal-output-subtitle">只使用你说过的事实，缺的信息会标成待补。</p>
+                  </div>
+                  <button class="secondary-button compact-button" type="button" id="crystal-save">存入经历库</button>
+                </div>
+                <div class="variant-tabs" role="tablist" aria-label="结晶版本">
+                  <button class="variant-tab active" type="button" data-variant="data">数据版</button>
+                  <button class="variant-tab" type="button" data-variant="action">行动版</button>
+                  <button class="variant-tab" type="button" data-variant="collab">协作版</button>
+                </div>
+                <p class="crystal-bullet" id="crystal-bullet">先讲一段经历，我会在这里生成三种可改写素材。</p>
+                <div class="source-line" id="crystal-provenance">来自你的原话会显示在这里。</div>
+                <div class="skill-area">
+                  <p class="mini-label" id="crystal-skills-label">提取到的技能</p>
+                  <div class="tags" id="crystal-skills"></div>
+                </div>
+              </article>
+
+              <article class="panel crystal-profile-panel">
+                <h3 id="crystal-profile-title">你的画像在更新</h3>
+                <div class="profile-grid">
+                  <div>
+                    <span class="mini-label" id="direction-label">方向信号</span>
+                    <strong id="direction-signal">等待第一段经历</strong>
+                  </div>
+                  <div>
+                    <span class="mini-label" id="completeness-label">简历完成度</span>
+                    <strong id="slot-completeness">槽位 0/9</strong>
+                  </div>
+                </div>
+                <div class="progress-track" aria-hidden="true">
+                  <div class="progress-fill" id="slot-progress"></div>
+                </div>
+                <div class="slot-grid" id="crystal-slots"></div>
+              </article>
+
+              <article class="panel crystal-log-panel">
+                <details>
+                  <summary id="log-summary">本轮记录变量</summary>
+                  <pre id="crystal-log">等待用户输入。</pre>
+                </details>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -183,11 +236,11 @@
 
           <div class="grid-two">
             <article class="panel">
-              <h3>能力标签分布</h3>
+              <h3 id="tag-bars-title">能力标签分布</h3>
               <div class="bars" id="tag-bars"></div>
             </article>
             <article class="panel">
-              <h3>经历资产状态</h3>
+              <h3 id="quality-bars-title">经历资产状态</h3>
               <div class="bars" id="quality-bars"></div>
             </article>
           </div>
@@ -195,6 +248,6 @@
       </section>
     </main>
 
-    <script src="./app.js?v=lang-status-20260711"></script>
+    <script src="./app.js?v=crystal-20260711"></script>
   </body>
 </html>

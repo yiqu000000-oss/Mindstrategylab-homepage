@@ -524,6 +524,254 @@ textarea {
   gap: 10px;
 }
 
+.compact-button {
+  min-height: 34px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.panel-title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.panel-title-row h3 {
+  margin-bottom: 6px;
+}
+
+.crystal-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(390px, 1.05fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.crystal-chat-panel,
+.crystal-output-panel,
+.crystal-profile-panel,
+.crystal-log-panel {
+  border-color: rgba(215, 196, 158, 0.78);
+}
+
+.crystal-chat-panel {
+  min-height: 620px;
+  display: grid;
+  grid-template-rows: auto minmax(320px, 1fr) auto;
+}
+
+.crystal-side {
+  display: grid;
+  gap: 16px;
+}
+
+.chat-log {
+  display: flex;
+  max-height: 430px;
+  min-height: 320px;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  border: 1px solid rgba(228, 220, 205, 0.8);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 254, 250, 0.96), rgba(247, 242, 232, 0.96));
+  padding: 14px;
+}
+
+.chat-message {
+  max-width: 86%;
+  border-radius: 16px;
+  padding: 13px 15px;
+  line-height: 1.62;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.chat-message.agent {
+  align-self: flex-start;
+  border: 1px solid var(--line);
+  background: var(--navy);
+  color: white;
+  box-shadow: 0 12px 24px rgba(16, 42, 82, 0.12);
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  border: 1px solid rgba(189, 152, 70, 0.38);
+  background: #fff9ed;
+  color: var(--ink);
+}
+
+.crystal-input-row {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.crystal-input-row textarea {
+  min-height: 88px;
+  border-radius: 14px;
+  background: #fffdf8;
+}
+
+.crystal-input-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.variant-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 14px;
+}
+
+.variant-tab {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  padding: 0 14px;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.variant-tab.active {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: white;
+}
+
+.crystal-bullet {
+  min-height: 92px;
+  margin: 0 0 16px;
+  border-left: 4px solid var(--gold);
+  padding: 4px 0 4px 14px;
+  color: var(--navy-2);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.source-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.source-line span {
+  border: 1px solid rgba(16, 42, 82, 0.1);
+  border-radius: 999px;
+  background: #fbf7ed;
+  padding: 5px 9px;
+}
+
+.skill-area {
+  margin-top: 16px;
+}
+
+.mini-label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.tag.selected {
+  border-color: rgba(16, 42, 82, 0.35);
+  background: var(--navy);
+  color: white;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.profile-grid strong {
+  display: block;
+  color: var(--navy-2);
+  font-size: 18px;
+}
+
+.progress-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9e2d5;
+  margin: 14px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--navy), var(--gold));
+  transition: width 180ms ease;
+}
+
+.slot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot-chip {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.slot-chip.filled {
+  border-color: rgba(16, 42, 82, 0.28);
+  background: #e9eef5;
+  color: var(--navy);
+}
+
+.slot-chip.skipped {
+  border-style: dashed;
+  color: #8a6a2a;
+}
+
+.crystal-log-panel {
+  padding-block: 14px;
+}
+
+.crystal-log-panel summary {
+  color: var(--navy);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.crystal-log-panel pre {
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fbf7ed;
+  padding: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
 .muted,
 .empty {
   color: var(--muted);
@@ -576,9 +824,23 @@ textarea {
 
   .metrics,
   .grid-two,
+  .crystal-workbench,
   .choice-grid,
   .deadline-grid {
     grid-template-columns: 1fr;
+  }
+
+  .crystal-chat-panel {
+    min-height: auto;
+  }
+
+  .crystal-side,
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-message {
+    max-width: 100%;
   }
 
   .bar-row {
