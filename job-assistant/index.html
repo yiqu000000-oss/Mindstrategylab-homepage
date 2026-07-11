@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>求职助手 | Mind Strategy Lab</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Mind Strategy Lab</p>
+        <h1>求职助手</h1>
+      </div>
+      <div class="mode-switch" aria-label="模式切换">
+        <button class="mode-button" type="button" data-mode="explore">探索</button>
+        <button class="mode-button" type="button" data-mode="firefight">救火</button>
+      </div>
+    </header>
+
+    <main class="shell">
+      <aside class="sidebar" aria-label="主导航">
+        <button class="nav-button active" type="button" data-view="dashboard">数据看板</button>
+        <button class="nav-button" type="button" data-view="library">经历库</button>
+        <button class="nav-button" type="button" data-view="editor">录入经历</button>
+        <button class="nav-button" type="button" data-view="jd">JD 入口</button>
+      </aside>
+
+      <section class="workspace">
+        <section class="view active" id="dashboard" aria-labelledby="dashboard-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Overview</p>
+              <h2 id="dashboard-title">数据看板</h2>
+            </div>
+            <button class="secondary-button" type="button" id="seed-data">重置示例</button>
+          </div>
+
+          <div class="metrics" id="metrics"></div>
+
+          <div class="grid-two">
+            <article class="panel">
+              <h3>能力标签分布</h3>
+              <div class="bars" id="tag-bars"></div>
+            </article>
+            <article class="panel">
+              <h3>经历资产状态</h3>
+              <div class="bars" id="quality-bars"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="library" aria-labelledby="library-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Experience Library</p>
+              <h2 id="library-title">经历库</h2>
+            </div>
+            <button class="primary-button" type="button" data-open-editor>新增经历</button>
+          </div>
+          <div class="experience-list" id="experience-list"></div>
+        </section>
+
+        <section class="view" id="editor" aria-labelledby="editor-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">STAR + Evidence</p>
+              <h2 id="editor-title">录入经历</h2>
+            </div>
+          </div>
+
+          <form class="experience-form" id="experience-form">
+            <input type="hidden" id="experience-id" />
+            <label>
+              <span>一句话标题</span>
+              <input id="title" required placeholder="例如：组织职业分享会并提升报名转化" />
+            </label>
+            <label>
+              <span>情境 / 任务</span>
+              <textarea id="context" rows="4"></textarea>
+            </label>
+            <label>
+              <span>具体行为</span>
+              <textarea id="actions" rows="5"></textarea>
+            </label>
+            <label>
+              <span>结果</span>
+              <textarea id="results" rows="4"></textarea>
+            </label>
+            <label>
+              <span>证据</span>
+              <textarea id="evidence" rows="4"></textarea>
+            </label>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">保存</button>
+              <button class="secondary-button" type="button" id="clear-form">清空</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="view" id="jd" aria-labelledby="jd-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Phase 2</p>
+              <h2 id="jd-title">JD 入口</h2>
+            </div>
+          </div>
+          <article class="panel">
+            <h3>已保留入口</h3>
+            <p class="muted">
+              JD 解构、匹配运算、简历与邮件生成会在下一期接入。当前页面用于确认隐藏部署路径和经历库数据结构。
+            </p>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
