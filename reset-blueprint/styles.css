@@ -770,24 +770,14 @@ body {
 }
 
 .signal-node.active {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(26, 39, 68, 0.12);
-}
-
-.signal-node-highlight {
   background: var(--primary);
   color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 39, 68, 0.14);
 }
 
-.signal-node-highlight:hover {
-  background: var(--primary-light);
-}
 
-.signal-node-highlight.active {
-  background: var(--primary-light);
-  border-color: #fff;
-  box-shadow: 0 0 0 3px rgba(26, 39, 68, 0.2);
-}
+
 
 .signal-node-label { pointer-events: none; }
 
@@ -4541,6 +4531,7 @@ body::before {
 
 
 
+
 /* App module flow buttons */
 .app-module-picker.module-flow-picker {
   display: flex;
@@ -4574,7 +4565,7 @@ body::before {
   font-weight: 700;
   box-shadow: none;
   transform: none;
-  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .module-flow-picker .app-module-card::after {
@@ -4584,6 +4575,7 @@ body::before {
 .module-flow-picker .app-module-card:hover {
   border-color: rgba(26, 39, 68, 0.4);
   box-shadow: var(--shadow);
+  transform: translateY(1px);
 }
 
 .module-flow-picker .app-module-card.active {

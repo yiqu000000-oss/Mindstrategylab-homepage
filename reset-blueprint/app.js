@@ -1356,12 +1356,20 @@ function toggleSignalField(step) {
   const panel = document.querySelector(`.signal-accordion-panel[data-step="${step}"]`);
   const btn = els.signalFlow?.querySelector(`[data-step="${step}"]`);
   if (!panel || !btn) return;
-  const willShow = panel.hidden;
-  panel.hidden = !willShow;
-  state.signalExpanded[step] = willShow;
-  btn.classList.toggle('active', willShow);
-  btn.setAttribute('aria-expanded', willShow ? 'true' : 'false');
-  if (willShow) panel.querySelector('textarea')?.focus();
+
+  document.querySelectorAll('.signal-accordion-panel').forEach(item => {
+    const isTarget = item.dataset.step === step;
+    item.hidden = !isTarget;
+    state.signalExpanded[item.dataset.step] = isTarget;
+  });
+
+  els.signalFlow?.querySelectorAll('.signal-node').forEach(node => {
+    const isTarget = node.dataset.step === step;
+    node.classList.toggle('active', isTarget);
+    node.setAttribute('aria-expanded', isTarget ? 'true' : 'false');
+  });
+
+  panel.querySelector('textarea')?.focus();
 }
 
 function bindSignalNodes() {
@@ -2289,9 +2297,10 @@ function openAppModule(moduleKey) {
   if (!config) return;
 
   document.querySelectorAll('.app-module-card').forEach(card => {
-    card.classList.toggle('active', card.dataset.openModule === moduleKey);
+    const isTarget = card.dataset.openModule === moduleKey;
+    card.classList.toggle('active', isTarget);
+    card.setAttribute('aria-expanded', isTarget ? 'true' : 'false');
   });
-
   if (config.pathway) selectBrainPathway(config.pathway, false);
 
   window.setTimeout(() => {
