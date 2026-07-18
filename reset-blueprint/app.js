@@ -1350,6 +1350,42 @@ function syncSignalTextDefaults() {
     }
     state.signalLastDefault[step] = defaultVal;
   });
+  syncSignalDimensionFields('signal');
+}
+
+function getSignalTextarea(step) {
+  return document.querySelector(`.signal-edit-input[data-step="${step}"]`);
+}
+
+function getSnapshotDimTextarea(step) {
+  return document.querySelector(`.snapshot-dim-input[data-dim="${step}"]`);
+}
+
+function syncSignalDimension(step, value, source) {
+  if (!SIGNAL_STEP_KEYS.includes(step) || state.isSyncingSignalDims) return;
+  state.isSyncingSignalDims = true;
+
+  const signalInput = getSignalTextarea(step);
+  const snapshotInput = getSnapshotDimTextarea(step);
+  if (source !== 'signal' && signalInput && signalInput.value !== value) {
+    signalInput.value = value;
+  }
+  if (source !== 'snapshot' && snapshotInput && snapshotInput.value !== value) {
+    snapshotInput.value = value;
+  }
+  state.signalUserEdited[step] = true;
+  state.isSyncingSignalDims = false;
+}
+
+function syncSignalDimensionFields(source = 'signal') {
+  SIGNAL_STEP_KEYS.forEach(step => {
+    const signalInput = getSignalTextarea(step);
+    const snapshotInput = getSnapshotDimTextarea(step);
+    if (!signalInput || !snapshotInput) return;
+    const value = source === 'snapshot' ? snapshotInput.value : signalInput.value;
+    if (source === 'snapshot' && signalInput.value !== value) signalInput.value = value;
+    if (source === 'signal' && snapshotInput.value !== value) snapshotInput.value = value;
+  });
 }
 
 function toggleSignalField(step) {
@@ -1378,7 +1414,9 @@ function bindSignalNodes() {
   });
   document.querySelectorAll('.signal-edit-input').forEach(ta => {
     ta.addEventListener('input', () => {
+      if (state.isSyncingSignalDims) return;
       state.signalUserEdited[ta.dataset.step] = true;
+      syncSignalDimension(ta.dataset.step, ta.value, 'signal');
     });
   });
 }
@@ -2684,6 +2722,7 @@ function handleSnapshotCategoryClick(cat) {
 }
 
 function collectSnapshotData() {
+  syncSignalDimensionFields('signal');
   const dims = {};
   document.querySelectorAll('.snapshot-dim-input').forEach(input => {
     dims[input.dataset.dim] = input.value.trim();
@@ -2866,7 +2905,17 @@ function bindSnapshotExercise() {
   });
 
   document.querySelectorAll('.snapshot-dim-btn').forEach(btn => {
-    btn.addEventListener('click', () => toggleSnapshotDim(btn.dataset.dim));
+    btn.addEventListener('click', () => {
+      syncSignalDimensionFields('signal');
+      toggleSnapshotDim(btn.dataset.dim);
+    });
+  });
+
+  document.querySelectorAll('.snapshot-dim-input').forEach(input => {
+    input.addEventListener('input', () => {
+      if (state.isSyncingSignalDims) return;
+      syncSignalDimension(input.dataset.dim, input.value, 'snapshot');
+    });
   });
 
   els.snapshotLevel?.addEventListener('input', () => {
