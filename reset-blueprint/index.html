@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=appflow-9135f40">
+  <link rel="stylesheet" href="styles.css?v=modulecards-ebce14c">
 </head>
 <body>
   <header class="site-header">
@@ -340,7 +340,25 @@
           <p data-i18n="section3Intro">面对威胁，大脑有两条通路：杏仁核的「快车道」和皮层的「慢车道」。点击示意图各区域，了解它们如何影响你的反应。</p>
         </div>
 
-        <div class="brain-layout">
+        <div class="app-module-picker thought-module-picker" aria-label="Thought module choices">
+          <button type="button" class="app-module-card" data-open-module="brainRoutes">
+            <span class="module-card-num">01</span>
+            <strong data-i18n="thoughtModule1Title">先看警报通路</strong>
+            <span data-i18n="thoughtModule1Desc">看看焦虑更像身体快车道，还是脑内慢车道。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="thinkingPatterns">
+            <span class="module-card-num">02</span>
+            <strong data-i18n="thoughtModule2Title">找出放大的念头</strong>
+            <span data-i18n="thoughtModule2Desc">选择最像你的脑内循环，把它写下来。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="triggerMap">
+            <span class="module-card-num">03</span>
+            <strong data-i18n="thoughtModule3Title">画出触发地图</strong>
+            <span data-i18n="thoughtModule3Desc">把事件、身体反应和防御方式放在一起。</span>
+          </button>
+        </div>
+
+        <div class="brain-layout" id="brainRoutesModule">
           <div class="brain-diagram card" id="brainDiagram">
             <div class="pathway-selector">
               <div class="pathway-option">
@@ -429,7 +447,7 @@
               <ul class="pathway-list" id="pathwayStrategy"></ul>
 
               <div class="cortex-interactive" id="cortexInteractive" hidden>
-                <section class="cortex-patterns-section">
+                <section class="cortex-patterns-section" id="thinkingPatternsModule">
                   <h4 class="amygdala-section-title" data-i18n="section2Title">8 种焦虑思维模式</h4>
                   <p class="cortex-patterns-intro" data-i18n="section2Intro">每种模式下方可直接编辑案例、用滑块评估焦虑程度，帮助你看见焦虑被哪些想法放大。</p>
                   <div class="patterns-grid" id="patternsGrid"></div>
@@ -448,7 +466,7 @@
             </div>
 
             <div class="amygdala-interactive" id="amygdalaInteractive" hidden>
-              <section class="trigger-map-section">
+              <section class="trigger-map-section" id="triggerMapModule">
                 <h4 class="amygdala-section-title" data-i18n="triggerMapTitle">我的触发点地图</h4>
                 <div class="trigger-map-body">
                   <div class="trigger-map-flow">
@@ -538,7 +556,25 @@
           <p data-i18n="sectionCalmIntro">当杏仁核发出警报，可以用呼吸练习主动激活副交感神经，帮助身体从「战斗/逃跑」模式回到平静。</p>
         </div>
 
-        <div class="breath-practice card">
+        <div class="app-module-picker calm-module-picker" aria-label="Body calming choices">
+          <button type="button" class="app-module-card" data-open-module="breathPractice">
+            <span class="module-card-num">01</span>
+            <strong data-i18n="calmModule1Title">60 秒先稳一下</strong>
+            <span data-i18n="calmModule1Desc">跟着呼吸，把警报降一点点。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="safePlace">
+            <span class="module-card-num">02</span>
+            <strong data-i18n="calmModule2Title">回到安全感</strong>
+            <span data-i18n="calmModule2Desc">写下一个身体可以想象得到的安全场所。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="pmrPractice">
+            <span class="module-card-num">03</span>
+            <strong data-i18n="calmModule3Title">松开一组肌肉</strong>
+            <span data-i18n="calmModule3Desc">从身体紧绷处开始，一组一组松开。</span>
+          </button>
+        </div>
+
+        <div class="breath-practice card" id="breathPractice">
           <h3 class="breath-practice-title" data-i18n="breathPracticeTitle">深呼吸练习</h3>
           <div class="breath-layout">
             <div class="breath-circle-stage">
@@ -561,13 +597,13 @@
           </div>
         </div>
 
-        <div class="imagined-relax card">
+        <div class="imagined-relax card" id="safePlaceModule">
           <p class="calm-subsection-label" data-i18n="imaginedRelaxTitle">想象放松</p>
           <h3 class="calm-module-title" data-i18n="safePlaceTitle">找到你的安全场所</h3>
           <textarea class="input-field calm-editable-example" id="safePlaceInput" rows="4"></textarea>
         </div>
 
-        <div class="pmr-practice card">
+        <div class="pmr-practice card" id="pmrPractice">
           <h3 class="calm-module-title" data-i18n="pmrTitle">渐进式肌肉放松</h3>
           <div class="pmr-layout">
             <ol class="pmr-checklist" id="pmrChecklist" aria-label="PMR body parts"></ol>
@@ -618,6 +654,24 @@
           <p data-i18n="section4Intro">焦虑程度应与目标重要性匹配。太低则缺乏动力，太高则瘫痪——关键是找到「最佳功能区」。</p>
         </div>
 
+        <div class="app-module-picker action-module-picker" aria-label="Action module choices">
+          <button type="button" class="app-module-card" data-open-module="goalMatch">
+            <span class="module-card-num">01</span>
+            <strong data-i18n="actionModule1Title">看下一步多大</strong>
+            <span data-i18n="actionModule1Desc">让目标和紧绷程度匹配，不用一下做完。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="goalMatrix">
+            <span class="module-card-num">02</span>
+            <strong data-i18n="actionModule2Title">找到行动区间</strong>
+            <span data-i18n="actionModule2Desc">看看现在更适合降低负荷，还是直接行动。</span>
+          </button>
+          <button type="button" class="app-module-card" data-open-module="useSteps">
+            <span class="module-card-num">03</span>
+            <strong data-i18n="actionModule3Title">写下一个小动作</strong>
+            <span data-i18n="actionModule3Desc">把焦虑带来的信息，变成一个可开始的动作。</span>
+          </button>
+        </div>
+
         <div class="yerkes-panel card" id="yerkesPanel">
           <h3 data-i18n="yerkesTitle">Yerkes-Dodson 实时匹配</h3>
           <p class="table-desc" data-i18n="yerkesDesc">拖动双滑块，实时计算目标重要性与焦虑程度的最佳匹配区间。</p>
@@ -650,7 +704,7 @@
           </div>
         </div>
 
-        <div class="table-card card">
+        <div class="table-card card" id="goalMatrixModule">
           <h3 data-i18n="tableTitle">目标 × 焦虑程度 匹配表</h3>
           <p class="table-desc" data-i18n="tableDescSlider">滑块实时高亮对应格子；绿色区域为 Yerkes-Dodson 最佳匹配。</p>
           <div class="matrix-wrap">
@@ -672,7 +726,7 @@
           </div>
         </div>
 
-        <div class="use-steps card">
+        <div class="use-steps card" id="useStepsModule">
           <h3 data-i18n="useStepsTitle">四步使用焦虑</h3>
           <div class="use-steps-grid" id="useStepsGrid"></div>
         </div>
@@ -761,7 +815,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=appflow-9135f40"></script>
+  <script src="app.js?v=modulecards-ebce14c"></script>
 </body>
 </html>
 

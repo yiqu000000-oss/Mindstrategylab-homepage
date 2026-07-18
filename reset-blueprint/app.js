@@ -121,6 +121,12 @@ const I18N = {
     addSuggestion: '添加建议',
     section3Badge: '', section3Title: '看见警报通路',
     section3Intro: '感觉信息经丘脑分流：杏仁核「快车道」约 12ms 触发反应；皮层「慢车道」经前额叶与海马体评估后调节。选择皮层通道可练习 8 种思维模式。',
+    thoughtModule1Title: '先看警报通路',
+    thoughtModule1Desc: '看看焦虑更像身体快车道，还是脑内慢车道。',
+    thoughtModule2Title: '找出放大的念头',
+    thoughtModule2Desc: '选择最像你的脑内循环，把它写下来。',
+    thoughtModule3Title: '画出触发地图',
+    thoughtModule3Desc: '把事件、身体反应和防御方式放在一起。',
     amygdalaLabel: '杏仁核', cortexLabel: '前额叶皮层', thalamusLabel: '丘脑', hippocampusLabel: '海马体',
     sensoryInput: '感觉输入',
     fastPath: '快车道 ~12ms', slowPath: '慢车道 ~300ms',
@@ -162,6 +168,12 @@ const I18N = {
     exposureTips: '暴露练习适合作为自我探索工具，如有严重焦虑或创伤史，建议在专业治疗师的指导下进行。可以从痛苦程度4-5分的情境开始，既有挑战性，又在可承受范围内。',
     sectionCalmBadge: '', sectionCalmTitle: '先稳住身体',
     sectionCalmIntro: '如果现在已经很紧，先不用解释原因。让身体降一点点下来。',
+    calmModule1Title: '60 秒先稳一下',
+    calmModule1Desc: '跟着呼吸，把警报降一点点。',
+    calmModule2Title: '回到安全感',
+    calmModule2Desc: '写下一个身体可以想象得到的安全场所。',
+    calmModule3Title: '松开一组肌肉',
+    calmModule3Desc: '从身体紧绷处开始，一组一组松开。',
     breathPracticeTitle: '60 秒先稳一下',
     breathInhale: '吸气', breathExhale: '呼气',
     breathCue1: '横膈膜下沉→肺部充分扩张',
@@ -203,6 +215,12 @@ const I18N = {
     ],
     section4Badge: '', section4Title: '带走一个行动',
     section4Intro: '不用解决全部。先找到一个和当下状态匹配的小动作。',
+    actionModule1Title: '看下一步多大',
+    actionModule1Desc: '让目标和紧绷程度匹配，不用一下做完。',
+    actionModule2Title: '找到行动区间',
+    actionModule2Desc: '看看现在更适合降低负荷，还是直接行动。',
+    actionModule3Title: '写下一个小动作',
+    actionModule3Desc: '把焦虑带来的信息，变成一个可开始的动作。',
     tableTitle: '现在适合做多大的一步', tableDescSlider: '滑块实时高亮对应格子；绿色区域为 Yerkes-Dodson 最佳匹配。',
     yerkesTitle: '焦虑和目标的匹配感',
     yerkesDesc: '拖动两个滑块，找到现在比较适合的一步。',
@@ -348,6 +366,12 @@ const I18N = {
     addSuggestion: 'Add suggestion',
     section3Badge: '', section3Title: 'Notice the Alarm Pathway',
     section3Intro: 'Sensory input splits at the thalamus: amygdala fast lane (~12ms) vs. cortex slow lane via PFC and hippocampus. Select the cortex path to practice 8 thinking patterns.',
+    thoughtModule1Title: 'Read the alarm route',
+    thoughtModule1Desc: 'See whether this feels more like a body fast road or a mind slow road.',
+    thoughtModule2Title: 'Name the amplified thought',
+    thoughtModule2Desc: 'Choose the loop that fits and put it into words.',
+    thoughtModule3Title: 'Map the trigger',
+    thoughtModule3Desc: 'Place the event, body response, and learned defense together.',
     amygdalaLabel: 'Amygdala', cortexLabel: 'Prefrontal Cortex', thalamusLabel: 'Thalamus', hippocampusLabel: 'Hippocampus',
     sensoryInput: 'Sensory Input',
     fastPath: 'Fast ~12ms', slowPath: 'Slow ~300ms',
@@ -389,6 +413,12 @@ const I18N = {
     exposureTips: 'Exposure practice works best as a self-exploration tool. If you have severe anxiety or a history of trauma, work with a licensed therapist. Start with situations rated 4–5 on subjective distress—challenging enough to matter, still within what you can tolerate.',
     sectionCalmBadge: '', sectionCalmTitle: 'Steady the Body First',
     sectionCalmIntro: 'If things feel intense, you do not need to explain it first. Let the body lower the alarm a little.',
+    calmModule1Title: 'Steady for 60 seconds',
+    calmModule1Desc: 'Follow the breath and lower the alarm a little.',
+    calmModule2Title: 'Return to safety',
+    calmModule2Desc: 'Write down a place your body can imagine as safe.',
+    calmModule3Title: 'Release one muscle group',
+    calmModule3Desc: 'Start where the body is tight and loosen it one group at a time.',
     breathPracticeTitle: '60 Seconds to Steady',
     breathInhale: 'Inhale', breathExhale: 'Exhale',
     breathCue1: 'Diaphragm drops → lungs expand fully',
@@ -430,6 +460,12 @@ const I18N = {
     ],
     section4Badge: '', section4Title: 'Take One Step',
     section4Intro: 'You do not have to solve everything. Find one small action that fits your current state.',
+    actionModule1Title: 'Size the next step',
+    actionModule1Desc: 'Match the goal with your tension level. It does not need to be finished all at once.',
+    actionModule2Title: 'Find the action range',
+    actionModule2Desc: 'See whether now calls for lowering load or moving into action.',
+    actionModule3Title: 'Write one small move',
+    actionModule3Desc: 'Turn the signal in anxiety into one action you can begin.',
     tableTitle: 'How Small Should the Next Step Be?', tableDescSlider: 'Sliders highlight the matching cell in real time; green = Yerkes-Dodson optimal.',
     yerkesTitle: 'Anxiety and Goal Fit',
     yerkesDesc: 'Drag both sliders to compute the optimal anxiety range for the goal importance.',
@@ -2232,6 +2268,39 @@ function bindCalmSection() {
   });
 }
 
+function openAppModule(moduleKey) {
+  const modules = {
+    brainRoutes: { target: 'brainRoutesModule' },
+    thinkingPatterns: { target: 'thinkingPatternsModule', pathway: 'cortex' },
+    triggerMap: { target: 'triggerMapModule', pathway: 'amygdala' },
+    breathPractice: { target: 'breathPractice' },
+    safePlace: { target: 'safePlaceModule' },
+    pmrPractice: { target: 'pmrPractice' },
+    goalMatch: { target: 'yerkesPanel' },
+    goalMatrix: { target: 'goalMatrixModule' },
+    useSteps: { target: 'useStepsModule' }
+  };
+  const config = modules[moduleKey];
+  if (!config) return;
+
+  document.querySelectorAll('.app-module-card').forEach(card => {
+    card.classList.toggle('active', card.dataset.openModule === moduleKey);
+  });
+
+  if (config.pathway) selectBrainPathway(config.pathway, false);
+
+  window.setTimeout(() => {
+    const target = document.getElementById(config.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
+
+function bindAppModulePickers() {
+  document.querySelectorAll('[data-open-module]').forEach(btn => {
+    btn.addEventListener('click', () => openAppModule(btn.dataset.openModule));
+  });
+}
+
 function bindBrainRegions() {
   els.brainDiagram.querySelectorAll('.brain-region').forEach(region => {
     region.addEventListener('click', () => selectBrainRegion(region.dataset.region));
@@ -3122,6 +3191,7 @@ function init() {
   safely('bindEvents', bindEvents);
   safely('bindSnapshotExercise', bindSnapshotExercise);
   safely('bindUseStepCards', bindUseStepCards);
+  safely('bindAppModulePickers', bindAppModulePickers);
   safely('initSnapshotCatRows', initSnapshotCatRows);
   safely('initUseStepTexts', initUseStepTexts);
   safely('bindBrainRegions', bindBrainRegions);

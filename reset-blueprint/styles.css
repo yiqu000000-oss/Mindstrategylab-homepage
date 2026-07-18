@@ -4538,3 +4538,94 @@ body::before {
     width: 100%;
   }
 }
+
+
+/* App module choice cards */
+.app-module-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 20px;
+}
+
+.app-module-card {
+  position: relative;
+  min-height: 132px;
+  padding: 18px 18px 16px;
+  border: 1.5px solid rgba(26, 39, 68, 0.26);
+  border-radius: 18px 15px 20px 14px;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 231, 179, 0.36), transparent 30%),
+    linear-gradient(135deg, rgba(255, 253, 247, 0.96), rgba(250, 244, 232, 0.9));
+  color: var(--primary);
+  cursor: pointer;
+  text-align: left;
+  box-shadow: 0 8px 18px rgba(26, 39, 68, 0.07);
+  transform: rotate(-0.35deg);
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease, background 260ms ease;
+}
+
+.app-module-card:nth-child(2) {
+  border-radius: 15px 20px 14px 18px;
+  transform: rotate(0.25deg);
+}
+
+.app-module-card:nth-child(3) {
+  border-radius: 20px 14px 18px 16px;
+  transform: rotate(-0.15deg);
+}
+
+.app-module-card::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px dashed rgba(26, 39, 68, 0.09);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.app-module-card:hover,
+.app-module-card.active {
+  border-color: rgba(26, 39, 68, 0.54);
+  box-shadow: 0 11px 22px rgba(26, 39, 68, 0.1);
+  transform: translateY(2px) rotate(0deg);
+}
+
+.app-module-card.active {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 231, 179, 0.52), transparent 32%),
+    linear-gradient(135deg, rgba(255, 253, 247, 1), rgba(242, 249, 237, 0.94));
+}
+
+.module-card-num {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: rgba(26, 39, 68, 0.48);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.app-module-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.app-module-card span:last-child {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.58;
+}
+
+@media (max-width: 760px) {
+  .app-module-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .app-module-card {
+    min-height: 116px;
+  }
+}
