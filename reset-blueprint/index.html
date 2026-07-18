@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=crayon-1d1504c">
+  <link rel="stylesheet" href="styles.css?v=no-presenter-7c8c5c2">
 </head>
 <body>
   <header class="site-header">
@@ -25,7 +25,6 @@
         <span class="logo-text" data-i18n="appTitle">杏仁核重启</span>
       </div>
       <div class="header-actions">
-        <button type="button" class="btn btn-sm btn-secondary presenter-toggle" id="presenterToggle" data-i18n="presenterMode">演示模式</button>
         <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">
           <span class="lang-option active" data-lang="zh">中</span>
           <span class="lang-divider">/</span>
@@ -329,7 +328,6 @@
             <p class="snapshot-result-label" data-i18n="snapshotCardTitle">我的焦虑快照</p>
             <div id="snapshotResultContent"></div>
             <div class="form-actions" style="margin-top:16px">
-              <button type="button" class="btn btn-primary" id="projectSnapshotBtn" data-i18n="projectSnapshot">投射到大屏</button>
             </div>
           </article>
         </div>
@@ -434,7 +432,7 @@
               <div class="cortex-interactive" id="cortexInteractive" hidden>
                 <section class="cortex-patterns-section">
                   <h4 class="amygdala-section-title" data-i18n="section2Title">8 种焦虑思维模式</h4>
-                  <p class="cortex-patterns-intro" data-i18n="section2Intro">每种模式下方可直接编辑案例、用滑块评估焦虑程度，一键投射到大屏与听众互动。</p>
+                  <p class="cortex-patterns-intro" data-i18n="section2Intro">每种模式下方可直接编辑案例、用滑块评估焦虑程度，帮助你看见焦虑被哪些想法放大。</p>
                   <div class="patterns-grid" id="patternsGrid"></div>
 
                   <div class="form-actions pattern-snapshot-actions">
@@ -444,7 +442,6 @@
                     <p class="pattern-snapshot-label" data-i18n="patternSnapshotCardTitle">我的思维模式快照</p>
                     <div id="patternSnapshotContent"></div>
                     <div class="form-actions" style="margin-top:16px">
-                      <button type="button" class="btn btn-primary" id="projectPatternSnapshotBtn" data-i18n="projectPatternSnapshot">投射到大屏</button>
                     </div>
                   </article>
                 </section>
@@ -693,7 +690,7 @@
         <h3 data-i18n="presenterPanelTitle">演示者控制台</h3>
         <button type="button" class="btn-icon" id="closePresenterPanel" aria-label="Close">×</button>
       </div>
-      <p class="presenter-hint" data-i18n="presenterHint">在此输入案例，选择模式后投射到大屏。也可在各章节互动区直接操作。</p>
+      <p class="presenter-hint" data-i18n="presenterHint">在此输入案例，选择模式后记录到练习里。也可在各章节互动区直接操作。</p>
       <label class="field-label">
         <span data-i18n="caseLabel">案例描述</span>
         <textarea class="input-field" id="presenterCaseInput" rows="4"></textarea>
@@ -712,8 +709,8 @@
         </select>
       </label>
       <div class="form-actions">
-        <button type="button" class="btn btn-primary btn-block" id="presenterShowBtn" data-i18n="showOnScreen">投射到大屏</button>
-        <button type="button" class="btn btn-secondary btn-block" id="presenterClearBtn" data-i18n="clearBoard">清空大屏</button>
+        <button type="button" class="btn btn-primary btn-block" id="presenterShowBtn" data-i18n="showOnScreen">保存案例</button>
+        <button type="button" class="btn btn-secondary btn-block" id="presenterClearBtn" data-i18n="clearBoard">清空案例</button>
       </div>
     </div>
   </aside>
@@ -767,7 +764,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=crayon-1d1504c"></script>
+  <script src="app.js?v=no-presenter-7c8c5c2"></script>
 </body>
 </html>
 
