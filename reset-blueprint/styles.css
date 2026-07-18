@@ -4669,7 +4669,8 @@ body::before {
   display: block;
 }
 
-.safe-place-scene path {
+.safe-place-scene path,
+.safe-place-scene circle {
   fill: none;
   stroke: var(--primary);
   stroke-width: 3;
@@ -4680,7 +4681,7 @@ body::before {
 
 .safe-sky { fill: #e9f3f5 !important; stroke: none !important; }
 .safe-sky.forest { fill: #edf5e8 !important; }
-.safe-sky.night { fill: #e8ecf8 !important; }
+.safe-sky.night { fill: #dfe7f7 !important; }
 .safe-sky.default { fill: #f5efe4 !important; }
 .safe-room-bg { fill: #f8efe4 !important; stroke: none !important; }
 .safe-room-bg.warm { fill: #fbf0df !important; }
@@ -4770,4 +4771,56 @@ body::before {
   .safe-place-generator {
     grid-template-columns: 1fr;
   }
+}
+
+
+/* Richer generated safe place scenes */
+.safe-night-glow { fill: url(#safeNightGlow) !important; stroke: none !important; animation: safePulse 8s ease-in-out infinite; }
+.safe-milkyway {
+  fill: none !important;
+  stroke: rgba(93, 119, 169, 0.55) !important;
+  stroke-width: 16 !important;
+  stroke-linecap: round;
+  opacity: 0.72;
+  animation: safeGalaxy 18s ease-in-out infinite;
+}
+.safe-milkyway-soft {
+  stroke: rgba(255, 242, 191, 0.52) !important;
+  stroke-width: 8 !important;
+  opacity: 0.58;
+  animation-delay: -5s;
+}
+.safe-star-dot {
+  fill: rgba(255, 241, 185, 0.88) !important;
+  stroke: rgba(112, 126, 170, 0.7) !important;
+  stroke-width: 1.2 !important;
+  animation: safeTwinkle 5s ease-in-out infinite;
+}
+.star-dot-b, .star-dot-e { animation-delay: -1.2s; }
+.star-dot-c, .star-dot-g { animation-delay: -2.4s; }
+.star-dot-d, .star-dot-h { animation-delay: -3.5s; }
+.safe-shooting-star {
+  stroke: rgba(255, 237, 178, 0.78) !important;
+  stroke-width: 2.5 !important;
+  animation: safeShootingStar 7s ease-in-out infinite;
+}
+.safe-distant-hill {
+  fill: rgba(123, 139, 168, 0.26) !important;
+  stroke: rgba(86, 98, 132, 0.72) !important;
+}
+
+@keyframes safeGalaxy {
+  0%, 100% { transform: translateX(-5px) translateY(1px); opacity: 0.58; }
+  50% { transform: translateX(8px) translateY(-4px); opacity: 0.82; }
+}
+
+@keyframes safeTwinkle {
+  0%, 100% { opacity: 0.38; transform: scale(0.88); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+
+@keyframes safeShootingStar {
+  0%, 78%, 100% { opacity: 0; transform: translateX(-18px) translateY(7px); }
+  83% { opacity: 0.9; }
+  92% { opacity: 0; transform: translateX(18px) translateY(-6px); }
 }

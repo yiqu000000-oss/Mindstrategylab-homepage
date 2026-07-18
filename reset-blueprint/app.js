@@ -184,8 +184,8 @@ const I18N = {
     safePlaceTitle: '找到你的安全场所',
     safePlaceDefault: '想象一个让你感到平静安全的地方——也许是海边、森林、或者一个温暖的房间。感受那里的温度、声音和气味，让自己完全置身其中。',
     safePlaceWriteBtn: '只写下来',
-    safePlaceGenerateBtn: '生成安定场景',
-    safePlaceGeneratedTitle: '你的安定场景',
+    safePlaceGenerateBtn: '生成动图 / 环境声',
+    safePlaceGeneratedTitle: '你的安定动图',
     safePlaceSoundStart: '播放环境声',
     safePlaceSoundStop: '停止环境声',
     safePlaceRegenerate: '重新生成',
@@ -196,13 +196,13 @@ const I18N = {
     safePlaceModeForest: '森林 / 风声',
     safePlaceModeRain: '雨夜 / 窗边',
     safePlaceModeRoom: '暖房间 / 灯光',
-    safePlaceModeSky: '星空 / 远处',
+    safePlaceModeSky: '夜空 / 星海',
     safePlaceModeDefault: '柔软的安全地',
     safePlaceScriptSea: '让视线停在远处的水面。浪线一层一层靠近，又慢慢退回去。你不需要追上任何念头，只要让身体知道：此刻可以先靠岸。',
     safePlaceScriptForest: '想象树叶在很慢地晃动。空气从肩膀旁边经过，带走一点紧绷。你可以只待在这里，不解释，不证明，先让身体回到地面。',
     safePlaceScriptRain: '听见雨落在窗外，世界被轻轻隔开。房间里有一点暖光，你可以把今天先放在门外，只把注意力放回呼吸和此刻。',
     safePlaceScriptRoom: '这里有一盏温暖的灯，照着一个可以坐下来的位置。你不需要马上解决全部，只需要允许自己被这个小小的地方接住。',
-    safePlaceScriptSky: '抬头看一片很安静的天空。星光不催促你变好，只提醒你：事情可以慢一点，身体也可以慢一点。',
+    safePlaceScriptSky: '让视线慢慢进入那片夜空。星光像一条很远的河，不急着靠近，也不要求你回应。你只需要待在这里，让浩瀚替你把此刻撑开一点。',
     safePlaceScriptDefault: '把你写下的地方想象成一张柔软的纸。它不要求你立刻平静，只给你一个可以停一下的位置。先在这里，呼吸一次。',
     pmrTitle: '渐进式肌肉放松',
     pmrStepHint: '收紧5秒→放松',
@@ -450,8 +450,8 @@ const I18N = {
     safePlaceTitle: 'Find Your Safe Place',
     safePlaceDefault: 'Picture a place where you feel calm and safe—perhaps a beach, a forest, or a warm room. Notice the temperature, sounds, and scents there, and let yourself be fully present in that space.',
     safePlaceWriteBtn: 'Keep it as writing',
-    safePlaceGenerateBtn: 'Generate a settling scene',
-    safePlaceGeneratedTitle: 'Your Settling Scene',
+    safePlaceGenerateBtn: 'Generate animation / ambient',
+    safePlaceGeneratedTitle: 'Your settling animation',
     safePlaceSoundStart: 'Play ambient sound',
     safePlaceSoundStop: 'Stop ambient sound',
     safePlaceRegenerate: 'Regenerate',
@@ -462,13 +462,13 @@ const I18N = {
     safePlaceModeForest: 'Forest / wind',
     safePlaceModeRain: 'Rain / window',
     safePlaceModeRoom: 'Warm room / light',
-    safePlaceModeSky: 'Sky / distance',
+    safePlaceModeSky: 'Night sky / star sea',
     safePlaceModeDefault: 'A soft place to land',
     safePlaceScriptSea: 'Let your eyes rest on the far water. The waves come closer, then slowly move away. You do not need to follow every thought. Let the body know: for this moment, you can come ashore.',
     safePlaceScriptForest: 'Picture the leaves moving very slowly. Air passes beside your shoulders and carries away a little tension. You can stay here without explaining, without proving, just returning to the ground.',
     safePlaceScriptRain: 'Hear rain outside the window. The world is gently held at a distance. There is warm light in the room, and you can leave today outside the door for a moment.',
     safePlaceScriptRoom: 'There is a warm lamp here, lighting a place where you can sit down. You do not have to solve everything now. Let this small place hold you for a while.',
-    safePlaceScriptSky: 'Look up at a quiet sky. The stars are not asking you to be better; they only remind you that things can move slowly, and so can the body.',
+    safePlaceScriptSky: 'Let your attention move slowly into the night sky. The stars feel like a far river: not rushing closer, not asking for an answer. You can stay here and let the vastness make a little more room around this moment.',
     safePlaceScriptDefault: 'Imagine the place you wrote as a soft sheet of paper. It does not demand calm from you. It only gives you somewhere to pause. Stay here for one breath.',
     pmrTitle: 'Progressive Muscle Relaxation',
     pmrStepHint: 'Tense 5 sec → release',
@@ -2292,14 +2292,40 @@ function renderPMR() {
   updatePMRPanel();
 }
 
+function scoreSafePlaceKeywords(value, terms) {
+  return terms.reduce((score, [term, weight]) => score + (value.includes(term) ? weight : 0), 0);
+}
+
+function scoreSafePlaceKeywords(value, terms) {
+  return terms.reduce((score, [term, weight]) => score + (value.includes(term) ? weight : 0), 0);
+}
+
 function detectSafePlaceMode(text) {
-  const value = (text || '').toLowerCase();
-  if (/海|浪|水|湖|河|beach|sea|ocean|lake|water/.test(value)) return 'sea';
-  if (/森林|树|叶|山|草|forest|tree|leaf|mountain|meadow/.test(value)) return 'forest';
-  if (/雨|窗|夜|rain|window|night/.test(value)) return 'rain';
-  if (/房|家|灯|炉|毯|room|home|lamp|fire|blanket/.test(value)) return 'room';
-  if (/星|天空|月|云|sky|star|moon|cloud/.test(value)) return 'sky';
-  return 'default';
+  const value = (text || '').toLowerCase().replace(/\s+/g, '');
+  const scores = {
+    sky: scoreSafePlaceKeywords(value, [
+      ['星海', 10], ['夜空', 9], ['星空', 9], ['银河', 9], ['星河', 9], ['宇宙', 8], ['深空', 8], ['星辰', 7], ['浩瀚', 5],
+      ['星', 4], ['天空', 4], ['月', 3], ['云', 2], ['starry', 9], ['milkyway', 9], ['galaxy', 9], ['cosmos', 8],
+      ['universe', 8], ['nightsky', 8], ['star', 4], ['sky', 4], ['moon', 3], ['cloud', 2]
+    ]),
+    rain: scoreSafePlaceKeywords(value, [
+      ['雨夜', 8], ['雨', 5], ['窗', 4], ['夜雨', 8], ['rain', 6], ['window', 4]
+    ]),
+    room: scoreSafePlaceKeywords(value, [
+      ['房间', 6], ['小屋', 6], ['家', 5], ['灯', 4], ['火炉', 4], ['毯', 3], ['room', 6], ['home', 5], ['lamp', 4], ['fire', 4], ['blanket', 3]
+    ]),
+    forest: scoreSafePlaceKeywords(value, [
+      ['森林', 7], ['树林', 6], ['树', 4], ['叶', 4], ['山', 3], ['草地', 4], ['forest', 7], ['tree', 4], ['leaf', 4], ['mountain', 3], ['meadow', 4]
+    ]),
+    sea: scoreSafePlaceKeywords(value, [
+      ['海边', 8], ['海浪', 8], ['海岸', 7], ['大海', 7], ['沙滩', 7], ['潮水', 6], ['湖', 4], ['河', 4], ['水面', 3],
+      ['beach', 8], ['shore', 7], ['ocean', 7], ['wave', 7], ['lake', 4], ['river', 4], ['water', 3]
+    ])
+  };
+
+  if (/星海|星河|银河|夜空|星空|milkyway|starry|nightsky|galaxy|cosmos/.test(value)) scores.sky += 10;
+  const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+  return winner && winner[1] > 0 ? winner[0] : 'default';
 }
 
 function getSafePlaceSceneSvg(mode) {
@@ -2343,13 +2369,32 @@ function getSafePlaceSceneSvg(mode) {
       </svg>`,
     sky: `
       <svg viewBox="0 0 420 230" focusable="false">
+        <defs>
+          <radialGradient id="safeNightGlow" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#f7f0d0" stop-opacity="0.45"/>
+            <stop offset="45%" stop-color="#dbe5f8" stop-opacity="0.42"/>
+            <stop offset="100%" stop-color="#cbd6ee" stop-opacity="0.2"/>
+          </radialGradient>
+        </defs>
         <path class="safe-sky night" d="M0 0h420v230H0z"/>
-        <path class="safe-star star-a" d="M80 54l5 10 11 2-8 7 2 11-10-5-10 5 2-11-8-7 11-2Z"/>
-        <path class="safe-star star-b" d="M265 42l4 8 9 1-6 6 1 9-8-4-8 4 1-9-6-6 9-1Z"/>
-        <path class="safe-moon" d="M329 63c16 16 4 42-19 43-21 1-36-21-26-39 8 14 28 16 45-4Z"/>
-        <path class="safe-cloud cloud-a" d="M48 151c24-30 65-24 78 7 19-14 48-4 55 17H42c-15-6-10-19 6-24Z"/>
-        <path class="safe-cloud cloud-b" d="M227 160c21-25 58-20 71 7 17-12 41-3 48 15H224c-13-5-10-17 3-22Z"/>
-        <path class="safe-ground" d="M44 202c102 18 225 17 338 0"/>
+        <path class="safe-night-glow" d="M0 0h420v230H0z"/>
+        <path class="safe-milkyway" d="M-18 154C45 110 94 86 151 80c52-6 93 11 139-9 37-16 72-48 148-58"/>
+        <path class="safe-milkyway safe-milkyway-soft" d="M-10 176C54 130 112 105 174 102c49-2 82 13 125-8 36-18 65-44 128-56"/>
+        <circle class="safe-star-dot star-dot-a" cx="48" cy="55" r="2.2"/>
+        <circle class="safe-star-dot star-dot-b" cx="86" cy="31" r="1.7"/>
+        <circle class="safe-star-dot star-dot-c" cx="123" cy="65" r="2.4"/>
+        <circle class="safe-star-dot star-dot-d" cx="169" cy="39" r="1.8"/>
+        <circle class="safe-star-dot star-dot-e" cx="212" cy="78" r="2.1"/>
+        <circle class="safe-star-dot star-dot-f" cx="257" cy="48" r="1.6"/>
+        <circle class="safe-star-dot star-dot-g" cx="311" cy="82" r="2.3"/>
+        <circle class="safe-star-dot star-dot-h" cx="360" cy="34" r="1.9"/>
+        <path class="safe-star star-a" d="M73 96l5 10 11 2-8 7 2 11-10-5-10 5 2-11-8-7 11-2Z"/>
+        <path class="safe-star star-b" d="M310 42l4 8 9 1-6 6 1 9-8-4-8 4 1-9-6-6 9-1Z"/>
+        <path class="safe-moon" d="M348 70c16 16 4 42-19 43-21 1-36-21-26-39 8 14 28 16 45-4Z"/>
+        <path class="safe-shooting-star" d="M232 28c32 10 48 9 73-4"/>
+        <path class="safe-cloud cloud-a" d="M32 158c24-30 66-24 79 8 20-14 49-4 57 18H27c-16-7-11-20 5-26Z"/>
+        <path class="safe-cloud cloud-b" d="M230 168c22-25 60-20 74 7 18-12 43-3 50 16H226c-14-5-10-18 4-23Z"/>
+        <path class="safe-distant-hill" d="M20 203c45-29 86-35 126-16 28 13 50 10 77-4 47-24 100-13 178 20"/>
       </svg>`,
     default: `
       <svg viewBox="0 0 420 230" focusable="false">
