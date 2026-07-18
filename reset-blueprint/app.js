@@ -183,27 +183,6 @@ const I18N = {
     imaginedRelaxTitle: '想象放松',
     safePlaceTitle: '找到你的安全场所',
     safePlaceDefault: '想象一个让你感到平静安全的地方——也许是海边、森林、或者一个温暖的房间。感受那里的温度、声音和气味，让自己完全置身其中。',
-    safePlaceWriteBtn: '只写下来',
-    safePlaceGenerateBtn: '生成动图 / 环境声',
-    safePlaceGeneratedTitle: '你的安定动图',
-    safePlaceSoundStart: '播放环境声',
-    safePlaceSoundStop: '停止环境声',
-    safePlaceRegenerate: '重新生成',
-    safePlaceAudioNote: '无语音朗读，仅本地生成轻微环境声。',
-    safePlaceWriteSaved: '已经放在这里。你可以只让它作为文字存在。',
-    safePlaceEmptyHint: '先写一点点你想去的地方，再生成场景。',
-    safePlaceModeSea: '海边 / 水声',
-    safePlaceModeForest: '森林 / 风声',
-    safePlaceModeRain: '雨夜 / 窗边',
-    safePlaceModeRoom: '暖房间 / 灯光',
-    safePlaceModeSky: '夜空 / 星海',
-    safePlaceModeDefault: '柔软的安全地',
-    safePlaceScriptSea: '让视线停在远处的水面。浪线一层一层靠近，又慢慢退回去。你不需要追上任何念头，只要让身体知道：此刻可以先靠岸。',
-    safePlaceScriptForest: '想象树叶在很慢地晃动。空气从肩膀旁边经过，带走一点紧绷。你可以只待在这里，不解释，不证明，先让身体回到地面。',
-    safePlaceScriptRain: '听见雨落在窗外，世界被轻轻隔开。房间里有一点暖光，你可以把今天先放在门外，只把注意力放回呼吸和此刻。',
-    safePlaceScriptRoom: '这里有一盏温暖的灯，照着一个可以坐下来的位置。你不需要马上解决全部，只需要允许自己被这个小小的地方接住。',
-    safePlaceScriptSky: '让视线慢慢进入那片夜空。星光像一条很远的河，不急着靠近，也不要求你回应。你只需要待在这里，让浩瀚替你把此刻撑开一点。',
-    safePlaceScriptDefault: '把你写下的地方想象成一张柔软的纸。它不要求你立刻平静，只给你一个可以停一下的位置。先在这里，呼吸一次。',
     pmrTitle: '渐进式肌肉放松',
     pmrStepHint: '收紧5秒→放松',
     pmrTightenLabel: '收紧',
@@ -449,27 +428,6 @@ const I18N = {
     imaginedRelaxTitle: 'Imagined Relaxation',
     safePlaceTitle: 'Find Your Safe Place',
     safePlaceDefault: 'Picture a place where you feel calm and safe—perhaps a beach, a forest, or a warm room. Notice the temperature, sounds, and scents there, and let yourself be fully present in that space.',
-    safePlaceWriteBtn: 'Keep it as writing',
-    safePlaceGenerateBtn: 'Generate animation / ambient',
-    safePlaceGeneratedTitle: 'Your settling animation',
-    safePlaceSoundStart: 'Play ambient sound',
-    safePlaceSoundStop: 'Stop ambient sound',
-    safePlaceRegenerate: 'Regenerate',
-    safePlaceAudioNote: 'No spoken narration. Only a soft local ambient layer.',
-    safePlaceWriteSaved: 'It can stay here as words only.',
-    safePlaceEmptyHint: 'Write a little about the place first, then generate a scene.',
-    safePlaceModeSea: 'Sea / water',
-    safePlaceModeForest: 'Forest / wind',
-    safePlaceModeRain: 'Rain / window',
-    safePlaceModeRoom: 'Warm room / light',
-    safePlaceModeSky: 'Night sky / star sea',
-    safePlaceModeDefault: 'A soft place to land',
-    safePlaceScriptSea: 'Let your eyes rest on the far water. The waves come closer, then slowly move away. You do not need to follow every thought. Let the body know: for this moment, you can come ashore.',
-    safePlaceScriptForest: 'Picture the leaves moving very slowly. Air passes beside your shoulders and carries away a little tension. You can stay here without explaining, without proving, just returning to the ground.',
-    safePlaceScriptRain: 'Hear rain outside the window. The world is gently held at a distance. There is warm light in the room, and you can leave today outside the door for a moment.',
-    safePlaceScriptRoom: 'There is a warm lamp here, lighting a place where you can sit down. You do not have to solve everything now. Let this small place hold you for a while.',
-    safePlaceScriptSky: 'Let your attention move slowly into the night sky. The stars feel like a far river: not rushing closer, not asking for an answer. You can stay here and let the vastness make a little more room around this moment.',
-    safePlaceScriptDefault: 'Imagine the place you wrote as a soft sheet of paper. It does not demand calm from you. It only gives you somewhere to pause. Stay here for one breath.',
     pmrTitle: 'Progressive Muscle Relaxation',
     pmrStepHint: 'Tense 5 sec → release',
     pmrTightenLabel: 'Tense',
@@ -1348,9 +1306,6 @@ function applyI18n() {
   renderAllCategoryPanels();
   syncAmygdalaFormDefaults();
   syncSafePlaceDefault();
-  if (document.getElementById('safePlaceGenerator') && !document.getElementById('safePlaceGenerator').hidden) renderSafePlaceScene();
-  const safeSoundBtn = document.getElementById('safePlaceSoundBtn');
-  if (safeSoundBtn) safeSoundBtn.textContent = state.safePlaceAudio ? t('safePlaceSoundStop') : t('safePlaceSoundStart');
   if (state.brainPathway) selectBrainPathway(state.brainPathway, false);
   if (state.boardMode === 'pattern' && state.boardPatternId) {
     renderPatternBoard(state.boardPatternId);
@@ -2292,207 +2247,6 @@ function renderPMR() {
   updatePMRPanel();
 }
 
-function scoreSafePlaceKeywords(value, terms) {
-  return terms.reduce((score, [term, weight]) => score + (value.includes(term) ? weight : 0), 0);
-}
-
-function scoreSafePlaceKeywords(value, terms) {
-  return terms.reduce((score, [term, weight]) => score + (value.includes(term) ? weight : 0), 0);
-}
-
-function detectSafePlaceMode(text) {
-  const value = (text || '').toLowerCase().replace(/\s+/g, '');
-  const scores = {
-    sky: scoreSafePlaceKeywords(value, [
-      ['星海', 10], ['夜空', 9], ['星空', 9], ['银河', 9], ['星河', 9], ['宇宙', 8], ['深空', 8], ['星辰', 7], ['浩瀚', 5],
-      ['星', 4], ['天空', 4], ['月', 3], ['云', 2], ['starry', 9], ['milkyway', 9], ['galaxy', 9], ['cosmos', 8],
-      ['universe', 8], ['nightsky', 8], ['star', 4], ['sky', 4], ['moon', 3], ['cloud', 2]
-    ]),
-    rain: scoreSafePlaceKeywords(value, [
-      ['雨夜', 8], ['雨', 5], ['窗', 4], ['夜雨', 8], ['rain', 6], ['window', 4]
-    ]),
-    room: scoreSafePlaceKeywords(value, [
-      ['房间', 6], ['小屋', 6], ['家', 5], ['灯', 4], ['火炉', 4], ['毯', 3], ['room', 6], ['home', 5], ['lamp', 4], ['fire', 4], ['blanket', 3]
-    ]),
-    forest: scoreSafePlaceKeywords(value, [
-      ['森林', 7], ['树林', 6], ['树', 4], ['叶', 4], ['山', 3], ['草地', 4], ['forest', 7], ['tree', 4], ['leaf', 4], ['mountain', 3], ['meadow', 4]
-    ]),
-    sea: scoreSafePlaceKeywords(value, [
-      ['海边', 8], ['海浪', 8], ['海岸', 7], ['大海', 7], ['沙滩', 7], ['潮水', 6], ['湖', 4], ['河', 4], ['水面', 3],
-      ['beach', 8], ['shore', 7], ['ocean', 7], ['wave', 7], ['lake', 4], ['river', 4], ['water', 3]
-    ])
-  };
-
-  if (/星海|星河|银河|夜空|星空|milkyway|starry|nightsky|galaxy|cosmos/.test(value)) scores.sky += 10;
-  const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
-  return winner && winner[1] > 0 ? winner[0] : 'default';
-}
-
-function getSafePlaceSceneSvg(mode) {
-  const scenes = {
-    sea: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <path class="safe-sky" d="M0 0h420v230H0z"/>
-        <path class="safe-sun" d="M324 42c18-11 38-2 39 18 1 19-19 31-36 22-16-8-18-30-3-40Z"/>
-        <path class="safe-island" d="M120 165c35-24 90-22 123 0 27 18 58 14 90 24-67 26-220 23-288 0 25-5 48-7 75-24Z"/>
-        <path class="safe-house" d="M171 138h56v40h-56zM163 140l36-28 36 28"/>
-        <path class="safe-light" d="M193 150h14v18h-14z"/>
-        <path class="safe-wave safe-wave-a" d="M24 194c44-12 62 10 106 0s65 10 108 0 65 10 126 0"/>
-        <path class="safe-wave safe-wave-b" d="M39 211c38-9 59 8 98 0 39-9 60 8 99 0 42-9 67 5 119 0"/>
-      </svg>`,
-    forest: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <path class="safe-sky forest" d="M0 0h420v230H0z"/>
-        <path class="safe-moon" d="M334 45c14 14 4 37-16 38-18 1-31-18-23-34 6 11 24 13 39-4Z"/>
-        <path class="safe-tree tree-a" d="M92 180V86M50 139c33-51 53-73 83-3M63 165c29-33 54-40 82-2"/>
-        <path class="safe-tree tree-b" d="M206 184V70M157 134c36-56 64-80 102-4M169 164c34-39 64-47 97-3"/>
-        <path class="safe-tree tree-c" d="M324 184V94M289 143c25-40 48-55 73-2M285 167c25-26 55-33 80-2"/>
-        <path class="safe-ground" d="M36 194c80 19 229 18 347-2"/>
-      </svg>`,
-    rain: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <path class="safe-room-bg" d="M0 0h420v230H0z"/>
-        <path class="safe-window" d="M92 35h158v116H92z"/>
-        <path class="safe-window-line" d="M171 35v116M92 92h158"/>
-        <path class="safe-rain rain-a" d="M111 53l-10 25M151 46l-10 25M220 57l-10 25M132 105l-10 25M199 106l-10 25"/>
-        <path class="safe-rain rain-b" d="M126 62l-8 20M190 46l-8 20M235 101l-8 20M156 116l-8 20"/>
-        <path class="safe-lamp" d="M303 91h50l-10 60h-30zM328 151v39M295 190h67"/>
-        <path class="safe-light-pool" d="M276 185c36-18 81-17 111 0-23 17-86 18-111 0Z"/>
-      </svg>`,
-    room: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <path class="safe-room-bg warm" d="M0 0h420v230H0z"/>
-        <path class="safe-rug" d="M72 181c83-28 211-28 281 0-53 28-217 28-281 0Z"/>
-        <path class="safe-chair" d="M150 112c22-28 84-28 106 0 14 18 8 61-12 75h-82c-21-16-26-56-12-75Z"/>
-        <path class="safe-lamp" d="M292 51h54l-11 61h-32zM319 112v73M286 185h68"/>
-        <path class="safe-light-pool" d="M256 175c46-24 98-24 135 2-34 24-105 24-135-2Z"/>
-      </svg>`,
-    sky: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <defs>
-          <radialGradient id="safeNightGlow" cx="50%" cy="40%" r="70%">
-            <stop offset="0%" stop-color="#f7f0d0" stop-opacity="0.45"/>
-            <stop offset="45%" stop-color="#dbe5f8" stop-opacity="0.42"/>
-            <stop offset="100%" stop-color="#cbd6ee" stop-opacity="0.2"/>
-          </radialGradient>
-        </defs>
-        <path class="safe-sky night" d="M0 0h420v230H0z"/>
-        <path class="safe-night-glow" d="M0 0h420v230H0z"/>
-        <path class="safe-milkyway" d="M-18 154C45 110 94 86 151 80c52-6 93 11 139-9 37-16 72-48 148-58"/>
-        <path class="safe-milkyway safe-milkyway-soft" d="M-10 176C54 130 112 105 174 102c49-2 82 13 125-8 36-18 65-44 128-56"/>
-        <circle class="safe-star-dot star-dot-a" cx="48" cy="55" r="2.2"/>
-        <circle class="safe-star-dot star-dot-b" cx="86" cy="31" r="1.7"/>
-        <circle class="safe-star-dot star-dot-c" cx="123" cy="65" r="2.4"/>
-        <circle class="safe-star-dot star-dot-d" cx="169" cy="39" r="1.8"/>
-        <circle class="safe-star-dot star-dot-e" cx="212" cy="78" r="2.1"/>
-        <circle class="safe-star-dot star-dot-f" cx="257" cy="48" r="1.6"/>
-        <circle class="safe-star-dot star-dot-g" cx="311" cy="82" r="2.3"/>
-        <circle class="safe-star-dot star-dot-h" cx="360" cy="34" r="1.9"/>
-        <path class="safe-star star-a" d="M73 96l5 10 11 2-8 7 2 11-10-5-10 5 2-11-8-7 11-2Z"/>
-        <path class="safe-star star-b" d="M310 42l4 8 9 1-6 6 1 9-8-4-8 4 1-9-6-6 9-1Z"/>
-        <path class="safe-moon" d="M348 70c16 16 4 42-19 43-21 1-36-21-26-39 8 14 28 16 45-4Z"/>
-        <path class="safe-shooting-star" d="M232 28c32 10 48 9 73-4"/>
-        <path class="safe-cloud cloud-a" d="M32 158c24-30 66-24 79 8 20-14 49-4 57 18H27c-16-7-11-20 5-26Z"/>
-        <path class="safe-cloud cloud-b" d="M230 168c22-25 60-20 74 7 18-12 43-3 50 16H226c-14-5-10-18 4-23Z"/>
-        <path class="safe-distant-hill" d="M20 203c45-29 86-35 126-16 28 13 50 10 77-4 47-24 100-13 178 20"/>
-      </svg>`,
-    default: `
-      <svg viewBox="0 0 420 230" focusable="false">
-        <path class="safe-sky default" d="M0 0h420v230H0z"/>
-        <path class="safe-hill" d="M36 178c78-55 166-56 238-12 36 22 68 24 111 18-82 43-257 41-349-6Z"/>
-        <path class="safe-path" d="M184 181c16-29 31-47 47-65 16 23 26 45 34 72-25 6-55 5-81-7Z"/>
-        <path class="safe-star star-a" d="M96 56l4 8 9 1-7 6 2 9-8-4-8 4 2-9-7-6 9-1Z"/>
-        <path class="safe-cloud cloud-a" d="M238 68c21-24 53-19 64 5 16-10 36-2 42 14H234c-13-5-9-16 4-19Z"/>
-      </svg>`
-  };
-  return scenes[mode] || scenes.default;
-}
-
-function buildSafePlaceScript(mode) {
-  return t(`safePlaceScript${mode.charAt(0).toUpperCase() + mode.slice(1)}`) || t('safePlaceScriptDefault');
-}
-
-function renderSafePlaceScene() {
-  const input = document.getElementById('safePlaceInput');
-  const generator = document.getElementById('safePlaceGenerator');
-  const scene = document.getElementById('safePlaceScene');
-  const script = document.getElementById('safePlaceScript');
-  const label = document.getElementById('safePlaceModeLabel');
-  if (!input || !generator || !scene || !script || !label) return;
-  const text = input.value.trim();
-  if (!text) {
-    script.textContent = t('safePlaceEmptyHint');
-    generator.hidden = false;
-    return;
-  }
-  const mode = detectSafePlaceMode(text);
-  state.safePlaceAudioMode = mode;
-  scene.className = `safe-place-scene safe-place-${mode}`;
-  scene.innerHTML = getSafePlaceSceneSvg(mode);
-  label.textContent = t(`safePlaceMode${mode.charAt(0).toUpperCase() + mode.slice(1)}`) || t('safePlaceModeDefault');
-  script.textContent = buildSafePlaceScript(mode);
-  generator.hidden = false;
-}
-
-function stopSafePlaceSound() {
-  if (state.safePlaceAudio?.ctx) {
-    state.safePlaceAudio.gain.gain.setTargetAtTime(0.0001, state.safePlaceAudio.ctx.currentTime, 0.08);
-    window.setTimeout(() => state.safePlaceAudio?.ctx?.close(), 180);
-  }
-  state.safePlaceAudio = null;
-  const btn = document.getElementById('safePlaceSoundBtn');
-  if (btn) btn.textContent = t('safePlaceSoundStart');
-}
-
-function startSafePlaceSound() {
-  stopSafePlaceSound();
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContext) return;
-  const ctx = new AudioContext();
-  const gain = ctx.createGain();
-  gain.gain.value = 0.0001;
-  gain.connect(ctx.destination);
-
-  const mode = state.safePlaceAudioMode || 'default';
-  const freqs = {
-    sea: [174, 261.63, 392],
-    forest: [196, 293.66, 440],
-    rain: [146.83, 220, 329.63],
-    room: [130.81, 196, 261.63],
-    sky: [164.81, 246.94, 369.99],
-    default: [174, 261.63, 349.23]
-  }[mode] || [174, 261.63, 349.23];
-
-  const nodes = freqs.map((freq, idx) => {
-    const osc = ctx.createOscillator();
-    const oscGain = ctx.createGain();
-    osc.type = idx === 0 ? 'sine' : 'triangle';
-    osc.frequency.value = freq;
-    osc.detune.value = idx * 3;
-    oscGain.gain.value = 0.028 / (idx + 1);
-    osc.connect(oscGain).connect(gain);
-    osc.start();
-    return osc;
-  });
-
-  const lfo = ctx.createOscillator();
-  const lfoGain = ctx.createGain();
-  lfo.frequency.value = 0.06;
-  lfoGain.gain.value = 0.015;
-  lfo.connect(lfoGain).connect(gain.gain);
-  lfo.start();
-
-  gain.gain.setTargetAtTime(0.075, ctx.currentTime, 0.7);
-  state.safePlaceAudio = { ctx, gain, nodes: [...nodes, lfo] };
-  const btn = document.getElementById('safePlaceSoundBtn');
-  if (btn) btn.textContent = t('safePlaceSoundStop');
-}
-
-function toggleSafePlaceSound() {
-  if (state.safePlaceAudio) stopSafePlaceSound();
-  else startSafePlaceSound();
-}
-
 function bindCalmSection() {
   els.pmrStartBtn?.addEventListener('click', startPMRPractice);
   els.pmrPauseBtn?.addEventListener('click', pausePMRPractice);
@@ -2504,18 +2258,6 @@ function bindCalmSection() {
   document.getElementById('safePlaceInput')?.addEventListener('input', () => {
     state.safePlaceEdited = true;
   });
-  document.getElementById('safePlaceWriteBtn')?.addEventListener('click', () => {
-    const generator = document.getElementById('safePlaceGenerator');
-    const script = document.getElementById('safePlaceScript');
-    const label = document.getElementById('safePlaceModeLabel');
-    if (label) label.textContent = t('safePlaceModeDefault');
-    if (script) script.textContent = t('safePlaceWriteSaved');
-    if (generator) generator.hidden = false;
-    stopSafePlaceSound();
-  });
-  document.getElementById('safePlaceGenerateBtn')?.addEventListener('click', renderSafePlaceScene);
-  document.getElementById('safePlaceRegenerateBtn')?.addEventListener('click', renderSafePlaceScene);
-  document.getElementById('safePlaceSoundBtn')?.addEventListener('click', toggleSafePlaceSound);
   document.getElementById('sectionCalm')?.addEventListener('change', e => {
     if (!e.target.classList.contains('calm-checklist-input')) return;
     const listId = e.target.dataset.list;
