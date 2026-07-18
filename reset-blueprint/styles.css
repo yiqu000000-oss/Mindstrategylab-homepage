@@ -4629,3 +4629,145 @@ body::before {
     min-height: 116px;
   }
 }
+
+
+/* Safe place generator */
+.safe-place-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.safe-place-generator {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1.5px solid rgba(26, 39, 68, 0.18);
+  border-radius: 22px 18px 24px 17px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 231, 179, 0.28), transparent 30%),
+    rgba(255, 253, 247, 0.78);
+}
+
+.safe-place-scene {
+  min-height: 230px;
+  border: 1.5px solid rgba(26, 39, 68, 0.2);
+  border-radius: 20px 16px 22px 14px;
+  overflow: hidden;
+  background: #fbf7ed;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+
+.safe-place-scene svg {
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  display: block;
+}
+
+.safe-place-scene path {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.safe-sky { fill: #e9f3f5 !important; stroke: none !important; }
+.safe-sky.forest { fill: #edf5e8 !important; }
+.safe-sky.night { fill: #e8ecf8 !important; }
+.safe-sky.default { fill: #f5efe4 !important; }
+.safe-room-bg { fill: #f8efe4 !important; stroke: none !important; }
+.safe-room-bg.warm { fill: #fbf0df !important; }
+.safe-sun { fill: rgba(250, 209, 92, 0.52) !important; stroke: #d7a943 !important; animation: safePulse 6s ease-in-out infinite; }
+.safe-moon { fill: rgba(255,255,255,0.56) !important; stroke: #7b86a3 !important; animation: safeFloat 8s ease-in-out infinite; }
+.safe-island, .safe-hill, .safe-ground { stroke: #8e7b5f !important; fill: rgba(214, 191, 150, 0.45) !important; }
+.safe-house, .safe-chair, .safe-rug, .safe-lamp { stroke: #6f5f4e !important; fill: rgba(255, 226, 174, 0.42) !important; }
+.safe-light, .safe-light-pool { fill: rgba(255, 216, 116, 0.56) !important; stroke: #d4a64a !important; animation: safePulse 5s ease-in-out infinite; }
+.safe-wave { stroke: #5d8fb4 !important; animation: safeWave 6s ease-in-out infinite; }
+.safe-wave-b { animation-delay: -2s; opacity: 0.72; }
+.safe-tree { stroke: #5d7e58 !important; animation: safeFloat 7s ease-in-out infinite; }
+.tree-b { animation-delay: -1.5s; }
+.tree-c { animation-delay: -3s; }
+.safe-rain { stroke: #7394b1 !important; animation: safeRain 1.9s linear infinite; }
+.rain-b { animation-delay: -0.8s; opacity: 0.7; }
+.safe-cloud { fill: rgba(255,255,255,0.52) !important; stroke: #8a93a3 !important; animation: safeDrift 12s ease-in-out infinite; }
+.cloud-b { animation-delay: -4s; }
+.safe-star { fill: rgba(255, 218, 116, 0.5) !important; stroke: #d2a348 !important; animation: safePulse 4.8s ease-in-out infinite; }
+.star-b { animation-delay: -1.8s; }
+.safe-path { fill: rgba(255, 244, 212, 0.62) !important; stroke: #b7985f !important; }
+
+.safe-place-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.safe-place-mode {
+  margin: 0 0 8px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.safe-place-copy h4 {
+  margin: 0 0 10px;
+  color: var(--primary);
+  font-size: 1.05rem;
+}
+
+.safe-place-script {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.safe-place-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.safe-place-audio-note {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+@keyframes safePulse {
+  0%, 100% { opacity: 0.62; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.025); }
+}
+
+@keyframes safeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes safeWave {
+  0%, 100% { transform: translateX(-5px); }
+  50% { transform: translateX(8px); }
+}
+
+@keyframes safeRain {
+  0% { transform: translateY(-10px); opacity: 0.2; }
+  35% { opacity: 0.78; }
+  100% { transform: translateY(18px); opacity: 0.18; }
+}
+
+@keyframes safeDrift {
+  0%, 100% { transform: translateX(-6px); }
+  50% { transform: translateX(10px); }
+}
+
+@media (max-width: 760px) {
+  .safe-place-generator {
+    grid-template-columns: 1fr;
+  }
+}

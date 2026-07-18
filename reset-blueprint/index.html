@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=modulecards-ebce14c">
+  <link rel="stylesheet" href="styles.css?v=safeplace-ambient-63243c3">
 </head>
 <body>
   <header class="site-header">
@@ -601,6 +601,23 @@
           <p class="calm-subsection-label" data-i18n="imaginedRelaxTitle">想象放松</p>
           <h3 class="calm-module-title" data-i18n="safePlaceTitle">找到你的安全场所</h3>
           <textarea class="input-field calm-editable-example" id="safePlaceInput" rows="4"></textarea>
+          <div class="safe-place-actions">
+            <button type="button" class="btn btn-secondary" id="safePlaceWriteBtn" data-i18n="safePlaceWriteBtn">只写下来</button>
+            <button type="button" class="btn btn-primary" id="safePlaceGenerateBtn" data-i18n="safePlaceGenerateBtn">生成安定场景</button>
+          </div>
+          <article class="safe-place-generator" id="safePlaceGenerator" hidden>
+            <div class="safe-place-scene" id="safePlaceScene" aria-hidden="true"></div>
+            <div class="safe-place-copy">
+              <p class="safe-place-mode" id="safePlaceModeLabel"></p>
+              <h4 data-i18n="safePlaceGeneratedTitle">你的安定场景</h4>
+              <p class="safe-place-script" id="safePlaceScript"></p>
+              <div class="safe-place-controls">
+                <button type="button" class="btn btn-secondary btn-sm" id="safePlaceSoundBtn" data-i18n="safePlaceSoundStart">播放环境声</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="safePlaceRegenerateBtn" data-i18n="safePlaceRegenerate">重新生成</button>
+              </div>
+              <p class="safe-place-audio-note" data-i18n="safePlaceAudioNote">无语音朗读，仅本地生成轻微环境声。</p>
+            </div>
+          </article>
         </div>
 
         <div class="pmr-practice card" id="pmrPractice">
@@ -815,7 +832,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=modulecards-ebce14c"></script>
+  <script src="app.js?v=safeplace-ambient-63243c3"></script>
 </body>
 </html>
 
