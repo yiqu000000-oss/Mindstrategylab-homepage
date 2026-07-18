@@ -4533,6 +4533,7 @@ body::before {
 
 
 
+
 /* App module flow buttons */
 .app-module-picker.module-flow-picker {
   display: flex;
@@ -4596,8 +4597,7 @@ body::before {
   pointer-events: none;
 }
 
-.signal-flow .signal-arrow,
-.module-flow-picker .app-module-arrow {
+.signal-flow .signal-arrow {
   width: 24px;
   font-size: 1.25rem;
   color: var(--text-muted);
@@ -4621,10 +4621,6 @@ body::before {
   .signal-flow .signal-node,
   .module-flow-picker .app-module-card {
     flex: 1 1 calc(50% - 20px);
-  }
-
-  .module-flow-picker .app-module-arrow {
-    display: none;
   }
 }
 
