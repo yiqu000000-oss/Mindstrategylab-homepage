@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=no-presenter-7c8c5c2">
+  <link rel="stylesheet" href="styles.css?v=appflow-9135f40">
 </head>
 <body>
   <header class="site-header">
@@ -43,6 +43,7 @@
           <h1 class="hero-title" data-i18n="heroTitle">杏仁核重启</h1>
           <p class="hero-desc" data-i18n="heroDesc">用 3 分钟，听懂焦虑想告诉你的信号。</p>
           <button type="button" class="btn btn-primary btn-lg reset-start-btn" id="resetStartBtn" data-i18n="enterLecture">开始今天的重启</button>
+          <button type="button" class="btn btn-secondary btn-lg emergency-calm-btn" id="emergencyCalmBtn" data-i18n="emergencyCalm">我现在很急，先稳一下</button>
           <div class="hero-note-doodle hero-lighthouse-scene" aria-hidden="true">
             <svg viewBox="0 0 310 188" focusable="false">
               <path class="crayon-scribble fill-sun" d="M64 27c7-6 16-5 20 1 5 8 1 18-8 21-9 3-18-2-19-11-.4-4 2-8 7-11Z" />
@@ -155,12 +156,11 @@
       <!-- Section 1 -->
       <section class="lecture-section active" id="section1" data-section="1">
         <div class="section-header card">
-          <span class="section-badge" data-i18n="section1Badge">第一部分</span>
           <h2 data-i18n="section1Title">杏仁核重启</h2>
-          <p data-i18n="section1Intro">焦虑不是「坏情绪」，而是大脑在告诉你：「这里有重要的事情需要关注。」关键不在于消除它，而在于读懂它、区分它。</p>
+          <p class="section-app-prompt" data-i18n="section1Prompt">现在先不用想明白全部。选一个最接近你的状态。</p>
         </div>
 
-        <div class="compare-grid">
+        <div class="compare-grid app-knowledge-gate" id="anxietyKnowledgeGate" hidden>
           <article class="compare-card card compare-positive">
             <div class="compare-header">
               <span class="compare-icon">✦</span>
@@ -336,7 +336,6 @@
       <!-- Section 2: Brain pathways -->
       <section class="lecture-section" id="section3" data-section="2" hidden>
         <div class="section-header card">
-          <span class="section-badge" data-i18n="section3Badge">第二部分</span>
           <h2 data-i18n="section3Title">杏仁核 vs 皮层通道</h2>
           <p data-i18n="section3Intro">面对威胁，大脑有两条通路：杏仁核的「快车道」和皮层的「慢车道」。点击示意图各区域，了解它们如何影响你的反应。</p>
         </div>
@@ -535,7 +534,6 @@
       <!-- Section 3: Calm amygdala -->
       <section class="lecture-section" id="sectionCalm" data-section="3" hidden>
         <div class="section-header card">
-          <span class="section-badge" data-i18n="sectionCalmBadge">第三部分</span>
           <h2 data-i18n="sectionCalmTitle">平静杏仁核</h2>
           <p data-i18n="sectionCalmIntro">当杏仁核发出警报，可以用呼吸练习主动激活副交感神经，帮助身体从「战斗/逃跑」模式回到平静。</p>
         </div>
@@ -616,7 +614,6 @@
       <!-- Section 4: Use anxiety -->
       <section class="lecture-section" id="section4" data-section="4" hidden>
         <div class="section-header card">
-          <span class="section-badge" data-i18n="section4Badge">第四部分</span>
           <h2 data-i18n="section4Title">如何使用焦虑</h2>
           <p data-i18n="section4Intro">焦虑程度应与目标重要性匹配。太低则缺乏动力，太高则瘫痪——关键是找到「最佳功能区」。</p>
         </div>
@@ -764,7 +761,7 @@
     <p data-i18n="footerText">仅供心理教育 · 非临床诊断</p>
   </footer>
 
-  <script src="app.js?v=no-presenter-7c8c5c2"></script>
+  <script src="app.js?v=appflow-9135f40"></script>
 </body>
 </html>
 

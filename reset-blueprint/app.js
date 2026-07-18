@@ -17,8 +17,8 @@ const I18N = {
     homeResult1: '信号类型',
     homeResult2: '身体警报',
     homeResult3: '下一步行动',
-    homePathKicker: '更深入的重启模块',
-    homePathTitle: '需要时，再打开完整练习。',
+    homePathKicker: '你现在需要哪一种帮助？',
+    homePathTitle: '不用一次做完，选一个当下最需要的。',
     scanKicker: '信号扫描',
     scanQuestionState: '此刻，你更接近哪种状态？',
     scanProgressBody: '正在识别身体信号',
@@ -33,19 +33,19 @@ const I18N = {
     saveScan: '保存这次扫描',
     disclaimerTitle: '非诊断声明',
     disclaimerDesc: '本工具仅用于心理教育与自我观察，不能替代专业心理或医疗诊断与治疗。若你感到持续困扰、功能受损或出现危机，请寻求持证心理健康专业人士的帮助。',
-    outline1Title: '信号快照', outline1Desc: '把触发事件、身体反应、意义解读和行动选择放到同一张图里。',
-    outline2Title: '思维模式', outline2Desc: '识别焦虑被哪些想法放大。',
-    outline3Title: '身体安抚', outline3Desc: '用呼吸和身体练习让警报先降下来。',
-    outline4Title: '下一步行动', outline4Desc: '把焦虑转成一个小而具体的动作。',
-    nav1: '信号', nav2: '大脑通路', nav3: '平静杏仁核', nav4: '使用焦虑', navHome: '首页',
+    outline1Title: '整理一个焦虑', outline1Desc: '把刚刚发生的事、身体反应和下一步放到一张小卡里。',
+    outline2Title: '看见脑内循环', outline2Desc: '看看是哪一种念头让警报越来越响。',
+    outline3Title: '先稳住身体', outline3Desc: '先让呼吸、肌肉和身体从警报里慢慢回来。',
+    outline4Title: '带走一个行动', outline4Desc: '把焦虑缩小成现在就能做的一小步。',
+    nav1: '整理信号', nav2: '看见想法', nav3: '先稳身体', nav4: '下一步', navHome: '首页',
     presenterMode: '演示模式',
     presenterPanelTitle: '演示者控制台',
     presenterHint: '在此输入案例，选择模式后记录到练习里。也可在各章节互动区直接操作。',
     caseLabel: '案例描述', patternLabel: '思维模式（可选）', sectionLabel: '所属章节',
     showOnScreen: '保存案例', clearBoard: '清空案例',
     footerText: '仅供心理教育 · 非临床诊断',
-    section1Badge: '第一部分', section1Title: '杏仁核重启',
-    section1Intro: '焦虑不是「坏情绪」，而是大脑在告诉你：「这里有重要的事情需要关注。」关键不在于消除它，而在于读懂它、区分它。',
+    section1Badge: '', section1Title: '杏仁核重启', section1Prompt: '现在先不用想明白全部。选一个最接近你的状态。', emergencyCalm: '我现在很急，先稳一下',
+    section1Intro: '现在先不用想明白全部。选一个最接近你的状态。',
     signalTrigger: '触发事件', signalBody: '身体信号', signalMeaning: '意义解读', signalAction: '行动选择',
     signalHint: '点击各步骤展开/收起，可直接在示例文字上修改',
     signalDefaultTrigger: '被突然点名发言',
@@ -56,8 +56,8 @@ const I18N = {
     negativeTitle: '负性焦虑', negativeTagline: '过度 · 与目标失配 · 消耗性',
     positiveItems: ['面试前适度紧张，促使你认真准备', '重要项目截止前的紧迫感，提升专注力', '对健康的合理担忧，促使定期体检', '焦虑随任务完成而自然消退'],
     negativeItems: ['反复想象失败场景，却无法采取有效行动', '对身体正常感觉的灾难化解读', '长期失眠、反刍，影响日常功能', '焦虑程度远超事件实际风险'],
-    snapshotExerciseTitle: '试试看：分析你的一个焦虑',
-    snapshotExerciseDesc: '按步骤填写，生成属于你的焦虑快照。',
+    snapshotExerciseTitle: '整理此刻这个焦虑',
+    snapshotExerciseDesc: '不用写得完整，先把最明显的几件事放下来。',
     snapshotStep1: '描述你最近的一个焦虑状态',
     snapshotEventPlaceholder: '例如：最近总在睡前反复想工作上的事…',
     snapshotStep2: '这件事属于…',
@@ -78,7 +78,7 @@ const I18N = {
         '我担心自己的能力不足以应对当前的要求。'
       ]
     },
-    snapshotStep3: '焦虑程度',
+    snapshotStep3: '现在有多强烈',
     snapshotStep4: '面对这个焦虑，你的本能反应是？（可多选）',
     responseFight: '战斗（对抗、争辩、控制）',
     responseFlee: '逃跑（回避、拖延、离开）',
@@ -88,25 +88,25 @@ const I18N = {
     snapshotDimBodyGuide: '当时身体有什么反应？',
     snapshotDimMeaningGuide: '你当时告诉自己这意味着什么？',
     snapshotDimActionGuide: '你做了什么，或者想做什么却没做？',
-    generateSnapshot: '生成我的焦虑快照',
-    snapshotCardTitle: '我的焦虑快照',
+    generateSnapshot: '看看这个信号',
+    snapshotCardTitle: '这次焦虑小卡',
     projectSnapshot: '保存快照',
     snapshotMixed: '待进一步觉察',
     snapshotNotFilled: '请先填写焦虑事件',
     snapshotSelectCategory: '请选择事件类别',
     snapshotLabelCategory: '事件类别',
     snapshotLabelCategorySentences: '类别描述',
-    snapshotLabelLevel: '焦虑程度',
+    snapshotLabelLevel: '当下强度',
     snapshotLabelResponses: '本能反应',
     snapshotLabelDimensions: '四维度记录',
     snapshotNoDim: '（未填写）',
     snapshotValidationHint: '请完成必填项后再生成',
     casePlaceholder: '例如：听众分享的一个具体情境…',
-    section2Badge: '第二部分', section2Title: '8 种焦虑思维模式',
-    section2Intro: '每种模式下方可直接编辑案例、用滑块评估焦虑程度，帮助你看见焦虑被哪些想法放大。',
-    patternIntensity: '此焦虑模式程度',
-    generatePatternSnapshot: '生成思维模式快照',
-    patternSnapshotCardTitle: '我的思维模式快照',
+    section2Badge: '', section2Title: '看见脑内循环',
+    section2Intro: '选择最像你的念头，看看警报是怎样被放大的。',
+    patternIntensity: '这个念头有多响',
+    generatePatternSnapshot: '整理这些念头',
+    patternSnapshotCardTitle: '脑内循环小卡',
     projectPatternSnapshot: '保存快照',
     patternSeverityLabel: '严重程度',
     patternAltLabel: '替代性方案',
@@ -119,7 +119,7 @@ const I18N = {
     originalThought: '原有想法（点击划掉）',
     suggestionsEmpty: '点击+分享你的想法',
     addSuggestion: '添加建议',
-    section3Badge: '第二部分', section3Title: '杏仁核 vs 皮层通道',
+    section3Badge: '', section3Title: '看见警报通路',
     section3Intro: '感觉信息经丘脑分流：杏仁核「快车道」约 12ms 触发反应；皮层「慢车道」经前额叶与海马体评估后调节。选择皮层通道可练习 8 种思维模式。',
     amygdalaLabel: '杏仁核', cortexLabel: '前额叶皮层', thalamusLabel: '丘脑', hippocampusLabel: '海马体',
     sensoryInput: '感觉输入',
@@ -137,7 +137,7 @@ const I18N = {
     triggerSpontaneousHint: '身体和情绪立刻出现了什么？',
     triggerLearnedDefense: '习得式防御反应',
     triggerLearnedDefenseHint: '你学会了用什么方式回避或应对？',
-    triggerMapAnxiety: '焦虑程度',
+    triggerMapAnxiety: '当下强度',
     triggerDefaultNegative: '在团队会议上被突然点名发言',
     triggerDefaultSpontaneous: '心跳加速、脸发热、脑子一片空白，立刻想逃离房间',
     triggerDefaultLearned: '低头看笔记、尽量缩短回答、会后反复回想是否说错',
@@ -160,9 +160,9 @@ const I18N = {
     ],
     exposureTipsTitle: '注意事项',
     exposureTips: '暴露练习适合作为自我探索工具，如有严重焦虑或创伤史，建议在专业治疗师的指导下进行。可以从痛苦程度4-5分的情境开始，既有挑战性，又在可承受范围内。',
-    sectionCalmBadge: '第三部分', sectionCalmTitle: '平静杏仁核',
-    sectionCalmIntro: '当杏仁核发出警报，可以用呼吸练习主动激活副交感神经，帮助身体从「战斗/逃跑」模式回到平静。',
-    breathPracticeTitle: '深呼吸练习',
+    sectionCalmBadge: '', sectionCalmTitle: '先稳住身体',
+    sectionCalmIntro: '如果现在已经很紧，先不用解释原因。让身体降一点点下来。',
+    breathPracticeTitle: '60 秒先稳一下',
     breathInhale: '吸气', breathExhale: '呼气',
     breathCue1: '横膈膜下沉→肺部充分扩张',
     breathCue2: '迷走神经激活→副交感神经介入',
@@ -201,11 +201,11 @@ const I18N = {
       '多摄入富含omega-3的食物',
       '注意咖啡因对自己焦虑的影响'
     ],
-    section4Badge: '第四部分', section4Title: '如何使用焦虑',
-    section4Intro: '焦虑程度应与目标重要性匹配。太低则缺乏动力，太高则瘫痪——关键是找到「最佳功能区」。',
-    tableTitle: '目标 × 焦虑程度 匹配表', tableDescSlider: '滑块实时高亮对应格子；绿色区域为 Yerkes-Dodson 最佳匹配。',
-    yerkesTitle: 'Yerkes-Dodson 实时匹配',
-    yerkesDesc: '拖动双滑块，实时计算目标重要性与焦虑程度的最佳匹配区间。',
+    section4Badge: '', section4Title: '带走一个行动',
+    section4Intro: '不用解决全部。先找到一个和当下状态匹配的小动作。',
+    tableTitle: '现在适合做多大的一步', tableDescSlider: '滑块实时高亮对应格子；绿色区域为 Yerkes-Dodson 最佳匹配。',
+    yerkesTitle: '焦虑和目标的匹配感',
+    yerkesDesc: '拖动两个滑块，找到现在比较适合的一步。',
     yerkesOptimal: '最佳匹配 ✓', yerkesTooLow: '焦虑过低', yerkesTooHigh: '焦虑过高',
     yerkesRange: (lo, hi) => `此目标的最佳焦虑区间：${lo} – ${hi}`,
     yerkesDeltaOptimal: '当前处于最佳功能区',
@@ -220,8 +220,8 @@ const I18N = {
     useSteps: [
       ['觉察信号', '注意身体感受（心跳、呼吸、肌肉紧张），不急于评判。'],
       ['读懂信息', '问自己：「这个焦虑在提醒我什么重要的事？」'],
-      ['评估匹配', '当前焦虑程度是否与目标重要性匹配？过高还是过低？'],
-      ['选择行动', '匹配则聚焦行动；失配则用调节策略（呼吸、重新框架、分解任务）。']
+      ['看看大小', '这件事需要多大的一步？现在的紧绷是太高、太低，还是刚刚好？'],
+      ['选择行动', '如果太满，先安抚身体；如果刚好，就把行动拆成一个很小的开始。']
     ],
     patternNone: '— 不指定 —',
     displayCase: '听众案例',
@@ -244,8 +244,8 @@ const I18N = {
     homeResult1: 'Signal type',
     homeResult2: 'Body alarm',
     homeResult3: 'Next action',
-    homePathKicker: 'Deeper reset modules',
-    homePathTitle: 'Open the full practices when you need more support.',
+    homePathKicker: 'What kind of support do you need right now?',
+    homePathTitle: 'You do not have to do everything. Pick what fits this moment.',
     scanKicker: 'Signal Scan',
     scanQuestionState: 'Which state feels closest right now?',
     scanProgressBody: 'Reading body signals',
@@ -260,19 +260,19 @@ const I18N = {
     saveScan: 'Save this scan',
     disclaimerTitle: 'Disclaimer',
     disclaimerDesc: 'This tool is for psychoeducation and self-reflection only. It does not replace professional psychological or medical diagnosis or treatment. If you feel persistently distressed, impaired, or in crisis, please seek help from a licensed mental health professional.',
-    outline1Title: 'Signal Snapshot', outline1Desc: 'Map the trigger, body response, meaning, and action choice in one place.',
-    outline2Title: 'Thought Patterns', outline2Desc: 'Notice which thoughts are amplifying the alarm.',
-    outline3Title: 'Body Soothing', outline3Desc: 'Use breath and body practice to lower the alarm first.',
-    outline4Title: 'Next Step', outline4Desc: 'Turn anxiety into one small, concrete action.',
-    nav1: 'Signal', nav2: 'Brain', nav3: 'Calm', nav4: 'Use', navHome: 'Home',
+    outline1Title: 'Sort One Anxiety', outline1Desc: 'Put the moment, body signal, meaning, and next step onto one small card.',
+    outline2Title: 'Notice the Loop', outline2Desc: 'See which thought is making the alarm louder.',
+    outline3Title: 'Steady the Body', outline3Desc: 'Let breath, muscles, and body come back from alarm first.',
+    outline4Title: 'Take One Step', outline4Desc: 'Shrink anxiety into one small thing you can do now.',
+    nav1: 'Sort', nav2: 'Notice', nav3: 'Steady', nav4: 'Next Step', navHome: 'Home',
     presenterMode: 'Presenter',
     presenterPanelTitle: 'Presenter Console',
     presenterHint: 'Enter a case here and keep it with the practice. You can also interact directly in each section.',
     caseLabel: 'Case description', patternLabel: 'Pattern (optional)', sectionLabel: 'Section',
     showOnScreen: 'Save case', clearBoard: 'Clear case',
     footerText: 'Psychoeducation only · Not a clinical tool',
-    section1Badge: 'Part 1', section1Title: 'Anxiety as a Signal',
-    section1Intro: 'Anxiety is not a "bad emotion" — your brain is saying: "Something important needs attention." The goal is not to eliminate it, but to read and distinguish it.',
+    section1Badge: '', section1Title: 'Amygdala Reset', section1Prompt: 'You do not have to understand everything right now. Choose what feels closest.', emergencyCalm: 'I need to steady myself first',
+    section1Intro: 'You do not have to understand everything right now. Choose what feels closest.',
     signalTrigger: 'Trigger', signalBody: 'Body Signal', signalMeaning: 'Meaning', signalAction: 'Action',
     signalHint: 'Click each step to expand/collapse — edit the example text directly',
     signalDefaultTrigger: 'Suddenly called on to speak',
@@ -283,8 +283,8 @@ const I18N = {
     negativeTitle: 'Negative Anxiety', negativeTagline: 'Excessive · Misaligned · Draining',
     positiveItems: ['Mild nerves before an interview, prompting preparation', 'Deadline urgency that boosts focus on important work', 'Reasonable health concerns leading to check-ups', 'Anxiety fades naturally once the task is done'],
     negativeItems: ['Replaying failure scenarios without effective action', 'Catastrophizing normal bodily sensations', 'Chronic insomnia and rumination affecting daily life', 'Anxiety far exceeds the actual risk of the event'],
-    snapshotExerciseTitle: 'Try it: Analyze Your Anxiety',
-    snapshotExerciseDesc: 'Follow the steps to build your anxiety snapshot.',
+    snapshotExerciseTitle: 'Sort This Anxiety',
+    snapshotExerciseDesc: 'It does not have to be complete. Put down what is most noticeable first.',
     snapshotStep1: 'Describe a recent anxious state',
     snapshotEventPlaceholder: 'e.g. Lately I keep replaying work worries before sleep…',
     snapshotStep2: 'This belongs to…',
@@ -315,8 +315,8 @@ const I18N = {
     snapshotDimBodyGuide: 'What did your body do at the time?',
     snapshotDimMeaningGuide: 'What did you tell yourself it meant?',
     snapshotDimActionGuide: 'What did you do, or want to do but didn\'t?',
-    generateSnapshot: 'Generate My Anxiety Snapshot',
-    snapshotCardTitle: 'My Anxiety Snapshot',
+    generateSnapshot: 'See the signal',
+    snapshotCardTitle: 'This Anxiety Card',
     projectSnapshot: 'Save snapshot',
     snapshotMixed: 'Needs further awareness',
     snapshotNotFilled: 'Please describe the anxious event first',
@@ -329,13 +329,13 @@ const I18N = {
     snapshotNoDim: '(not filled)',
     snapshotValidationHint: 'Complete required fields before generating',
     casePlaceholder: 'e.g. A specific scenario shared by an audience member…',
-    section2Badge: 'Part 2', section2Title: '8 Anxiety Thinking Patterns',
-    section2Intro: 'Edit the case and rate intensity with a slider to notice which thoughts amplify anxiety.',
+    section2Badge: '', section2Title: 'Notice the Mental Loop',
+    section2Intro: 'Choose the thought that feels closest and notice how the alarm gets louder.',
     scenarioLabel: 'Case',
     scenarioPlaceholder: 'Write or edit your experience…',
-    patternIntensity: 'Pattern intensity',
-    generatePatternSnapshot: 'Generate Pattern Snapshot',
-    patternSnapshotCardTitle: 'My Thinking Pattern Snapshot',
+    patternIntensity: 'How loud is this thought?',
+    generatePatternSnapshot: 'Sort these thoughts',
+    patternSnapshotCardTitle: 'Mental Loop Card',
     projectPatternSnapshot: 'Save snapshot',
     patternSeverityLabel: 'Severity',
     patternAltLabel: 'Alternative approach',
@@ -346,7 +346,7 @@ const I18N = {
     originalThought: 'Original thought (click to strike through)',
     suggestionsEmpty: 'Click + to share your idea',
     addSuggestion: 'Add suggestion',
-    section3Badge: 'Part 2', section3Title: 'Amygdala vs. Cortex Pathways',
+    section3Badge: '', section3Title: 'Notice the Alarm Pathway',
     section3Intro: 'Sensory input splits at the thalamus: amygdala fast lane (~12ms) vs. cortex slow lane via PFC and hippocampus. Select the cortex path to practice 8 thinking patterns.',
     amygdalaLabel: 'Amygdala', cortexLabel: 'Prefrontal Cortex', thalamusLabel: 'Thalamus', hippocampusLabel: 'Hippocampus',
     sensoryInput: 'Sensory Input',
@@ -387,9 +387,9 @@ const I18N = {
     ],
     exposureTipsTitle: 'Please note',
     exposureTips: 'Exposure practice works best as a self-exploration tool. If you have severe anxiety or a history of trauma, work with a licensed therapist. Start with situations rated 4–5 on subjective distress—challenging enough to matter, still within what you can tolerate.',
-    sectionCalmBadge: 'Part 3', sectionCalmTitle: 'Calm the Amygdala',
-    sectionCalmIntro: 'When the amygdala sounds an alarm, breathing practice can activate the parasympathetic nervous system and help the body shift out of fight/flight.',
-    breathPracticeTitle: 'Deep Breathing Practice',
+    sectionCalmBadge: '', sectionCalmTitle: 'Steady the Body First',
+    sectionCalmIntro: 'If things feel intense, you do not need to explain it first. Let the body lower the alarm a little.',
+    breathPracticeTitle: '60 Seconds to Steady',
     breathInhale: 'Inhale', breathExhale: 'Exhale',
     breathCue1: 'Diaphragm drops → lungs expand fully',
     breathCue2: 'Vagus nerve activates → parasympathetic system engages',
@@ -428,10 +428,10 @@ const I18N = {
       'Eat more omega-3 rich foods',
       'Notice how caffeine affects your anxiety'
     ],
-    section4Badge: 'Part 4', section4Title: 'How to Use Anxiety',
-    section4Intro: 'Anxiety level should match goal importance. Too low lacks drive; too high causes paralysis — find the optimal zone.',
-    tableTitle: 'Goal × Anxiety Level Matrix', tableDescSlider: 'Sliders highlight the matching cell in real time; green = Yerkes-Dodson optimal.',
-    yerkesTitle: 'Yerkes-Dodson Live Match',
+    section4Badge: '', section4Title: 'Take One Step',
+    section4Intro: 'You do not have to solve everything. Find one small action that fits your current state.',
+    tableTitle: 'How Small Should the Next Step Be?', tableDescSlider: 'Sliders highlight the matching cell in real time; green = Yerkes-Dodson optimal.',
+    yerkesTitle: 'Anxiety and Goal Fit',
     yerkesDesc: 'Drag both sliders to compute the optimal anxiety range for the goal importance.',
     yerkesOptimal: 'Optimal Match ✓', yerkesTooLow: 'Anxiety Too Low', yerkesTooHigh: 'Anxiety Too High',
     yerkesRange: (lo, hi) => `Optimal anxiety range for this goal: ${lo} – ${hi}`,
@@ -1370,8 +1370,8 @@ function computeYerkesDodson(goal, anxiety) {
 
 function renderCompareLists() {
   const lang = state.lang;
-  els.positiveList.innerHTML = I18N[lang].positiveItems.map(item => `<li>${item}</li>`).join('');
-  els.negativeList.innerHTML = I18N[lang].negativeItems.map(item => `<li>${item}</li>`).join('');
+  if (els.positiveList) els.positiveList.innerHTML = I18N[lang].positiveItems.map(item => `<li>${item}</li>`).join('');
+  if (els.negativeList) els.negativeList.innerHTML = I18N[lang].negativeItems.map(item => `<li>${item}</li>`).join('');
 }
 
 function renderPatterns() {
@@ -2652,6 +2652,27 @@ function formatSnapshotDimensions(data) {
   }).join('\n');
 }
 
+
+function classifySnapshotAnxiety(data) {
+  const drainingResponses = data.responses.includes('freeze') || data.responses.includes('flee');
+  const highLoad = data.level >= 7;
+  const actionBlocked = drainingResponses || (data.dimensions.action || '').length < 4;
+  return highLoad || actionBlocked ? 'negative' : 'positive';
+}
+
+function revealSnapshotKnowledge(data) {
+  const gate = document.getElementById('anxietyKnowledgeGate');
+  if (!gate) return;
+  const kind = classifySnapshotAnxiety(data);
+  const positive = gate.querySelector('.compare-positive');
+  const negative = gate.querySelector('.compare-negative');
+  if (positive) positive.hidden = kind !== 'positive';
+  if (negative) negative.hidden = kind !== 'negative';
+  gate.hidden = false;
+  gate.classList.toggle('knowledge-positive', kind === 'positive');
+  gate.classList.toggle('knowledge-negative', kind === 'negative');
+}
+
 function renderSnapshotResult(data) {
   const levelClass = data.level >= 8 ? 'level-high' : 'level-mid';
   const responsesHtml = data.responses.length
@@ -2692,6 +2713,7 @@ function renderSnapshotResult(data) {
   `;
 
   els.snapshotResult.hidden = false;
+  revealSnapshotKnowledge(data);
   els.snapshotResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -2871,6 +2893,13 @@ function bindSignalScan() {
   els.resetStartBtn?.addEventListener('click', () => {
     els.signalScan?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     resetSignalScan();
+  });
+  document.getElementById('emergencyCalmBtn')?.addEventListener('click', () => {
+    showView('lecture');
+    goToSection(3);
+    setTimeout(() => {
+      document.getElementById('breathPractice')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 80);
   });
   els.scanOptions?.addEventListener('click', e => {
     const option = e.target.closest('[data-scan-value]');

@@ -4495,3 +4495,46 @@ body::before {
     min-height: 54px;
   }
 }
+
+
+/* App-flow reduction of teaching language */
+.section-badge {
+  display: none !important;
+}
+
+.section-app-prompt {
+  margin-top: 10px;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.emergency-calm-btn {
+  margin-top: 12px;
+  margin-left: 0;
+  background: rgba(255, 253, 248, 0.9);
+}
+
+.app-knowledge-gate {
+  margin: 18px 0 20px;
+  animation: scanSlide 0.34s ease;
+}
+
+.app-knowledge-gate[hidden] {
+  display: none !important;
+}
+
+.app-knowledge-gate .compare-card[hidden] {
+  display: none !important;
+}
+
+.app-knowledge-gate.knowledge-positive .compare-positive,
+.app-knowledge-gate.knowledge-negative .compare-negative {
+  border-style: dashed;
+}
+
+@media (max-width: 620px) {
+  .emergency-calm-btn {
+    width: 100%;
+  }
+}
